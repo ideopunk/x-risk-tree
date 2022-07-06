@@ -1,4 +1,6 @@
 <script lang="ts">
+	export const prerender = true;
+
 	export let vals: {
 		total: number;
 		climate: number;
@@ -16,6 +18,12 @@
 	console.log({ vals });
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<p>{Object.entries(vals)}</p>
+<article class="w-full">
+	<h1>Ayoooo</h1>
+	<div class="border-2 w-full">
+		<p class="w-full break-words">{Object.entries(vals)}</p>
+	</div>
+	<p>
+		For more, see our <a sveltekit:prefetch href="faq" class="text-green-forest font-bold">FAQ</a>
+	</p>
+</article>

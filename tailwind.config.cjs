@@ -2,10 +2,19 @@ const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {}
+		extend: {
+			colors: {
+				green: {
+					forest: '#228C22'
+				}
+			}
+		}
 	},
 
-	plugins: []
+	plugins: [
+		require('@tailwindcss/typography')
+		// ...
+	]
 };
 
 module.exports = config;

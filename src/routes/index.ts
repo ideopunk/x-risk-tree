@@ -12,12 +12,15 @@ async function metaculusFetch(question: number): Promise<number> {
 function makeRelative(total: number, particular: number, xRisk: number) {
 	const realParticular = total * particular;
 	const realXRisk = realParticular * xRisk;
-	return [realParticular, realXRisk];
+
+	const roundedParticular = Math.round(realParticular * 100);
+	const roundedXRisk = Math.round(realXRisk * 100);
+	return [roundedParticular, roundedXRisk];
 }
 
 export async function get(): Promise<RequestHandlerOutput> {
 	// By 2100 will the human population decrease by at least 10% during any period of 5 years?
-	const total = metaculusFetch(1493);
+	const totalQuestion = metaculusFetch(1493);
 
 	// Will such a catastrophe be due to either human-made climate change or geoengineering?
 	const climateQuestion = metaculusFetch(1500);
@@ -62,7 +65,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 		bioAvg,
 		bioXAvg
 	] = await Promise.all([
-		total,
+		totalQuestion,
 		climateQuestion,
 		climateXQuestion,
 		nanoQuestion,
@@ -80,11 +83,12 @@ export async function get(): Promise<RequestHandlerOutput> {
 	const [nuke, nukeX] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
 	const [ai, aiX] = makeRelative(totalAvg, aiAvg, aiXAvg);
 	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
-
+	const total = Math.round(totalAvg * 100);
+	
 	return {
 		status: 200,
 		body: {
-			vals: { total: totalAvg, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX }
+			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX }
 		}
 	};
 }
