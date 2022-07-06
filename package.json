@@ -16,6 +16,7 @@
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@tailwindcss/typography": "tailwindcss/typography",
+		"@types/d3": "^7.4.0",
 		"autoprefixer": "^10.4.7",
 		"postcss": "^8.4.14",
 		"postcss-load-config": "^4.0.1",
@@ -31,6 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"d3": "^7.6.1",
 		"d3-hierarchy": "^3.1.2"
 	}
 }

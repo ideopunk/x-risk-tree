@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Tree from '$lib/components/tree.svelte';
+
 	export const prerender = true;
 
 	export let vals: {
@@ -20,9 +22,8 @@
 
 <article class="w-full">
 	<h1>Ayoooo</h1>
-	<div class="border-2 w-full">
-		<p class="w-full break-words">{Object.entries(vals)}</p>
-	</div>
+
+	<Tree {vals} />
 	<p>
 		For more, see our <a sveltekit:prefetch href="faq" class="text-green-forest font-bold">FAQ</a>
 	</p>
