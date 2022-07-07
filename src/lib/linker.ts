@@ -1,16 +1,3 @@
-// Node
-// data: {name: 'Catastrophe'}
-// depth: 2
-// height: 0
-// parent: Node
-// children: (9) [Node, Node, Node, Node, Node, Node, Node, Node, Node]
-// data: {name: 'Nuclear War', children: Array(9)}
-// depth: 1
-// height: 1
-// parent: Node {data: {…}, height: 2, depth: 0, parent: null, children: Array(6), …}
-// x: 1.009797638653862
-// y: 163
-
 type Node = {
 	data: { name: string };
 	depth: number;
@@ -70,7 +57,6 @@ export default function linker(n: Node): string {
 	}
 
 	if (!questionNumber) {
-		// return 'uhhh';
 		throw new Error('could not assign question number to node ' + n);
 	}
 

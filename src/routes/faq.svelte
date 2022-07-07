@@ -1,17 +1,136 @@
 <script>
+	import TocEntry from '$lib/components/TOCEntry.svelte';
 	import Answer from '../lib/components/answer.svelte';
 	import Question from '../lib/components/question.svelte';
 </script>
 
-<article class="prose">
-	<Question>eh?</Question>
-	<Answer>sure?</Answer>
+<div class="flex h-screen w-screen justify-between">
+	<div class="w-1/3 pl-24 pr-8 pt-12 ">
+		<h3 class="text-xl mb-4">Table of Contents</h3>
+		<ul>
+			<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
+			<TocEntry text="Is humanity dying out so bad?" href="#so-bad" />
+			<TocEntry text="How can I help with existential risk?" href="#help" />
+			<TocEntry text="Are the numbers you use real?" href="#numbers" />
+			<TocEntry
+				text="This is really great, I now think humanity will probably survive!"
+				href="#this-is-great"
+			/>
+			<TocEntry text="This is really gloomy!" href="#this-is-gloomy" />
+			<TocEntry text="Who made this?" href="#who-made-this" />
+			<TocEntry text="Can I see the code?" href="#can-i-see" />
+			<li><a class="font-bold text-lg" href="/" sveltekit:prefetch>Return to tree</a></li>
+		</ul>
+	</div>
+	<div class="w-2/3 py-12 flex justify-center overflow-y-scroll">
+		<article class="prose w-full  ">
+			<Question id="what-is-x-risk">What is existential risk?</Question>
+			<Answer
+				>Existential risk is the possibility of all of humanity dying out. This could look like an
+				engineered disease, or artificial intelligence, or something we haven't even thought of yet.</Answer
+			>
 
-	<Question>Can I see the code?</Question>
-	<Answer
-		>Yes, <a rel="external">right here</a>.<span
-			>{`The tree is based on Mike Bostock's Radial Tidy Tree layout (Copyright 2022 Observable, Inc. Released under the ISC license. https://observablehq.com/@d3/radial-tree
-	)`}</span
-		></Answer
-	>
-</article>
+			<Question id="so-bad"
+				>Is humanity dying out so bad? We've done a lot of damage to the earth.</Question
+			>
+			<Answer
+				>In the abstract, it can sound less menacing. In reality, this would mean everybody you love
+				dying. Furthermore, it means the loss of humanity's long-term potential. In the future, we
+				could engineer the world to be better for all forms of life. If we die now, we lose our
+				chance to try.
+			</Answer>
+
+			<Question id="help">How can I help with existential risk?</Question>
+			<Answer
+				><ul>
+					<li>
+						You can work on a <a
+							class="text-green-forest hover:text-black transition-colors"
+							href="https://80000hours.org/articles/how-to-reduce-existential-risk/#get-started"
+							rel="external">career</a
+						> in researching and mitigating existential risk.
+					</li>
+					<li>You can donate to organizations doing the above.</li>
+					<li>
+						You can pressure your representative to fund <a
+							class="text-green-forest hover:text-black transition-colors"
+							href="https://twitter.com/csercambridge/status/1231693809442074624?lang=en"
+							rel="external">chronically underfunded x-risk insitutitions</a
+						>.
+					</li>
+				</ul></Answer
+			>
+
+			<Question id="numbers">Are the numbers you use real?</Question>
+			<Answer
+				>Yes and no. They are averages of predictions from the forecasting site Metaculus.
+				Unfortunately, popular predictions are often unquantified. So while the Metaculus numbers
+				are only average 'best guesses' from forecasters, they are still a step up over
+				simultaneously certain and unspecified predictions.
+			</Answer>
+			<Answer>
+				The Metaculus predictions are also probably biased to be optimistic, because forecasters
+				will gain points if humanity survives and points won't matter if everybody dies. See this
+				comment <a
+					class="text-green-forest hover:text-black transition-colors"
+					href="https://forum.effectivealtruism.org/posts/27aXsJRRAoNZFw9K3/some-global-catastrophic-risk-estimates?commentId=c72ZbLJ5hLRzoFJTZ"
+					rel="external">here</a
+				> for more.
+			</Answer>
+			<Answer
+				>Better numbers could come from domain experts. Even better numbers could come from
+				<a
+					class="text-green-forest hover:text-black transition-colors"
+					href="https://forum.effectivealtruism.org/posts/W8dpCJGkwrwn7BfLk/nuclear-expert-comment-on-samotsvety-nuclear-risk-forecast-2"
+					>'adversarial collaboration'</a
+				>
+				between general forecasters and domain experts. We are happy to include alternative datasets
+				on the site from experts, or from famous predictions.
+			</Answer>
+
+			<Question id="this-is-great"
+				>This is really great, I now think humanity will probably survive!</Question
+			>
+			<Answer>Answer</Answer>
+
+			<Question id="this-is-gloomy">This is really gloomy!</Question>
+			<Answer
+				>It can be! One thing that can help is to imagine the potential behind all the futures where
+				we survive. There's a good chance that we don't merely survive, but flourish.</Answer
+			>
+
+			<Question id="who-made-this">Who made this?</Question>
+			<Answer
+				><a
+					class="text-green-forest hover:text-black transition-colors"
+					href="https://conorbarnes.com/"
+					rel="extern">Conor Barnes</a
+				>
+				made this with funding provided by the
+				<a
+					class="text-green-forest hover:text-black transition-colors"
+					href="https://funds.effectivealtruism.org/funds/far-future"
+					rel="external">Long-Term Future Fund</a
+				>. Predictions are pulled from <a href="https://www.metaculus.com/">Metaculus</a>.</Answer
+			>
+			<Question id="can-i-see">Can I see the code?</Question>
+			<Answer
+				>Yes, <a
+					class="text-green-forest hover:text-black transition-colors"
+					href="https://github.com/ideopunk"
+					rel="external">right here</a
+				>.</Answer
+			>
+			<Answer>
+				{' '}The tree is based on Mike Bostock's Radial Tidy Tree layout (Copyright 2022 Observable,
+				Inc. Released under the ISC license.
+				<a
+					class="text-green-forest hover:text-black transition-colors"
+					href="https://observablehq.com/@d3/radial-tree"
+					rel="external">https://observablehq.com/@d3/radial-tree</a
+				>)</Answer
+			>
+			<div class="h-12" id="hack" />
+		</article>
+	</div>
+</div>

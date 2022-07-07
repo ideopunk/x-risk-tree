@@ -16,14 +16,17 @@
 		bio: number;
 		bioX: number;
 	};
-
 </script>
 
-<article class="w-full">
-	<h1>Ayoooo</h1>
+<article class="w-screen text-center prose ">
+	<h1 class="text-center mt-8">In how many of our branching paths does humanity survive?</h1>
+</article>
 
-	<Tree {vals} />
+<Tree {vals} />
+
+<article class="w-full prose pb-12">
+	<p>This tree is built from Metaculus's Ragnarok series. It is updated every night.</p>
 	<p>
-		For more, see our <a sveltekit:prefetch href="faq" class="text-green-forest font-bold">FAQ</a>
+		For more, see our <a sveltekit:prefetch href="faq" class="text-green-forest hover:text-black font-bold">FAQ</a>.	
 	</p>
 </article>

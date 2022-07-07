@@ -38,13 +38,13 @@
 			// 	.reverse()
 			// 	.map((d) => d.data.name)
 			// 	.join('/')}${n.children ? '' : '.as'}`
-			width: 1152,
-			height: 1152,
-			margin: 250
+			width: 652,
+			height: 652,
+			margin: 50
 		});
 	});
 </script>
 
-<div class="border-2 w-full flex items-center justify-center">
+<div class="w-full flex items-center justify-center">
 	{@html chart?.outerHTML}
 </div>

@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
+<div class="flex flex-col w-screen items-center">
+	<slot />
+</div>
