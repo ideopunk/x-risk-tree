@@ -4,6 +4,7 @@
 	import treeify from '$lib/treeify';
 	import { validate_slots } from 'svelte/internal';
 	import dataTransform from '$lib/dataTransform';
+	import linker from '$lib/linker';
 
 	export let vals: {
 		total: number;
@@ -19,8 +20,6 @@
 		bioX: number;
 	};
 
-	console.log({ vals });
-
 	let input = dataTransform(vals);
 	let chart: SVGSVGElement | null = null;
 	onMount(() => {
@@ -32,12 +31,13 @@
 					.reverse()
 					.map((d) => d.data.name)
 					.join('.')}`, // hover text
-			// link: (d, n) =>
-			// 	`https://github.com/prefuse/Flare/${n.children ? 'tree' : 'blob'}/master/flare/src/${n
-			// 		.ancestors()
-			// 		.reverse()
-			// 		.map((d) => d.data.name)
-			// 		.join('/')}${n.children ? '' : '.as'}`,
+			// link: (d, n) => "linker(n)",
+			link: (d, n) => linker(n),
+			// `https://github.com/prefuse/Flare/${n.children ? 'tree' : 'blob'}/master/flare/src/${n
+			// 	.ancestors()
+			// 	.reverse()
+			// 	.map((d) => d.data.name)
+			// 	.join('/')}${n.children ? '' : '.as'}`
 			width: 1152,
 			height: 1152,
 			margin: 250

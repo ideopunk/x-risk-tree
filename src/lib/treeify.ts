@@ -123,6 +123,9 @@ export default function treeify(
 		.attr('font-family', 'sans-serif')
 		.attr('font-size', 12);
 
+	// BACKGROUND
+	// svg.append('circle').attr('fill', 'rgba(197, 239, 247,1)').attr('r', width / Math.PI)
+
 	// LINES
 	svg
 		.append('g')
@@ -142,7 +145,6 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => {
-			console.log(d, i);
 			const targetName = d.target.data.name;
 			return targetName === 'Survival' ? 'green' : targetName === 'Destruction' ? 'black' : 'red';
 		});

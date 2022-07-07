@@ -17,7 +17,6 @@
 		bioX: number;
 	};
 
-	console.log({ vals });
 </script>
 
 <article class="w-full">
