@@ -34,8 +34,8 @@ export default function treeify(
 		fill = '#999', // fill for nodes
 		// fillOpacity, // fill opacity for nodes
 		stroke = '#555', // stroke for links
-		strokeWidth = 1.5, // stroke width for links
-		strokeOpacity = 0.4, // stroke opacity for links
+		strokeWidth = 2.5, // stroke width for links
+		strokeOpacity = 0.6, // stroke opacity for links
 		strokeLinejoin = 2, // stroke line join for links
 		strokeLinecap = 2, // stroke line cap for links
 		halo = '#fff', // color of label halo
@@ -113,12 +113,8 @@ export default function treeify(
 	svg
 		.append('g')
 		.attr('fill', 'none')
-		.attr('stroke', stroke)
-		// .attr('stroke', (d: any, i) => {
-		// 	console.log(d, i);
-		// 	return 'green';
-		// 	// return d.data.name === 'Survival' ? 'green' : 'red';
-		// })
+		// .attr('stroke', stroke)
+
 		.attr('stroke-opacity', strokeOpacity)
 		.attr('stroke-linecap', strokeLinecap)
 		.attr('stroke-linejoin', strokeLinejoin)
@@ -132,7 +128,12 @@ export default function treeify(
 				.linkRadial()
 				.angle((d: any) => d.x)
 				.radius((d: any) => d.y) as any
-		);
+		)
+		.attr('stroke', (d: any, i) => {
+			console.log(d, i);
+			const targetName = d.target.data.name;
+			return targetName === 'Survival' ? 'green' : targetName === 'Destruction' ? 'black' : 'red';
+		});
 
 	// TEXT INIT
 	const node = svg
@@ -148,7 +149,10 @@ export default function treeify(
 	node
 		.append('circle')
 		.attr('fill', (d: any, i) => {
-			return d.data.name === 'Survival' ? 'green' : 'red';
+			if (d.height === 2) return 'orange';
+
+			const name = d.data.name;
+			return name === 'Survival' ? 'green' : name === 'Destruction' ? 'brown' : 'red';
 		})
 		// .attr('fill', (d) => (d.children ? stroke : fill))
 		.attr('r', r);
@@ -169,6 +173,5 @@ export default function treeify(
 			.attr('stroke-width', haloWidth)
 			.text((d, i) => L[i]);
 
-	// return svg;
 	return svg.node();
 }
