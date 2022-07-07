@@ -1,5 +1,19 @@
 import * as d3 from 'd3';
 
+const leaf = [
+	{ x: 0, y: 0 },
+	{ x: 15, y: -10 },
+	{ x: 30, y: 0 },
+	{ x: 15, y: 10 },
+	{ x: 0, y: 0 }
+];
+
+const curveFunc = d3
+	.line()
+	.curve(d3.curveBasis) // This is where you define the type of curve. Try curveStep for instance.
+	.x((d: any) => d.x)
+	.y((d: any) => d.y);
+
 // Adapted from Mike Bostock's Radial Tidy Tree layout
 // Copyright 2022 Observable, Inc.
 // Released under the ISC license.
@@ -113,8 +127,6 @@ export default function treeify(
 	svg
 		.append('g')
 		.attr('fill', 'none')
-		// .attr('stroke', stroke)
-
 		.attr('stroke-opacity', strokeOpacity)
 		.attr('stroke-linecap', strokeLinecap)
 		.attr('stroke-linejoin', strokeLinejoin)
@@ -149,12 +161,27 @@ export default function treeify(
 	node
 		.append('circle')
 		.attr('fill', (d: any, i) => {
+			// do dots for non-leaves. hack.
+			if (d.height === 0) return 'transparent';
 			if (d.height === 2) return 'orange';
 
 			const name = d.data.name;
 			return name === 'Survival' ? 'green' : name === 'Destruction' ? 'brown' : 'red';
 		})
-		// .attr('fill', (d) => (d.children ? stroke : fill))
+		.attr('r', r);
+
+	// LEAVES
+	node
+		.append('path')
+		.attr('d', curveFunc(leaf as any))
+		// .attr('fill', 'white')
+		.attr('fill', (d: any, i) => {
+			if (d.height !== 0) return 'transparent';
+
+			const name = d.data.name;
+			return name === 'Survival' ? 'green' : name === 'Destruction' ? 'black' : 'red';
+		})
+		.attr('opacity', 0.8)
 		.attr('r', r);
 
 	// TITLE
@@ -171,6 +198,11 @@ export default function treeify(
 			.attr('paint-order', 'stroke')
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
+			.attr('opacity', (d) => {
+				if (d.height === 0) return 0;
+
+				return 1;
+			})
 			.text((d, i) => L[i]);
 
 	return svg.node();
