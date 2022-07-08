@@ -155,7 +155,8 @@ export default function treeify(
 		.selectAll('a')
 		.data(root.descendants())
 		.join('a')
-		.attr('xlink:href', link == null ? null : (d) => link(d.data, d))
+		.attr('rel', 'external')
+		.attr('href', link == null ? null : (d) => link(d.data, d))
 
 		.attr('target', link == null ? null : linkTarget)
 		.attr('transform', (d: any) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`);

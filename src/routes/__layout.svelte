@@ -12,10 +12,7 @@
 	<meta name="og:url" content="https://x-risk-tree.vercel.app/" />
 	<meta name="og:type" content="website" />
 
-	<meta
-		name="og:image"
-		content="https://x-risk-tree.vercel.app/tree.png"
-	/>
+	<meta name="og:image" content="https://x-risk-tree.vercel.app/tree.png" />
 	<meta name="og:image:alt" content="A tree symbolizing humanity's possible futures" />
 	<meta name="og:image:width" content="773" />
 	<meta name="og:image:height" content="773" />
@@ -24,6 +21,6 @@
 	<meta name="twitter:site" content="@ideopunk" />
 </svelte:head>
 
-<div class="flex flex-col w-screen items-center">
+<div class="flex flex-col w-full items-center overflow-x-hidden">
 	<slot />
 </div>

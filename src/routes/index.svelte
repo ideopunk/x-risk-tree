@@ -3,6 +3,7 @@
 
 	export const prerender = true;
 
+	export let time: string;
 	export let vals: {
 		total: number;
 		climate: number;
@@ -16,6 +17,9 @@
 		bio: number;
 		bioX: number;
 	};
+
+	console.log(time);
+	console.log(typeof time);
 </script>
 
 <article class="w-screen text-center prose ">
@@ -25,8 +29,15 @@
 <Tree {vals} />
 
 <article class="w-full prose pb-12">
-	<p>This tree is built from Metaculus's Ragnarok series. It is updated every night.</p>
 	<p>
-		For more, see our <a sveltekit:prefetch href="faq" class="text-green-forest hover:text-black font-bold">FAQ</a>.	
+		This tree is built from Metaculus's Ragnarok series. It is updated every night. It was last
+		updated {new Date(time).toDateString()}.
+	</p>
+	<p>
+		For more, see our <a
+			sveltekit:prefetch
+			href="faq"
+			class="text-green-forest hover:text-black font-bold">FAQ</a
+		>.
 	</p>
 </article>

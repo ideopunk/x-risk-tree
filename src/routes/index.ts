@@ -84,11 +84,12 @@ export async function get(): Promise<RequestHandlerOutput> {
 	const [ai, aiX] = makeRelative(totalAvg, aiAvg, aiXAvg);
 	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
 	const total = Math.round(totalAvg * 100);
-	
+
 	return {
 		status: 200,
 		body: {
-			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX }
+			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
+			time: new Date().toString()
 		}
 	};
 }
