@@ -17,7 +17,7 @@ export default function linker(n: Node): string {
 	if (name === 'Survival' || n.depth === 0) questionNumber = 1493;
 
 	if (parent === 'Climate' || name === 'Climate') {
-		if (name === 'Destruction') {
+		if (name === 'Extinction') {
 			questionNumber = 1604;
 		} else {
 			questionNumber = 1500;
@@ -25,7 +25,7 @@ export default function linker(n: Node): string {
 	}
 
 	if (parent === 'Artificial Intelligence' || name === 'Artificial Intelligence') {
-		if (name === 'Destruction') {
+		if (name === 'Extinction') {
 			questionNumber = 2513;
 		} else {
 			questionNumber = 1495;
@@ -33,7 +33,7 @@ export default function linker(n: Node): string {
 	}
 
 	if (parent === 'Nanotechnology' || name === 'Nanotechnology') {
-		if (name === 'Destruction') {
+		if (name === 'Extinction') {
 			questionNumber = 7795;
 		} else {
 			questionNumber = 1501;
@@ -41,7 +41,7 @@ export default function linker(n: Node): string {
 	}
 
 	if (parent === 'Nuclear War' || name === 'Nuclear War') {
-		if (name === 'Destruction') {
+		if (name === 'Extinction') {
 			questionNumber = 1585;
 		} else {
 			questionNumber = 1494;
@@ -49,7 +49,7 @@ export default function linker(n: Node): string {
 	}
 
 	if (parent === 'Bioengineering' || name === 'Bioengineering') {
-		if (name === 'Destruction') {
+		if (name === 'Extinction') {
 			questionNumber = 2514;
 		} else {
 			questionNumber = 1502;

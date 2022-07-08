@@ -25,19 +25,14 @@
 	onMount(() => {
 		chart = treeify(input, {
 			label: (d) => d.name,
-			title: (d, n) =>
-				`${n
-					.ancestors()
-					.reverse()
-					.map((d) => d.data.name)
-					.join('.')}`, // hover text
-			// link: (d, n) => "linker(n)",
+			title: (d, n) => d.name,
+			// title: (d, n) =>
+			// 	`${n
+			// 		.ancestors()
+			// 		.reverse()
+			// 		.map((d) => d.data.name)
+			// 		.join('.')}`, // hover text
 			link: (d, n) => linker(n),
-			// `https://github.com/prefuse/Flare/${n.children ? 'tree' : 'blob'}/master/flare/src/${n
-			// 	.ancestors()
-			// 	.reverse()
-			// 	.map((d) => d.data.name)
-			// 	.join('/')}${n.children ? '' : '.as'}`
 			width: 652,
 			height: 652,
 			margin: 50

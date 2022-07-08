@@ -146,7 +146,7 @@ export default function treeify(
 		)
 		.attr('stroke', (d: any, i) => {
 			const targetName = d.target.data.name;
-			return targetName === 'Survival' ? 'green' : targetName === 'Destruction' ? 'black' : 'red';
+			return targetName === 'Survival' ? 'green' : targetName === 'Extinction' ? 'black' : 'red';
 		});
 
 	// TEXT INIT
@@ -156,6 +156,7 @@ export default function treeify(
 		.data(root.descendants())
 		.join('a')
 		.attr('xlink:href', link == null ? null : (d) => link(d.data, d))
+
 		.attr('target', link == null ? null : linkTarget)
 		.attr('transform', (d: any) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`);
 
@@ -168,7 +169,7 @@ export default function treeify(
 			if (d.height === 2) return 'orange';
 
 			const name = d.data.name;
-			return name === 'Survival' ? 'green' : name === 'Destruction' ? 'brown' : 'red';
+			return name === 'Survival' ? 'green' : name === 'Extinction' ? 'brown' : 'red';
 		})
 		.attr('r', r);
 
@@ -181,7 +182,7 @@ export default function treeify(
 			if (d.height !== 0) return 'transparent';
 
 			const name = d.data.name;
-			return name === 'Survival' ? 'green' : name === 'Destruction' ? 'black' : 'red';
+			return name === 'Survival' ? 'green' : name === 'Extinction' ? 'black' : 'red';
 		})
 		.attr('opacity', 0.8)
 		.attr('r', r);
