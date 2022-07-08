@@ -28,7 +28,7 @@
 			<Question id="what-is-x-risk">What is existential risk?</Question>
 			<Answer
 				>Existential risk is the possibility of all of humanity dying out. This could look like an
-				engineered disease, or artificial intelligence, or something we haven't even thought of yet.</Answer
+				engineered disease, or artificial intelligence, or something we haven't foreseen.</Answer
 			>
 
 			<Question id="so-bad"
@@ -62,15 +62,14 @@
 
 			<Question id="numbers">Are the numbers you use real?</Question>
 			<Answer
-				>Yes and no. They are averages of predictions from the forecasting site Metaculus.
-				Unfortunately, popular predictions are often unquantified. So while the Metaculus numbers
-				are only average 'best guesses' from forecasters, they are still a step up over
-				simultaneously certain and unspecified predictions.
+				>Yes and no. They are averages of predictions from the forecasting site Metaculus. Popular
+				predictions in the media are often unquantified. The Metaculus numbers are 'best guesses'
+				from forecasters and are a step up over simultaneously certain and unspecified predictions.
 			</Answer>
 			<Answer>
-				The Metaculus predictions are also probably biased to be optimistic, because forecasters
-				will gain points if humanity survives and points won't matter if everybody dies. See this
-				comment <XLink
+				However, the Metaculus predictions are probably biased to be optimistic, because forecasters
+				can safely predict that humanity will survive: points won't matter if everybody dies. See
+				this comment <XLink
 					href="https://forum.effectivealtruism.org/posts/27aXsJRRAoNZFw9K3/some-global-catastrophic-risk-estimates?commentId=c72ZbLJ5hLRzoFJTZ"
 					>here</XLink
 				> for more.
@@ -88,7 +87,11 @@
 			<Question id="this-is-great"
 				>This is really great, I now think humanity will probably survive!</Question
 			>
-			<Answer>Answer</Answer>
+			<Answer
+				>That's awesome! The creator of this site agrees. However, humanity dying out is so bad,
+				that it's still worth working on reducing its chances. A 1% chance of billions of people
+				dying is too high.</Answer
+			>
 
 			<Question id="this-is-gloomy">This is really gloomy!</Question>
 			<Answer
@@ -106,7 +109,7 @@
 				<XLink href="https://www.metaculus.com/">Metaculus</XLink>.</Answer
 			>
 			<Question id="can-i-see">Can I see the code?</Question>
-			<Answer>Yes, <XLink href="https://github.com/ideopunk">right here</XLink>.</Answer>
+			<Answer>Yes, <XLink href="https://github.com/ideopunk/x-risk-tree">right here</XLink>.</Answer>
 			<Answer>
 				{' '}The tree is based on Mike Bostock's Radial Tidy Tree layout (Copyright 2022 Observable,
 				Inc. Released under the ISC license.
