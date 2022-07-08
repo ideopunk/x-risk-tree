@@ -85,6 +85,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
 	const total = Math.round(totalAvg * 100);
 
+	console.log('test'); // this function should not run during runtime, only 
 	return {
 		status: 200,
 		body: {

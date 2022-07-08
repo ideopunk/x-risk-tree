@@ -5,8 +5,8 @@
 	import XLink from '$lib/components/ExternalLink.svelte';
 </script>
 
-<div class="flex h-screen w-screen justify-between">
-	<div class="w-1/3 pl-24 pr-8 pt-12 ">
+<div class="flex flex-col lg:flex-row lg:h-screen w-screen justify-between">
+	<div class="lg:w-1/3 pl-8 lg:pl-24 pr-8 pt-12 ">
 		<h3 class="text-xl mb-4">Table of Contents</h3>
 		<ul>
 			<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
@@ -20,10 +20,10 @@
 			<TocEntry text="This is really gloomy!" href="#this-is-gloomy" />
 			<TocEntry text="Who made this?" href="#who-made-this" />
 			<TocEntry text="Can I see the code?" href="#can-i-see" />
-			<li><a class="font-bold text-lg" href="/" sveltekit:prefetch>Return to tree</a></li>
+			<li><a class="font-bold text-xl" href="/" sveltekit:prefetch>Return to tree</a></li>
 		</ul>
 	</div>
-	<div class="w-2/3 py-12 flex justify-center overflow-y-scroll">
+	<div class="lg:w-2/3 py-12 px-8 lg:px-0 flex justify-center lg:overflow-y-scroll">
 		<article class="prose w-full  ">
 			<Question id="what-is-x-risk">What is existential risk?</Question>
 			<Answer
@@ -109,7 +109,8 @@
 				<XLink href="https://www.metaculus.com/">Metaculus</XLink>.</Answer
 			>
 			<Question id="can-i-see">Can I see the code?</Question>
-			<Answer>Yes, <XLink href="https://github.com/ideopunk/x-risk-tree">right here</XLink>.</Answer>
+			<Answer>Yes, <XLink href="https://github.com/ideopunk/x-risk-tree">right here</XLink>.</Answer
+			>
 			<Answer>
 				{' '}The tree is based on Mike Bostock's Radial Tidy Tree layout (Copyright 2022 Observable,
 				Inc. Released under the ISC license.
