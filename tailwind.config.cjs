@@ -5,7 +5,7 @@ const config = {
 		extend: {
 			colors: {
 				green: {
-					forest: '#228C22'
+					forest: '#218721'
 				}
 			}
 		}

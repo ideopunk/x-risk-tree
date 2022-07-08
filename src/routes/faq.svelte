@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import TocEntry from '$lib/components/TOCEntry.svelte';
-	import Answer from '../lib/components/answer.svelte';
-	import Question from '../lib/components/question.svelte';
+	import Answer from '$lib/components/answer.svelte';
+	import Question from '$lib/components/question.svelte';
+	import XLink from '$lib/components/ExternalLink.svelte';
 </script>
 
 <div class="flex h-screen w-screen justify-between">
@@ -44,18 +45,16 @@
 			<Answer
 				><ul>
 					<li>
-						You can work on a <a
-							class="text-green-forest hover:text-black transition-colors"
+						You can work on a <XLink
 							href="https://80000hours.org/articles/how-to-reduce-existential-risk/#get-started"
-							rel="external">career</a
+							>career</XLink
 						> in researching and mitigating existential risk.
 					</li>
 					<li>You can donate to organizations doing the above.</li>
 					<li>
-						You can pressure your representative to fund <a
-							class="text-green-forest hover:text-black transition-colors"
+						You can pressure your representative to fund <XLink
 							href="https://twitter.com/csercambridge/status/1231693809442074624?lang=en"
-							rel="external">chronically underfunded x-risk insitutitions</a
+							>chronically underfunded x-risk insitutitions</XLink
 						>.
 					</li>
 				</ul></Answer
@@ -71,18 +70,16 @@
 			<Answer>
 				The Metaculus predictions are also probably biased to be optimistic, because forecasters
 				will gain points if humanity survives and points won't matter if everybody dies. See this
-				comment <a
-					class="text-green-forest hover:text-black transition-colors"
+				comment <XLink
 					href="https://forum.effectivealtruism.org/posts/27aXsJRRAoNZFw9K3/some-global-catastrophic-risk-estimates?commentId=c72ZbLJ5hLRzoFJTZ"
-					rel="external">here</a
+					>here</XLink
 				> for more.
 			</Answer>
 			<Answer
 				>Better numbers could come from domain experts. Even better numbers could come from
-				<a
-					class="text-green-forest hover:text-black transition-colors"
+				<XLink
 					href="https://forum.effectivealtruism.org/posts/W8dpCJGkwrwn7BfLk/nuclear-expert-comment-on-samotsvety-nuclear-risk-forecast-2"
-					>'adversarial collaboration'</a
+					>'adversarial collaboration'</XLink
 				>
 				between general forecasters and domain experts. We are happy to include alternative datasets
 				on the site from experts, or from famous predictions.
@@ -101,33 +98,20 @@
 
 			<Question id="who-made-this">Who made this?</Question>
 			<Answer
-				><a
-					class="text-green-forest hover:text-black transition-colors"
-					href="https://conorbarnes.com/"
-					rel="extern">Conor Barnes</a
-				>
+				><XLink href="https://conorbarnes.com/">Conor Barnes</XLink>
 				made this with funding provided by the
-				<a
-					class="text-green-forest hover:text-black transition-colors"
-					href="https://funds.effectivealtruism.org/funds/far-future"
-					rel="external">Long-Term Future Fund</a
-				>. Predictions are pulled from <a href="https://www.metaculus.com/">Metaculus</a>.</Answer
+				<XLink href="https://funds.effectivealtruism.org/funds/far-future"
+					>Long-Term Future Fund</XLink
+				>. Predictions are pulled from
+				<XLink href="https://www.metaculus.com/">Metaculus</XLink>.</Answer
 			>
 			<Question id="can-i-see">Can I see the code?</Question>
-			<Answer
-				>Yes, <a
-					class="text-green-forest hover:text-black transition-colors"
-					href="https://github.com/ideopunk"
-					rel="external">right here</a
-				>.</Answer
-			>
+			<Answer>Yes, <XLink href="https://github.com/ideopunk">right here</XLink>.</Answer>
 			<Answer>
 				{' '}The tree is based on Mike Bostock's Radial Tidy Tree layout (Copyright 2022 Observable,
 				Inc. Released under the ISC license.
-				<a
-					class="text-green-forest hover:text-black transition-colors"
-					href="https://observablehq.com/@d3/radial-tree"
-					rel="external">https://observablehq.com/@d3/radial-tree</a
+				<XLink href="https://observablehq.com/@d3/radial-tree"
+					>https://observablehq.com/@d3/radial-tree</XLink
 				>)</Answer
 			>
 			<div class="h-12" id="hack" />

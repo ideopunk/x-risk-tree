@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 a {
-	color: #228c22;
+	color: #218721;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
