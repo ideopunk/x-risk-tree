@@ -4,9 +4,7 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				green: {
-					forest: '#218721'
-				}
+				green: { forest: '#218721' }
 			}
 		}
 	},

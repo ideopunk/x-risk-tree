@@ -156,6 +156,11 @@ export default function treeify(
 		.data(root.descendants())
 		.join('a')
 		.attr('rel', 'external')
+		.attr('tabindex', (d: any, n) => {
+			console.log(d);
+			console.log(d.data.name);
+			return d.depth === 2 && d.data.name !== 'Extinction' ? '-1' : '0';
+		})
 		.attr('href', link == null ? null : (d) => link(d.data, d))
 
 		.attr('target', link == null ? null : linkTarget)

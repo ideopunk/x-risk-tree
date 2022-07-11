@@ -12,6 +12,7 @@
 			<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
 			<TocEntry text="Is humanity dying out so bad?" href="#so-bad" />
 			<TocEntry text="How can I help with existential risk?" href="#help" />
+			<TocEntry text="What do the colors mean?" href="#colors" />
 			<TocEntry text="Are the numbers you use real?" href="#numbers" />
 			<TocEntry
 				text="This is really great, I now think humanity will probably survive!"
@@ -36,9 +37,10 @@
 			>
 			<Answer
 				>In the abstract, it can sound less menacing. In reality, this would mean everybody you love
-				dying. Furthermore, it means the loss of humanity's long-term potential. In the future, we
-				could engineer the world to be better for all forms of life. If we die now, we lose our
-				chance to try.
+				dying, everybody you know dying, all children dying, etc. This is a future worth avoiding!
+				Furthermore, it means the loss of humanity's long-term potential. In the future, we could
+				engineer the world to be better for all forms of life. If we die now, we lose our chance to
+				try.
 			</Answer>
 
 			<Question id="help">How can I help with existential risk?</Question>
@@ -59,6 +61,35 @@
 					</li>
 				</ul></Answer
 			>
+
+			<Question id="colors">What do the colors mean?</Question>
+			<Answer>
+				<ul>
+					<li>
+						<span class="font-bold text-green-forest">Green</span> branches are ones where humans do
+						not suffer a catastrophe in the next 100 years (per this <XLink
+							href="https://www.metaculus.com/questions/1493/ragnar%25C3%25B6k-question-series-by-2100-will-the-human-population-decrease-by-at-least-10-during-any-period-of-5-years/"
+							>Metaculus question</XLink
+						>).
+					</li>
+					<li>
+						<span class="font-bold text-red-500">Red</span> branches are ones where humans suffer a catastrophe
+						in the next 100 years.
+					</li>
+					<li>
+						<span class="font-bold text-black">Black</span> branches are ones where humans suffer a near-extinction
+						event in the next 100 years.
+					</li>
+					<li>
+						<span class="underline">'Catastrophes'</span> are defined as events that reduce the human
+						population by at least 10%.
+					</li>
+					<li>
+						<span class="underline">'Near-extinction events'</span> are defined as events that reduce
+						the human population by at least 95%.
+					</li>
+				</ul>
+			</Answer>
 
 			<Question id="numbers">Are the numbers you use real?</Question>
 			<Answer
@@ -95,9 +126,12 @@
 
 			<Question id="this-is-gloomy">This is really gloomy!</Question>
 			<Answer
-				>It can be! One thing that can help is to imagine the potential behind all the futures where
-				we survive. There's a good chance that we don't merely survive, but flourish.</Answer
-			>
+				>It can be! One thing that can help is to keep in mind the potential behind all the futures
+				where we survive. A recent <XLink href="https://www.youtube.com/watch?v=LEENEFaVUzU"
+					>video from Kurzgesagt</XLink
+				>
+				does a great job of illustrating that potential.
+			</Answer>
 
 			<Question id="who-made-this">Who made this?</Question>
 			<Answer
