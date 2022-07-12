@@ -1,4 +1,3 @@
-import type { SimulationNodeDatum } from 'd3';
 import * as d3 from 'd3';
 
 const leaf = [
@@ -147,11 +146,9 @@ export default function treeify(
 			const targetName = d.target.data.name;
 			return targetName === 'Survival' ? 'green' : targetName === 'Extinction' ? 'black' : 'red';
 		})
-		.attr('class', (d: any, i) => {
-			return true ? 'inner' : 'outer';
-		});
+		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')); // class is used for conditionally animating
 
-	// TEXT INIT
+	// LINKS
 	const node = svg
 		.append('g')
 		.selectAll('a')
@@ -164,15 +161,17 @@ export default function treeify(
 		.attr('href', link == null ? null : (d) => link(d.data, d))
 
 		.attr('target', link == null ? null : linkTarget)
-		.attr('transform', (d: any) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`);
+		.attr('transform', (d: any) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`)
+		.attr('class', (d, n) => (d.height ? 'inner' : 'outer')); // class is used later for conditionally attaching text to anchors
+
+	const outerAnchors = svg.selectAll('a.outer');
+	const innerAnchors = svg.selectAll('a.inner');
 
 	// DOTS
-	node
+	innerAnchors
 		.append('circle')
 		.attr('fill', (d: any, i) => {
-			// do dots for non-leaves. hack.
-			if (d.height === 0) return 'transparent';
-			if (d.height === 2) return 'orange';
+			if (d.height === 2) return 'orange'; // the future
 
 			const name = d.data.name;
 			return name === 'Survival' ? 'green' : name === 'Extinction' ? 'brown' : 'red';
@@ -180,25 +179,24 @@ export default function treeify(
 		.attr('r', r);
 
 	// LEAVES
-	node
+
+	outerAnchors
 		.append('path')
 		.attr('d', curveFunc(leaf as any))
-		// .attr('fill', 'white')
 		.attr('fill', (d: any, i) => {
-			if (d.height !== 0) return 'transparent';
-
 			const name = d.data.name;
 			return name === 'Survival' ? 'green' : name === 'Extinction' ? 'black' : 'red';
 		})
 		.attr('opacity', 0.8)
-		.attr('r', r);
+		.attr('r', r)
+		.attr('class', 'leaf'); // class is used for conditionally animating
 
 	// TITLE
 	if (title != null) node.append('title').text((d) => title(d.data, d));
 
-	// TEXT STYLE
+	// TEXT
 	if (L)
-		node
+		innerAnchors
 			.append('text')
 			.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
 			.attr('dy', '0.32em')
@@ -207,19 +205,7 @@ export default function treeify(
 			.attr('paint-order', 'stroke')
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
-			.attr('opacity', (d) => {
-				if (d.height === 0) return 0;
-
-				return 1;
-			})
 			.text((d, i) => L[i]);
-
-	// ANIMATION
-	// Get the length of the path, which we will use for the intial offset to "hide"
-	// the graph
-	// const length = path.node().getTotalLength();
-
-	// This function will animate the path over and over again
 
 	return svg.node();
 }

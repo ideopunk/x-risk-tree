@@ -6,7 +6,7 @@
 	import { validate_slots } from 'svelte/internal';
 	import dataTransform from '$lib/funcs/dataTransform';
 	import linker from '$lib/funcs/linker';
-import { animateInnerPaths, animateLeaves, animateOuterPaths } from '$lib/funcs/animations';
+	import { animateInnerPaths, animateLeaves, animateOuterPaths } from '$lib/funcs/animations';
 
 	export let vals: {
 		total: number;
@@ -35,25 +35,16 @@ import { animateInnerPaths, animateLeaves, animateOuterPaths } from '$lib/funcs/
 		});
 	}
 
-	
-
 	onMount(() => {
-		// d3.selectAll('circle')
-		// 	.attr('fill', '#154323')
-		// 	.attr('r', 10)
-		// 	.transition()
-		// 	.duration(3000)
-		// 	.attr('fill', '#a54154')
-		// 	.attr('r', 50)
-		// 	.on('end', () => console.log('onmount end'));
-
-		// Animate the graph for the first time
+		// Animate the graph
 		animateInnerPaths();
-		animateOuterPaths()
-		animateLeaves()
+		animateOuterPaths();
+		animateLeaves();
 	});
 </script>
 
-<div class="w-full flex items-center justify-center">
-	{@html chart?.outerHTML}
+<div class="w-full h-[652px] flex items-center justify-center">
+	{#if chart}
+		{@html chart?.outerHTML}
+	{/if}
 </div>
