@@ -19,16 +19,17 @@ a:hover {
 	font-family: 'heebo';
 	font-style: normal;
 	font-weight: 500;
-	src: url('/fonts/Heebo-Medium.ttf'); /* IE9 Compat Modes */
-	src: local(''), url('/fonts/Heebo-Medium.ttf') format('truetype');
+
+	src: url('/fonts/Modified-Heebo-Medium.otf'); /* IE9 Compat Modes */
+	src: local(''), url('/fonts/Modified-Heebo-Medium.otf') format('opentype');
 }
 
 @font-face {
 	font-family: 'heebo';
 	font-style: normal;
 	font-weight: 700;
-	src: url('/fonts/Heebo-Bold.ttf'); /* IE9 Compat Modes */
-	src: local(''), url('/fonts/Heebo-Bold.ttf') format('truetype');
+	src: url('/fonts/Modified-Heebo-Bold.otf'); /* IE9 Compat Modes */
+	src: local(''), url('/fonts/Modified-Heebo-Bold.otf') format('opentype');
 }
 
 * {
