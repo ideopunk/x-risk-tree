@@ -24,8 +24,8 @@ export function animateInnerPaths() {
 		.attr('stroke-dashoffset', 0)
 		.duration(duration);
 
-        // DOT ANIMATION
-        // const dots = d3.selectAll('circle')
+	// DOT ANIMATION
+	// const dots = d3.selectAll('circle')
 
 	// TEXT ANIMATION
 	const texts = d3.selectAll('text, circle');
@@ -62,15 +62,15 @@ export function animateOuterPaths() {
 export function animateLeaves() {
 	const selector = 'path.leaf';
 
-	const svgpaths: SVGPathElement[] = (d3.selectAll(selector) as any)._groups[0];
-	let length = svgpaths[0].getTotalLength();
-
 	const datapaths = d3.selectAll(selector);
 	datapaths
 		.attr('opacity', 0)
+		.attr('transform', (d: any) => `scale(0.1)`)
 		.transition()
-		.delay(duration * 2)
+		.delay(duration * 2 - (duration * 0.1))
 		.ease(d3.easeLinear)
 		.attr('opacity', 0.8)
-		.duration(duration);
+		.attr('transform', (d: any) => `scale(1)`)
+
+		.duration(duration * 0.8);
 }

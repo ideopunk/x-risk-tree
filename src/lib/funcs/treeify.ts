@@ -179,7 +179,6 @@ export default function treeify(
 		.attr('r', r);
 
 	// LEAVES
-
 	outerAnchors
 		.append('path')
 		.attr('d', curveFunc(leaf as any))
@@ -189,6 +188,7 @@ export default function treeify(
 		})
 		.attr('opacity', 0.8)
 		.attr('r', r)
+
 		.attr('class', 'leaf'); // class is used for conditionally animating
 
 	// TITLE
