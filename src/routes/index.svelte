@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
-
 	import Tree from '$lib/components/tree.svelte';
 
 	export const prerender = true;
@@ -27,7 +26,6 @@
 </article>
 
 <Tree {vals} />
-
 <article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
 	<p>
 		Over the next century, humanity could flourish or it could experience a global catatastrophe. It

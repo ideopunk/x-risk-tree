@@ -1,3 +1,4 @@
+import type { SimulationNodeDatum } from 'd3';
 import * as d3 from 'd3';
 
 const leaf = [
@@ -23,8 +24,8 @@ export default function treeify(
 	{
 		// data is either tabular (array of objects) or hierarchy (nested objects)
 		path = undefined, // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
-		id = Array.isArray(data) ? (d) => d.id : undefined, // if tabular data, given a d in data, returns a unique identifier (string)
-		parentId = Array.isArray(data) ? (d) => d.parentId : undefined, // if tabular data, given a node d, returns its parent’s identifier
+		id = Array.isArray(data) ? (d) => d.id : null, // if tabular data, given a d in data, returns a unique identifier (string)
+		parentId = Array.isArray(data) ? (d) => d.parentId : null, // if tabular data, given a node d, returns its parent’s identifier
 		children = undefined, // if hierarchical data, given a d in data, returns its children
 		tree = d3.tree, // layout algorithm (typically d3.tree or d3.cluster)
 		separation = tree === d3.tree
@@ -54,40 +55,38 @@ export default function treeify(
 		strokeLinecap = 2, // stroke line cap for links
 		halo = '#fff', // color of label halo
 		haloWidth = 3 // padding around the labels
-	}:
-		| {
-				path: any; // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
-				id: ((d: any) => any) | undefined; // if tabular data, given a d in data, returns a unique identifier (string)
-				parentId: ((d: any) => any) | undefined; // if tabular data, given a node d, returns its parent’s identifier
-				children: any; // if hierarchical data, given a d in data, returns its children
-				tree: any; // layout algorithm (typically d3.tree or d3.cluster)
-				separation: (a: any, b: any) => number;
-				sort: null | ((d: any) => any); // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
-				label: ((d: any) => any) | null; // given a node d, returns the display name
-				title: ((d: any, n: any) => string) | null; // given a node d, returns its hover text
-				link: ((d: any, n: any) => string) | null; // given a node d, its link (if any)
-				linkTarget: string; // the target attribute for links (if any)
-				width: number; // outer width, in pixels
-				height: number; // outer height, in pixels
-				margin: number; // shorthand for margins
-				marginTop: number; // top margin, in pixels
-				marginRight: number; // right margin, in pixels
-				marginBottom: number; // bottom margin, in pixels
-				marginLeft: number; // left margin, in pixels
-				radius: number;
-				r: number; // radius of nodes
-				padding: number; // horizontal padding for first and last column
-				fill: string; // fill for nodes
-				// fillOpacity, // fill opacity for nodes
-				stroke: string; // stroke for links
-				strokeWidth: number; // stroke width for links
-				strokeOpacity: number; // stroke opacity for links
-				strokeLinejoin: number; // stroke line join for links
-				strokeLinecap: number; // stroke line cap for links
-				halo: string; // color of label halo
-				haloWidth: number; // padding around the labels
-		  }
-		| any
+	}: {
+		path?: any; // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
+		id?: ((d: any) => any) | null; // if tabular data, given a d in data, returns a unique identifier (string)
+		parentId?: ((d: any) => any) | null; // if tabular data, given a node d, returns its parent’s identifier
+		children?: any; // if hierarchical data, given a d in data, returns its children
+		tree?: <Datum>() => d3.TreeLayout<Datum>; // layout algorithm (typically d3.tree or d3.cluster)
+		separation?: (a: any, b: any) => number;
+		sort?: null | ((d: any) => any); // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
+		label: ((d: any) => any) | null; // given a node d, returns the display name
+		title: ((d: any, n: any) => string) | null; // given a node d, returns its hover text
+		link: ((d: any, n: any) => string) | null; // given a node d, its link (if any)
+		linkTarget?: string; // the target attribute for links (if any)
+		width?: number; // outer width, in pixels
+		height?: number; // outer height, in pixels
+		margin?: number; // shorthand for margins
+		marginTop?: number; // top margin, in pixels
+		marginRight?: number; // right margin, in pixels
+		marginBottom?: number; // bottom margin, in pixels
+		marginLeft?: number; // left margin, in pixels
+		radius?: number;
+		r?: number; // radius of nodes
+		padding?: number; // horizontal padding for first and last column
+		fill?: string; // fill for nodes
+		// fillOpacity, // fill opacity for nodes
+		stroke?: string; // stroke for links
+		strokeWidth?: number; // stroke width for links
+		strokeOpacity?: number; // stroke opacity for links
+		strokeLinejoin?: number; // stroke line join for links
+		strokeLinecap?: number; // stroke line cap for links
+		halo?: string; // color of label halo
+		haloWidth?: number; // padding around the labels
+	}
 ) {
 	// If id and parentId options are specified, or the path option, use d3.stratify
 	// to convert tabular data to a hierarchy; otherwise we assume that the data is
@@ -96,7 +95,7 @@ export default function treeify(
 	const root =
 		path != null
 			? d3.stratify().path(path)(data)
-			: id != null || parentId != null
+			: id !== null && parentId !== null
 			? d3.stratify().id(id).parentId(parentId)(data)
 			: d3.hierarchy(data, children);
 
@@ -147,6 +146,9 @@ export default function treeify(
 		.attr('stroke', (d: any, i) => {
 			const targetName = d.target.data.name;
 			return targetName === 'Survival' ? 'green' : targetName === 'Extinction' ? 'black' : 'red';
+		})
+		.attr('class', (d: any, i) => {
+			return true ? 'inner' : 'outer';
 		});
 
 	// TEXT INIT
@@ -157,8 +159,6 @@ export default function treeify(
 		.join('a')
 		.attr('rel', 'external')
 		.attr('tabindex', (d: any, n) => {
-			console.log(d);
-			console.log(d.data.name);
 			return d.depth === 2 && d.data.name !== 'Extinction' ? '-1' : '0';
 		})
 		.attr('href', link == null ? null : (d) => link(d.data, d))
@@ -213,6 +213,13 @@ export default function treeify(
 				return 1;
 			})
 			.text((d, i) => L[i]);
+
+	// ANIMATION
+	// Get the length of the path, which we will use for the intial offset to "hide"
+	// the graph
+	// const length = path.node().getTotalLength();
+
+	// This function will animate the path over and over again
 
 	return svg.node();
 }
