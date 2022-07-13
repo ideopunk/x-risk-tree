@@ -19,22 +19,22 @@ export function animateInnerPaths() {
 			return length + ' ' + length;
 		})
 		.attr('stroke-dashoffset', (d: any, n) => lengths[n])
-		.transition()
-		.ease(d3.easeLinear)
-		.attr('stroke-dashoffset', 0)
-		.duration(duration);
+		// .transition()
+		// .ease(d3.easeLinear)
+		// .attr('stroke-dashoffset', 0)
+		// .duration(duration);
 
 	// DOT ANIMATION
 	// const dots = d3.selectAll('circle')
 
 	// TEXT ANIMATION
-	const texts = d3.selectAll('text, circle');
-	texts
-		.attr('opacity', 0)
-		.transition()
-		.ease(d3.easeLinear)
-		.attr('opacity', 0.8)
-		.duration(duration * 1.5);
+	// const texts = d3.selectAll('text, circle');
+	// texts
+	// 	.attr('opacity', 0)
+	// 	.transition()
+	// 	.ease(d3.easeLinear)
+	// 	.attr('opacity', 0.8)
+	// 	.duration(duration * 1.5);
 }
 export function animateOuterPaths() {
 	const selector = 'path.outer';
@@ -53,24 +53,22 @@ export function animateOuterPaths() {
 			return length + ' ' + length;
 		})
 		.attr('stroke-dashoffset', (d: any, n) => lengths[n])
-		.transition()
-		.delay(duration)
-		.ease(d3.easeLinear)
-		.attr('stroke-dashoffset', 0)
-		.duration(duration);
+		// .transition()
+		// .delay(duration)
+		// .ease(d3.easeLinear)
+		// .attr('stroke-dashoffset', 0)
+		// .duration(duration);
 }
 export function animateLeaves() {
 	const selector = 'path.leaf';
 
 	const datapaths = d3.selectAll(selector);
-	datapaths
-		.attr('opacity', 0)
-		.attr('transform', (d: any) => `scale(0.1)`)
-		.transition()
-		.delay(duration * 2 - (duration * 0.1))
-		.ease(d3.easeLinear)
-		.attr('opacity', 0.8)
-		.attr('transform', (d: any) => `scale(1)`)
+	// datapaths.attr('opacity', 0).attr('transform', (d: any) => `scale(0.1)`);
+	// .transition();
+	// 	.delay(duration * 2 - (duration * 0.1))
+	// 	.ease(d3.easeLinear)
+	// 	.attr('opacity', 0.8)
+	// 	.attr('transform', (d: any) => `scale(1)`)
 
-		.duration(duration * 0.8);
+	// 	.duration(duration * 0.8);
 }

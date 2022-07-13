@@ -35,3 +35,75 @@ a:hover {
 * {
 	font-family: 'heebo';
 }
+
+:root {
+	--duration: 2000;
+}
+
+circle,
+text {
+	animation-name: circle-animation;
+	animation-timing-function: linear;
+	animation-duration: calc(var(--duration) * 1.5ms);
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes circle-animation {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 0.8;
+	}
+}
+
+/* inner is simultaneous with circle/text animation */
+.inner {
+	animation-name: path-animation;
+	animation-timing-function: linear;
+	animation-duration: calc(var(--duration) * 1ms);
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+.outer {
+	animation-name: path-animation;
+	animation-timing-function: linear;
+	animation-delay: calc(var(--duration) * 1ms);
+	animation-duration: calc(var(--duration) * 1ms);
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes path-animation {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+.leaf {
+	animation-name: leaf-animation;
+	animation-timing-function: linear;
+	animation-duration: calc(var(--duration) * 2.5ms);
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes leaf-animation {
+	from {
+		opacity: 0;
+		transform: scale(0.1);
+	}
+
+	80% {
+		opacity: 0;
+		transform: scale(0.1);
+	}
+
+	to: {
+		opacity: 0.8;
+		transform: scale(1);
+	}
+}

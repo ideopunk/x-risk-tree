@@ -1,3 +1,6 @@
+import dataTransform from '$lib/funcs/dataTransform';
+import linker from '$lib/funcs/linker';
+import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
 async function metaculusFetch(question: number): Promise<number> {
@@ -85,12 +88,24 @@ export async function get(): Promise<RequestHandlerOutput> {
 	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
 	const total = Math.round(totalAvg * 100);
 
-	console.log('BUILD COMPLETE'); 
+	console.log('test'); // this function should not run during runtime, only
+	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
+	let input = dataTransform(vals);
+
+	// const chart = treeify(input, {
+	// 	label: (d) => d.name,
+	// 	title: (d, n) => d.name,
+	// 	link: (d, n) => linker(n),
+	// 	width: 652,
+	// 	height: 652,
+	// 	margin: 50
+	// });
 	return {
 		status: 200,
-		body: {
-			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
-			time: new Date().toString()
-		}
+		// headers: { 'Content-Type': 'svg+xml' },
+		// body: {
+		// 	chart: JSON.stringify(chart),
+		// 	time: new Date().toString()
+		// }
 	};
 }
