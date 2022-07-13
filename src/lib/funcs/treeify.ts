@@ -1,4 +1,3 @@
-
 import * as d3 from 'd3';
 const leaf = [
 	{ x: 0, y: 0 },
@@ -147,11 +146,22 @@ export default function treeify(
 			return targetName === 'Survival' ? 'green' : targetName === 'Extinction' ? 'black' : 'red';
 		})
 		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')); // class is used for conditionally animating
-		// .attr('stroke-dasharray', (d: any, n) => {
-		// 	const length = lengths[n];
-		// 	return length + ' ' + length;
-		// })
 
+	// Line Animation Setup
+	const selector = 'path';
+	const svgpaths: SVGPathElement[] = (svg.selectAll(selector) as any)._groups[0];
+	let lengths: number[] = [];
+	for (let path of svgpaths) {
+		lengths.push(path.getTotalLength());
+	}
+
+	const datapaths = svg.selectAll(selector);
+	datapaths
+		.attr('stroke-dasharray', (d: any, n) => {
+			const length = lengths[n];
+			return length + ' ' + length;
+		})
+		.attr('stroke-dashoffset', (d: any, n) => lengths[n]);
 
 	// LINKS
 	const node = svg
@@ -193,7 +203,7 @@ export default function treeify(
 		})
 		.attr('r', r)
 
-		.attr('class', 'leaf'); // class is used for conditionally animating
+		.attr('class', 'leaf'); // class is used for css animation
 
 	// TITLE
 	if (title != null) node.append('title').text((d) => title(d.data, d));

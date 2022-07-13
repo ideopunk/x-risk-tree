@@ -60,7 +60,7 @@ text {
 }
 
 /* inner is simultaneous with circle/text animation */
-.inner {
+path.inner {
 	animation-name: path-animation;
 	animation-timing-function: linear;
 	animation-duration: calc(var(--duration) * 1ms);
@@ -68,7 +68,7 @@ text {
 	animation-fill-mode: forwards;
 }
 
-.outer {
+path.outer {
 	animation-name: path-animation;
 	animation-timing-function: linear;
 	animation-delay: calc(var(--duration) * 1ms);
@@ -86,7 +86,7 @@ text {
 .leaf {
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
-	animation-duration: calc(var(--duration) * 2.5ms);
+	animation-duration: calc(var(--duration) * 2.4ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 }
@@ -97,7 +97,7 @@ text {
 		transform: scale(0.1);
 	}
 
-	80% {
+	82% {
 		opacity: 0;
 		transform: scale(0.1);
 	}

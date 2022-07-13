@@ -12,29 +12,13 @@ export function animateInnerPaths() {
 	}
 
 	// Animate the path by setting the initial offset and dasharray and then transition the offset to 0
-	const datapaths = d3.selectAll(selector);
-	datapaths
-		.attr('stroke-dasharray', (d: any, n) => {
-			const length = lengths[n];
-			return length + ' ' + length;
-		})
-		.attr('stroke-dashoffset', (d: any, n) => lengths[n])
-		// .transition()
-		// .ease(d3.easeLinear)
-		// .attr('stroke-dashoffset', 0)
-		// .duration(duration);
-
-	// DOT ANIMATION
-	// const dots = d3.selectAll('circle')
-
-	// TEXT ANIMATION
-	// const texts = d3.selectAll('text, circle');
-	// texts
-	// 	.attr('opacity', 0)
-	// 	.transition()
-	// 	.ease(d3.easeLinear)
-	// 	.attr('opacity', 0.8)
-	// 	.duration(duration * 1.5);
+	// const datapaths = d3.selectAll(selector);
+	// datapaths
+	// 	.attr('stroke-dasharray', (d: any, n) => {
+	// 		const length = lengths[n];
+	// 		return length + ' ' + length;
+	// 	})
+	// 	.attr('stroke-dashoffset', (d: any, n) => lengths[n]);
 }
 export function animateOuterPaths() {
 	const selector = 'path.outer';
@@ -46,29 +30,11 @@ export function animateOuterPaths() {
 	}
 
 	// Animate the path by setting the initial offset and dasharray and then transition the offset to 0
-	const datapaths = d3.selectAll(selector);
-	datapaths
-		.attr('stroke-dasharray', (d: any, n) => {
-			const length = lengths[n];
-			return length + ' ' + length;
-		})
-		.attr('stroke-dashoffset', (d: any, n) => lengths[n])
-		// .transition()
-		// .delay(duration)
-		// .ease(d3.easeLinear)
-		// .attr('stroke-dashoffset', 0)
-		// .duration(duration);
-}
-export function animateLeaves() {
-	const selector = 'path.leaf';
-
-	const datapaths = d3.selectAll(selector);
-	// datapaths.attr('opacity', 0).attr('transform', (d: any) => `scale(0.1)`);
-	// .transition();
-	// 	.delay(duration * 2 - (duration * 0.1))
-	// 	.ease(d3.easeLinear)
-	// 	.attr('opacity', 0.8)
-	// 	.attr('transform', (d: any) => `scale(1)`)
-
-	// 	.duration(duration * 0.8);
+	// const datapaths = d3.selectAll(selector);
+	// datapaths
+	// 	.attr('stroke-dasharray', (d: any, n) => {
+	// 		const length = lengths[n];
+	// 		return length + ' ' + length;
+	// 	})
+	// 	.attr('stroke-dashoffset', (d: any, n) => lengths[n]);
 }

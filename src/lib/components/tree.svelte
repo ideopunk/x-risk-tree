@@ -6,7 +6,7 @@
 	import { validate_slots } from 'svelte/internal';
 	import dataTransform from '$lib/funcs/dataTransform';
 	import linker from '$lib/funcs/linker';
-	import { animateInnerPaths, animateLeaves, animateOuterPaths } from '$lib/funcs/animations';
+	import { animateInnerPaths, animateOuterPaths } from '$lib/funcs/animations';
 
 	export let vals: {
 		total: number;
@@ -39,7 +39,6 @@
 		// Animate the graph
 		animateInnerPaths();
 		animateOuterPaths();
-		animateLeaves();
 	});
 </script>
 
