@@ -1,11 +1,16 @@
+import dataTransform from '$lib/funcs/dataTransform';
+import linker from '$lib/funcs/linker';
+import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
 async function metaculusFetch(question: number): Promise<number> {
+	return 0.3;
+
 	const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`);
 
-	const bod = await res.json();
-	const avg = bod.prediction_timeseries.at(-1).distribution.avg;
 
+	const bod = await res.json();
+	const avg = bod.prediction_timeseries[bod.prediction_timeseries.length - 1].distribution.avg;
 	return avg;
 }
 
@@ -85,12 +90,34 @@ export async function get(): Promise<RequestHandlerOutput> {
 	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
 	const total = Math.round(totalAvg * 100);
 
-	console.log('BUILD COMPLETE'); 
+	console.log('BUILD COMPLETE');
+
+	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
+
+	let input = dataTransform(vals);
+	const chart = treeify(input, {
+		label: (d) => d.name,
+		title: (d, n) => d.name,
+		link: (d, n) => linker(n),
+		width: 652,
+		height: 652,
+		margin: 50
+	});
+
 	return {
 		status: 200,
+		headers: { 'Content-Type': 'svg+xml' },
 		body: {
 			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
+			chart: JSON.stringify(chart),
 			time: new Date().toString()
 		}
 	};
+
+	// return {
+	// 	status: 200,
+	// 	body: {
+	// 		time: new Date().toString()
+	// 	}
+	// };
 }

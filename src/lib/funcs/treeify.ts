@@ -1,4 +1,6 @@
 import * as d3 from 'd3';
+import jsdom from 'jsdom';
+
 const leaf = [
 	{ x: 0, y: 0 },
 	{ x: 15, y: -10 },
@@ -86,6 +88,10 @@ export default function treeify(
 		haloWidth?: number; // padding around the labels
 	}
 ) {
+	const document = new jsdom.JSDOM().window.document;
+	document.body.innerHTML = '';
+	let body = d3.select(document).select('body');
+
 	// If id and parentId options are specified, or the path option, use d3.stratify
 	// to convert tabular data to a hierarchy; otherwise we assume that the data is
 	// specified as an object {children} with nested objects (a.k.a. the “flare.json”
@@ -110,9 +116,12 @@ export default function treeify(
 		.size([2 * Math.PI, radius])
 		.separation(separation)(root);
 
+	// BODY??
+	body.attr('width', width).attr('height', height);
+
 	// CONTAINER AND TEXT STYLE
-	const svg = d3
-		.create('svg')
+	const svg = body
+		.append('svg')
 		.attr('viewBox', [-marginLeft - radius, -marginTop - radius, width, height])
 		.attr('width', width)
 		.attr('height', height)
@@ -145,23 +154,38 @@ export default function treeify(
 			const targetName = d.target.data.name;
 			return targetName === 'Survival' ? 'green' : targetName === 'Extinction' ? 'black' : 'red';
 		})
-		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')); // class is used for conditionally animating
+		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
+		.attr('stroke-dasharray', (d: any, n) => {
+			return 1000;
+		})
+		.attr(
+			'stroke-dashoffset',
+			(d: any, n) => 1000
+			// lengths[n]
+		);
 
 	// Line Animation Setup
 	const selector = 'path';
-	const svgpaths: SVGPathElement[] = (svg.selectAll(selector) as any)._groups[0];
+	const svgpaths: SVGPathElement[] = (body.selectAll(selector) as any)._groups[0];
 	let lengths: number[] = [];
-	for (let path of svgpaths) {
-		lengths.push(path.getTotalLength());
-	}
-
 	const datapaths = svg.selectAll(selector);
-	datapaths
-		.attr('stroke-dasharray', (d: any, n) => {
-			const length = lengths[n];
-			return length + ' ' + length;
-		})
-		.attr('stroke-dashoffset', (d: any, n) => lengths[n]);
+
+	// for (let path of datapaths) {
+	// 	lengths.push(path.node().getTotalLength());
+	// }
+
+	// datapaths
+	// 	.attr('stroke-dasharray', (d: any, n) => {
+	// 		return 1000;
+	// 		const length = d.node().getTotalLength();
+	// 		// const length = lengths[n];
+	// 		return length + ' ' + length;
+	// 	})
+	// 	.attr(
+	// 		'stroke-dashoffset',
+	// 		(d: any, n) => 1000
+	// 		// lengths[n]
+	// 	);
 
 	// LINKS
 	const node = svg
@@ -221,5 +245,5 @@ export default function treeify(
 			.attr('stroke-width', haloWidth)
 			.text((d, i) => L[i]);
 
-	return svg.node();
+	return (body.node() as HTMLBodyElement).innerHTML;
 }

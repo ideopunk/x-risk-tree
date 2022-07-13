@@ -60,7 +60,7 @@ text {
 }
 
 /* inner is simultaneous with circle/text animation */
-path.inner {
+path.inner.anime {
 	animation-name: path-animation;
 	animation-timing-function: linear;
 	animation-duration: calc(var(--duration) * 1ms);
@@ -68,7 +68,7 @@ path.inner {
 	animation-fill-mode: forwards;
 }
 
-path.outer {
+path.outer.anime {
 	animation-name: path-animation;
 	animation-timing-function: linear;
 	animation-delay: calc(var(--duration) * 1ms);
@@ -86,7 +86,7 @@ path.outer {
 .leaf {
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
-	animation-duration: calc(var(--duration) * 2.4ms);
+	animation-duration: calc(var(--duration) * 2.5ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 }

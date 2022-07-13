@@ -1,26 +1,42 @@
 <script lang="ts">
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import Tree from '$lib/components/tree.svelte';
+	import { onMount } from 'svelte';
 
-	export const prerender = true;
-
+	// export const prerender = true;
 	export let time: string;
-	export let vals: {
-		total: number;
-		climate: number;
-		climateX: number;
-		nano: number;
-		nanoX: number;
-		nuke: number;
-		nukeX: number;
-		ai: number;
-		aiX: number;
-		bio: number;
-		bioX: number;
-	};
+	// export let vals: {
+	// 	total: number;
+	// 	climate: number;
+	// 	climateX: number;
+	// 	nano: number;
+	// 	nanoX: number;
+	// 	nuke: number;
+	// 	nukeX: number;
+	// 	ai: number;
+	// 	aiX: number;
+	// 	bio: number;
+	// 	bioX: number;
+	// };
 
-	// export let chart: string;
-	// $: realChart = JSON.parse(chart);
+	export let chart: string;
+	$: realChart = JSON.parse(chart);
+
+	/* 
+For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdom issue? Regardless, 
+	*/
+	onMount(() => {
+		const uh = document.querySelectorAll('path');
+		uh.forEach((uhh) => {
+			const length = uhh.getTotalLength();
+			console.log(length);
+			uhh['stroke-dasharray'] = length;
+			uhh['stroke-dashoffset'] = length;
+			uhh.setAttribute('stroke-dasharray', length);
+			uhh.setAttribute('stroke-dashoffset', length);
+			uhh.classList.add('anime');
+		});
+	});
 </script>
 
 <article class="w-screen text-center prose">
@@ -28,11 +44,11 @@
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive?</h2>
 </article>
 
-<Tree {vals} />
+<!-- <Tree {vals} /> -->
 
-<!-- {#if chart}
-	{@html realChart?.outerHTML}
-{/if} -->
+{#if chart}
+	{@html realChart}
+{/if}
 
 <article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
 	<p>

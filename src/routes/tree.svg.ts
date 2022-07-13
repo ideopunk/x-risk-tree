@@ -92,20 +92,20 @@ export async function get(): Promise<RequestHandlerOutput> {
 	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
 	let input = dataTransform(vals);
 
-	// const chart = treeify(input, {
-	// 	label: (d) => d.name,
-	// 	title: (d, n) => d.name,
-	// 	link: (d, n) => linker(n),
-	// 	width: 652,
-	// 	height: 652,
-	// 	margin: 50
-	// });
+	const chart = treeify(input, {
+		label: (d) => d.name,
+		title: (d, n) => d.name,
+		link: (d, n) => linker(n),
+		width: 652,
+		height: 652,
+		margin: 50
+	});
 	return {
 		status: 200,
-		// headers: { 'Content-Type': 'svg+xml' },
-		// body: {
-		// 	chart: JSON.stringify(chart),
-		// 	time: new Date().toString()
-		// }
+		headers: { 'Content-Type': 'svg+xml' },
+		body: {
+			chart: JSON.stringify(chart),
+			time: new Date().toString()
+		}
 	};
 }
