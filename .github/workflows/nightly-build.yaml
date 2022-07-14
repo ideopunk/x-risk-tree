@@ -1,0 +1,16 @@
+name: Nightly rebuild
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 0 * * *"
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: POST to build hook
+              env: 
+                DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
+              run: curl -X POST -d {} $env:DEPLOY_HOOK
+
+
+              

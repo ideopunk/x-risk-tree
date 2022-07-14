@@ -4,14 +4,15 @@ import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
 async function metaculusFetch(question: number): Promise<number> {
-	return 0.3;
+	if (process.env.NODE_ENV === 'production') {
+		const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`);
 
-	const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`);
-
-
-	const bod = await res.json();
-	const avg = bod.prediction_timeseries[bod.prediction_timeseries.length - 1].distribution.avg;
-	return avg;
+		const bod = await res.json();
+		const avg = bod.prediction_timeseries[bod.prediction_timeseries.length - 1].distribution.avg;
+		return avg;
+	} else {
+		return 0.3;
+	}
 }
 
 function makeRelative(total: number, particular: number, xRisk: number) {
@@ -24,6 +25,7 @@ function makeRelative(total: number, particular: number, xRisk: number) {
 }
 
 export async function get(): Promise<RequestHandlerOutput> {
+	// GET THE DATA
 	// By 2100 will the human population decrease by at least 10% during any period of 5 years?
 	const totalQuestion = metaculusFetch(1493);
 
@@ -83,6 +85,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 		bioXQuestion
 	]);
 
+	// CALCULATE THE PORTIONS
 	const [climate, climateX] = makeRelative(totalAvg, climateAvg, climateXAvg);
 	const [nano, nanoX] = makeRelative(totalAvg, nanoAvg, nanoXAvg);
 	const [nuke, nukeX] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
@@ -90,10 +93,9 @@ export async function get(): Promise<RequestHandlerOutput> {
 	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
 	const total = Math.round(totalAvg * 100);
 
-	console.log('BUILD COMPLETE');
-
 	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
 
+	// BUILD THE TREE
 	let input = dataTransform(vals);
 	const chart = treeify(input, {
 		label: (d) => d.name,
@@ -104,20 +106,13 @@ export async function get(): Promise<RequestHandlerOutput> {
 		margin: 50
 	});
 
+	console.log('BUILD COMPLETE'); // make sure this only logs during build, not runtime.
 	return {
 		status: 200,
-		headers: { 'Content-Type': 'svg+xml' },
 		body: {
 			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
 			chart: JSON.stringify(chart),
 			time: new Date().toString()
 		}
 	};
-
-	// return {
-	// 	status: 200,
-	// 	body: {
-	// 		time: new Date().toString()
-	// 	}
-	// };
 }
