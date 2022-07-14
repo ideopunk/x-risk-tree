@@ -10,7 +10,7 @@ jobs:
             - name: POST to build hook
               env: 
                 DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
-              run: curl -X POST -d {} $env:DEPLOY_HOOK
+              run: curl -X POST -d {} "$DEPLOY_HOOK"
 
 
               
