@@ -1,40 +1,24 @@
 <script lang="ts">
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import Tree from '$lib/components/tree.svelte';
 	import { onMount } from 'svelte';
 
-	// export const prerender = true;
 	export let time: string;
-	// export let vals: {
-	// 	total: number;
-	// 	climate: number;
-	// 	climateX: number;
-	// 	nano: number;
-	// 	nanoX: number;
-	// 	nuke: number;
-	// 	nukeX: number;
-	// 	ai: number;
-	// 	aiX: number;
-	// 	bio: number;
-	// 	bioX: number;
-	// };
 
 	export let chart: string;
 	$: realChart = JSON.parse(chart);
 
 	/* 
-For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdom issue? Regardless, 
+	For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdom issue? 
 	*/
 	onMount(() => {
-		const uh = document.querySelectorAll('path');
-		uh.forEach((uhh) => {
-			const length = uhh.getTotalLength();
-			console.log(length);
-			uhh['stroke-dasharray'] = length;
-			uhh['stroke-dashoffset'] = length;
-			uhh.setAttribute('stroke-dasharray', length);
-			uhh.setAttribute('stroke-dashoffset', length);
-			uhh.classList.add('anime');
+		const paths = document.querySelectorAll('path');
+		paths.forEach((path) => {
+			const length = path.getTotalLength();
+			path['stroke-dasharray'] = length;
+			path['stroke-dashoffset'] = length;
+			path.setAttribute('stroke-dasharray', String(length));
+			path.setAttribute('stroke-dashoffset', String(length));
+			path.classList.add('anime');
 		});
 	});
 </script>
@@ -43,8 +27,6 @@ For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdo
 	<h1 class="text-center mt-8 mb-4">The Tree of Forking Paths</h1>
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive?</h2>
 </article>
-
-<!-- <Tree {vals} /> -->
 
 {#if chart}
 	{@html realChart}
@@ -72,7 +54,7 @@ For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdo
 		If you'd like to learn more about existential risks, see our <a
 			sveltekit:prefetch
 			href="faq"
-			class="text-green-forest hover:text-black font-bold">FAQ</a
+			class="text-green-forest hover:text-black transition-colors font-bold">FAQ</a
 		>.
 	</p>
 </article>
