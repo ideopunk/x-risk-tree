@@ -166,6 +166,12 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => {
+			// this is an inner leaf
+			if (d.target.height) {
+				// if all the child leaves are extinction, then this inner path should be colored for extinction
+				const anyNonExtinction = d.target.children.some((c) => c.data.name !== 'Extinction');
+				if (!anyNonExtinction) return 'black';
+			}
 			const targetName = d.target.data.name;
 			return targetName === 'Survival'
 				? 'green'
@@ -212,6 +218,9 @@ export default function treeify(
 		.attr('fill', (d: any, i) => {
 			if (d.height === 2) return 'orange'; // the future
 
+			const anyNonExtinction = d.children.some((c) => c.data.name !== 'Extinction'); // if all descendents are Extinction, color this for extinction
+			if (!anyNonExtinction) return 'black';
+
 			const name = d.data.name;
 			return name === 'Survival'
 				? 'green'
@@ -250,6 +259,7 @@ export default function treeify(
 			.append('text')
 			.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
 			.attr('dy', '0.32em')
+			.attr('dx', (d: any) => (d.x >= Math.PI ? '-5rem' : '0rem'))
 			.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
 			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
 			.attr('paint-order', 'stroke')
