@@ -1,4 +1,4 @@
-export default function dataTransform(vals: {
+export default function metaculusDataTransform(vals: {
 	total: number;
 	climate: number;
 	climateX: number;
@@ -13,35 +13,6 @@ export default function dataTransform(vals: {
 }) {
 	const transformed = {
 		name: 'The Future',
-		// children: [
-		// 	...Array.from({ length: vals.climate }).map((_, i) => {
-		// 		return { name: i < vals.climateX ? 'Climate Extinction' : 'Climate Catastrophe' };
-		// 	}),
-		// 	...Array.from({ length: vals.nano }).map((_, i) => {
-		// 		return {
-		// 			name: i < vals.nanoX ? 'Nanotechnology Extinction' : 'Nanotechnology Catastrophe'
-		// 		};
-		// 	}),
-		// 	...Array.from({ length: vals.nuke }).map((_, i) => {
-		// 		return { name: i < vals.nukeX ? 'Nuclear Extinction' : 'Nuclear Catastrophe' };
-		// 	}),
-		// 	...Array.from({ length: vals.ai }).map((_, i) => {
-		// 		return {
-		// 			name:
-		// 				i < vals.aiX
-		// 					? 'Artificial Intelligence Extinction'
-		// 					: 'Artificial Intelligence Catastrophe'
-		// 		};
-		// 	}),
-		// 	...Array.from({ length: vals.bio }).map((_, i) => {
-		// 		return {
-		// 			name: i < vals.bioX ? 'Bioengineering Extinction' : 'Bioengineering Catastrophe'
-		// 		};
-		// 	}),
-		// 	...Array.from({ length: 100 - vals.total }).map(() => {
-		// 		return { name: 'Human Survival' };
-		// 	})
-		// ]
 		children: [
 			{
 				name: 'Climate',

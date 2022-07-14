@@ -35,6 +35,7 @@ export default function treeify(
 		label = null, // given a node d, returns the display name
 		title = null, // given a node d, returns its hover text
 		link = null, // given a node d, its link (if any)
+		totalLink = '', // if there's one ref the whole thing should link to.
 		linkTarget = '_blank', // the target attribute for links (if any)
 		width = 640, // outer width, in pixels
 		height = 400, // outer height, in pixels
@@ -65,7 +66,8 @@ export default function treeify(
 		sort?: null | ((d: any) => any); // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
 		label: ((d: any) => any) | null; // given a node d, returns the display name
 		title: ((d: any, n: any) => string) | null; // given a node d, returns its hover text
-		link: ((d: any, n: any) => string) | null; // given a node d, its link (if any)
+		link?: ((d: any, n: any) => string) | null; // given a node d, its link (if any)
+		totalLink?: string;
 		linkTarget?: string; // the target attribute for links (if any)
 		width?: number; // outer width, in pixels
 		height?: number; // outer height, in pixels
@@ -119,8 +121,21 @@ export default function treeify(
 	// BODY??
 	body.attr('width', width).attr('height', height);
 
+	// SINGLE LINK ALTERNATIVE
+	let totalAnchor = totalLink
+		? body
+				.append('a')
+				.attr('rel', 'external')
+				.attr('tabindex', 0)
+				.attr('class', 'total-link')
+				.attr('style', `width: ${width}px; height: ${height}p; display: block`)
+				.attr('aria-label', 'Link to estimates')
+				.attr('href', totalLink)
+				.attr('target', linkTarget)
+		: null;
+
 	// CONTAINER AND TEXT STYLE
-	const svg = body
+	const svg = (totalAnchor ? totalAnchor : body)
 		.append('svg')
 		.attr('viewBox', [-marginLeft - radius, -marginTop - radius, width, height])
 		.attr('width', width)
@@ -152,49 +167,34 @@ export default function treeify(
 		)
 		.attr('stroke', (d: any, i) => {
 			const targetName = d.target.data.name;
-			return targetName === 'Survival' ? 'green' : targetName === 'Extinction' ? 'black' : 'red';
+			return targetName === 'Survival'
+				? 'green'
+				: targetName === 'Flourishing'
+				? 'blue'
+				: targetName === 'Extinction'
+				? 'black'
+				: 'red';
 		})
 		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
 		.attr('stroke-dasharray', (d: any, n) => {
-			return 1000;
+			return 1000; // necessary filler, real s-do is set onMount
 		})
 		.attr(
 			'stroke-dashoffset',
-			(d: any, n) => 1000
+			(d: any, n) => 1000 // necessary filler, real s-do is set onMount
 			// lengths[n]
 		);
 
-	// Line Animation Setup
-	const selector = 'path';
-	const svgpaths: SVGPathElement[] = (body.selectAll(selector) as any)._groups[0];
-	let lengths: number[] = [];
-	const datapaths = svg.selectAll(selector);
-
-	// for (let path of datapaths) {
-	// 	lengths.push(path.node().getTotalLength());
-	// }
-
-	// datapaths
-	// 	.attr('stroke-dasharray', (d: any, n) => {
-	// 		return 1000;
-	// 		const length = d.node().getTotalLength();
-	// 		// const length = lengths[n];
-	// 		return length + ' ' + length;
-	// 	})
-	// 	.attr(
-	// 		'stroke-dashoffset',
-	// 		(d: any, n) => 1000
-	// 		// lengths[n]
-	// 	);
-
 	// LINKS
+
 	const node = svg
 		.append('g')
 		.selectAll('a')
 		.data(root.descendants())
 		.join('a')
-		.attr('rel', 'external')
+		.attr('rel', link === null ? null : 'external')
 		.attr('tabindex', (d: any, n) => {
+			if (link === null) return null;
 			return d.depth === 2 && d.data.name !== 'Extinction' ? '-1' : '0';
 		})
 		.attr('href', link == null ? null : (d) => link(d.data, d))
@@ -213,7 +213,13 @@ export default function treeify(
 			if (d.height === 2) return 'orange'; // the future
 
 			const name = d.data.name;
-			return name === 'Survival' ? 'green' : name === 'Extinction' ? 'brown' : 'red';
+			return name === 'Survival'
+				? 'green'
+				: name === 'Flourishing'
+				? 'blue'
+				: name === 'Extinction'
+				? 'brown'
+				: 'red';
 		})
 		.attr('r', r);
 
@@ -223,7 +229,13 @@ export default function treeify(
 		.attr('d', curveFunc(leaf as any))
 		.attr('fill', (d: any, i) => {
 			const name = d.data.name;
-			return name === 'Survival' ? 'green' : name === 'Extinction' ? 'black' : 'red';
+			return name === 'Survival'
+				? 'green'
+				: name === 'Flourishing'
+				? 'blue'
+				: name === 'Extinction'
+				? 'black'
+				: 'red';
 		})
 		.attr('r', r)
 

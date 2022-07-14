@@ -21,6 +21,8 @@
 			<TocEntry text="This is really gloomy!" href="#this-is-gloomy" />
 			<TocEntry text="Who made this?" href="#who-made-this" />
 			<TocEntry text="Can I see the code?" href="#can-i-see" />
+			<TocEntry text="Further Reading" href="#resources" />
+
 			<li><a class="font-bold text-xl" href="/" sveltekit:prefetch>Return to tree</a></li>
 		</ul>
 	</div>
@@ -152,6 +154,36 @@
 					>https://observablehq.com/@d3/radial-tree</XLink
 				>)</Answer
 			>
+			<Question id="resources">Further Reading</Question>
+			<Answer>
+				<ul>
+					<li>
+						80,000 Hours (2020){' '}
+						<XLink href="https://80000hours.org/2020/04/longtermist-policy-ideas/">
+							Policy and research ideas to reduce existential risk.
+						</XLink>
+					</li>
+					<li>
+						<XLink href="https://forum.effectivealtruism.org/topics/existential-risk"
+							>Existential Risk</XLink
+						>, Effective Altruism Forum - Topics.
+					</li>
+					<li>
+						Bostrom, Nick (2002){' '}
+						<XLink href="https://www.jetpress.org/volume9/risks.html"
+							>Existential risks: analyzing human extinction scenarios and related hazards</XLink
+						>, Journal of Evolution and Technology, vol. 9.
+					</li>
+					<li>
+						MichaelA (2020){' '}
+						<XLink
+							href="https://forum.effectivealtruism.org/posts/JQQAQrunyGGhzE23a/database-of-existential-risk-estimates"
+						>
+							Database of existential risk estimates
+						</XLink>, Effective Altruism Forum.
+					</li>
+				</ul>
+			</Answer>
 			<div class="h-12" id="hack" />
 		</article>
 	</div>

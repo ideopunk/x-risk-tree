@@ -1,4 +1,4 @@
-import dataTransform from '$lib/funcs/dataTransform';
+import metaculusDataTransform from '$lib/funcs/dataTransform';
 import linker from '$lib/funcs/linker';
 import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
@@ -96,7 +96,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
 
 	// BUILD THE TREE
-	let input = dataTransform(vals);
+	let input = metaculusDataTransform(vals);
 	const chart = treeify(input, {
 		label: (d) => d.name,
 		title: (d, n) => d.name,

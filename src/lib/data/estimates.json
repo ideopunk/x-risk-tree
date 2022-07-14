@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Toby Ord",
+        "outcomes": [
+            {
+                "name": "Flourishing",
+                "probability": 50
+            },
+            {
+                "name": "Survival",
+                "probability": 32
+            },
+            {
+                "name": "Engineered Pandemics",
+                "probability": 3
+            },
+            {
+                "name": "Unaligned artificial intelligence",
+                "probability": 10
+            },
+            {
+                "name": "Unforeseen anthropogenic risks",
+                "probability": 3
+            },
+            {
+                "name": "Other anthropogenic risks",
+                "probability": 2
+            }
+        ]
+    }
+]
