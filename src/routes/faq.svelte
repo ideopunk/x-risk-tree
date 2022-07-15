@@ -5,28 +5,30 @@
 	import XLink from '$lib/components/ExternalLink.svelte';
 </script>
 
-<div class="flex flex-col lg:flex-row lg:h-screen w-screen justify-between">
-	<div class="lg:w-1/3 pl-8 lg:pl-24 pr-8 pt-12 ">
-		<h3 class="text-xl mb-4">Table of Contents</h3>
-		<ul>
-			<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
-			<TocEntry text="Is humanity dying out so bad?" href="#so-bad" />
-			<TocEntry text="How can I help with existential risk?" href="#help" />
-			<TocEntry text="What do the colors mean?" href="#colors" />
-			<TocEntry text="Are the numbers you use real?" href="#numbers" />
-			<TocEntry
-				text="This is really great, I now think humanity will probably survive!"
-				href="#this-is-great"
-			/>
-			<TocEntry text="This is really gloomy!" href="#this-is-gloomy" />
-			<TocEntry text="Who made this?" href="#who-made-this" />
-			<TocEntry text="Can I see the code?" href="#can-i-see" />
-			<TocEntry text="Further Reading" href="#resources" />
+<div class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between">
+	<div class="flex justify-center lg:w-1/3">
+		<div class="w-[65ch] lg:w-full pl-0 lg:pl-24 pr-8 pt-12 ">
+			<h3 class="text-xl mb-4">Table of Contents</h3>
+			<ul>
+				<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
+				<TocEntry text="Is humanity dying out so bad?" href="#so-bad" />
+				<TocEntry text="How can I help with existential risk?" href="#help" />
+				<TocEntry text="What do the colors mean?" href="#colors" />
+				<TocEntry text="Are the numbers you use real?" href="#numbers" />
+				<TocEntry
+					text="This is really great, I now think humanity will probably survive!"
+					href="#this-is-great"
+				/>
+				<TocEntry text="This is really gloomy!" href="#this-is-gloomy" />
+				<TocEntry text="Who made this?" href="#who-made-this" />
+				<TocEntry text="Can I see the code?" href="#can-i-see" />
+				<TocEntry text="Further Reading" href="#resources" />
 
-			<li><a class="font-bold text-xl" href="/" sveltekit:prefetch>Return to tree</a></li>
-		</ul>
+				<li><a class="font-bold text-xl" href="/" sveltekit:prefetch>Return to tree</a></li>
+			</ul>
+		</div>
 	</div>
-	<div class="lg:w-2/3 py-12 px-8 lg:px-0 flex justify-center lg:overflow-y-scroll">
+	<div class="lg:w-2/3 py-12  flex justify-center lg:overflow-y-scroll">
 		<article class="prose w-full  ">
 			<Question id="what-is-x-risk">What is existential risk?</Question>
 			<Answer
