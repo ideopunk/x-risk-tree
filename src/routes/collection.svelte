@@ -23,9 +23,11 @@
 
 <!-- <h3 class="text-2xl mb-12 text-center">Alternative X-Risk Estimates</h3> -->
 
-<div class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between pt-8">
+<div
+	class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between pt-8 relative"
+>
 	<div class="flex justify-center lg:w-1/3 ">
-		<div class="w-[65ch] lg:w-full pl-0 lg:pl-24 pr-8 ">
+		<div class="w-[65ch] pl-0 lg:pl-24 pr-8 fixed top-8 left-0">
 			<h3 class="text-xl mb-4">Alternative X-Risk Estimates</h3>
 
 			<ul>
@@ -55,7 +57,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="lg:w-2/3 pb-12 flex flex-col items-center overflow-y-scroll">
+	<div class="lg:w-2/3 pb-12 flex flex-col items-center">
 		{#if charts}
 			{#each charts as chart}
 				<h3 class="text-center self-center text-2xl">{chart.title}</h3>

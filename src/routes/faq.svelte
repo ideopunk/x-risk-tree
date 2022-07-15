@@ -6,9 +6,9 @@
 	import InternalLink from '$lib/components/InternalLink.svelte';
 </script>
 
-<div class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between">
-	<div class="flex justify-center lg:w-1/3">
-		<div class="w-[65ch] lg:w-full pl-0 lg:pl-24 pr-8 mt-8 ">
+<div class="flex flex-col lg:flex-row px-8 lg:px-0  w-screen justify-between relative">
+	<div class="flex justify-center lg:w-1/3 ">
+		<div class="w-[65ch] lg:w-full pl-0 lg:pl-24 pr-8 mt-8 left-0 top-0 h-min fixed">
 			<h3 class="text-xl mb-4">Table of Contents</h3>
 			<ul>
 				<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
@@ -30,7 +30,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="lg:w-2/3 pb-12  flex justify-center lg:overflow-y-scroll">
+	<div class="lg:w-2/3 pb-12  flex justify-center ">
 		<article class="prose w-full  ">
 			<Question id="what-is-x-risk">What is existential risk?</Question>
 			<Answer
