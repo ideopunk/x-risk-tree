@@ -5,7 +5,8 @@ import estimateToObject from '$lib/funcs/estimateToObject';
 
 export async function get(): Promise<RequestHandlerOutput> {
 	let data: {
-		name: string;
+		title: string;
+		name: "The Future";
 		children: {
 			name: string;
 			children: {
@@ -21,27 +22,28 @@ export async function get(): Promise<RequestHandlerOutput> {
 			);
 		}
 
-		data.push(estimateToObject(entry.outcomes));
+		data.push(estimateToObject(entry));
 	}
 
-	let charts: string[] = [];
+	let charts: { tree: string; title: string }[] = [];
 	for (const entry of data) {
-		charts.push(
-			treeify(entry, {
+		charts.push({
+			tree: treeify(entry, {
 				label: (d) => d.name,
 				title: (d, n) => d.name,
 				totalLink: 'https://slatestarcodex.com/2020/04/01/book-review-the-precipice/',
 				width: 652,
 				height: 652,
 				margin: 50
-			})
-		);
+			}),
+			title: entry.title
+		});
 	}
 
 	return {
 		status: 200,
 		body: {
-			charts: JSON.stringify(charts),
+			charts,
 			time: new Date().toString()
 		}
 	};

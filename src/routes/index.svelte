@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import InternalLink from '$lib/components/InternalLink.svelte';
 	import { onMount } from 'svelte';
 
 	export let time: string;
@@ -51,10 +52,12 @@
 		<span class="text-black font-bold">(near-)extinction events</span>.
 	</p>
 	<p>
-		If you'd like to learn more about existential risks, see our <a
-			sveltekit:prefetch
-			href="faq"
-			class="text-green-forest hover:text-black transition-colors font-bold">FAQ</a
+		If you'd like to learn more about existential risks, see our <InternalLink href="faq"
+			>FAQ
+		</InternalLink>.
+	</p>
+	<p>
+		Other predictions can be found in our <InternalLink href="/collection">collection</InternalLink
 		>.
 	</p>
 </article>

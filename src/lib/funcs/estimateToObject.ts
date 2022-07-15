@@ -1,7 +1,8 @@
 export default function estimateToObject(
-	estimate: { name: string; probability: number }[] // these are formatted a little differently from how metaculus does it because most people don't give paired catastrophe/extinction estimates.
+	estimate: { name: string; outcomes: { name: string; probability: number }[] } // these are formatted a little differently from how metaculus does it because most people don't give paired catastrophe/extinction estimates.
 ): {
-	name: string;
+	title: string;
+	name: 'The Future';
 	children: {
 		name: string;
 		children: {
@@ -10,8 +11,9 @@ export default function estimateToObject(
 	}[];
 } {
 	return {
+		title: estimate.name,
 		name: 'The Future',
-		children: estimate.map((outcome) => {
+		children: estimate.outcomes.map((outcome) => {
 			return {
 				name: outcome.name,
 				children: Array.from({ length: Math.round(outcome.probability) }).map((x) => {
