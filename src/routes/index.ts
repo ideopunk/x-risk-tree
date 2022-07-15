@@ -1,5 +1,5 @@
-import metaculusDataTransform from '$lib/funcs/dataTransform';
-import linker from '$lib/funcs/linker';
+import metaculusDataTransform from '$lib/funcs/metaculusDataTransform';
+import metaculusLinker from '$lib/funcs/metaculusLinker';
 import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
@@ -97,10 +97,12 @@ export async function get(): Promise<RequestHandlerOutput> {
 
 	// BUILD THE TREE
 	let input = metaculusDataTransform(vals);
+	console.log(input.children);
+
 	const chart = treeify(input, {
 		label: (d) => d.name,
 		title: (d, n) => d.name,
-		link: (d, n) => linker(n),
+		link: (d, n) => metaculusLinker(n),
 		width: 652,
 		height: 652,
 		margin: 50

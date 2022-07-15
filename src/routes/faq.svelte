@@ -8,7 +8,7 @@
 
 <div class="flex flex-col lg:flex-row px-8 lg:px-0  w-screen justify-between relative">
 	<div class="flex justify-center lg:w-1/3 ">
-		<div class="w-[65ch] lg:w-full pl-0 lg:pl-24 pr-8 mt-8 left-0 top-0 h-min fixed">
+		<div class="w-[65ch] lg:w-1/3 pl-0 lg:pl-24 pr-8 mt-8 left-0 top-0 h-min fixed ">
 			<h3 class="text-xl mb-4">Table of Contents</h3>
 			<ul>
 				<TocEntry text="What is existential risk?" href="#what-is-x-risk" />
@@ -118,7 +118,12 @@
 					>'adversarial collaboration'</XLink
 				>
 				between general forecasters and domain experts. We are happy to include alternative datasets
-				on the site from experts, or from famous predictions.
+				on the site from experts, or from famous predictions in our <InternalLink href="/collection"
+					>collection</InternalLink
+				>, which has started with data from Michael Aird's <XLink
+					href="https://docs.google.com/spreadsheets/d/1W10B6NJjicD8O0STPiT3tNV3oFnT8YsfjmtYR8RO_RI/edit#gid=0"
+					>Database of existential risk estimates</XLink
+				>.
 			</Answer>
 
 			<Question id="this-is-great"

@@ -1,3 +1,5 @@
+import type { TreeData } from '../types';
+
 export default function metaculusDataTransform(vals: {
 	total: number;
 	climate: number;
@@ -10,7 +12,7 @@ export default function metaculusDataTransform(vals: {
 	aiX: number;
 	bio: number;
 	bioX: number;
-}) {
+}): TreeData {
 	const transformed = {
 		name: 'The Future',
 		children: [

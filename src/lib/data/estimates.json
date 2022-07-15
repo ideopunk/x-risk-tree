@@ -1,31 +1,31 @@
 [
-    {
-        "name": "Toby Ord",
-        "outcomes": [
-            {
-                "name": "Flourishing",
-                "probability": 50
-            },
-            {
-                "name": "Survival",
-                "probability": 32
-            },
-            {
-                "name": "Engineered Pandemics",
-                "probability": 3
-            },
-            {
-                "name": "Unaligned artificial intelligence",
-                "probability": 10
-            },
-            {
-                "name": "Unforeseen anthropogenic risks",
-                "probability": 3
-            },
-            {
-                "name": "Other anthropogenic risks",
-                "probability": 2
-            }
-        ]
-    }
+	{
+		"title": "Toby Ord (2020) - By 2120",
+		"link": "https://slatestarcodex.com/2020/04/01/book-review-the-precipice/",
+		"notes": [],
+		"outcomes": [
+			{ "name": "Flourishing", "probabilities": { "flourishing": 50 } },
+			{ "name": "Survival", "probabilities": { "survival": 32 } },
+			{ "name": "Engineered Pandemics", "probabilities": { "extinction": 3 } },
+			{ "name": "Unaligned artificial intelligence", "probabilities": { "extinction": 10 } },
+			{ "name": "Unforeseen anthropogenic risks", "probabilities": { "extinction": 3 } },
+			{ "name": "Other anthropogenic risks", "probabilities": { "extinction": 2 } }
+		]
+	},
+
+	{
+		"title": "GCR Conference (2008) - Overall Risk of Extinction Prior to 2100",
+		"link": "https://www.fhi.ox.ac.uk/reports/2008-1.pdf",
+		"notes": ["Catastrophes are defined as at least 1 billion dead"],
+		"outcomes": [
+			{ "name": "Survival", "probabilities": { "survival": 30 } },
+
+			{ "name": "Nanotechnology", "probabilities": { "catastrophe": 5, "extinction": 5 } },
+			{ "name": "Non-Nuclear War", "probabilities": { "catastrophe": 17, "extinction": 3 } },
+			{ "name": "Nuclear War", "probabilities": { "catastrophe": 9, "extinction": 1 } },
+			{ "name": "Bioengineering", "probabilities": { "catastrophe": 8, "extinction": 2 } },
+			{ "name": "Natural Pandemic", "probabilities": { "catastrophe": 5 } },
+			{ "name": "Artificial Intelligence", "probabilities": { "extinction": 5 } }
+		]
+	}
 ]
