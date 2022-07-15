@@ -1,13 +1,9 @@
 <script lang="ts">
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import { onMount } from 'svelte';
 
-	export let charts: { tree: string; title: string; notes: string[] }[];
+	export let charts: { tree: string; title: string; notes: string[]; link: string }[];
 
-	/* 
-	For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdom issue? 
-	*/
 	onMount(() => {
 		const paths = document.querySelectorAll('path');
 		paths.forEach((path) => {
@@ -61,11 +57,13 @@
 	<div class="lg:w-2/3 pb-12 flex flex-col items-center">
 		{#if charts}
 			{#each charts as chart, i}
-				<h3 class={`text-center self-center text-2xl ${i && 'mt-16'} mb-1`}>{chart.title}</h3>
-				{#each chart.notes as note}
-					<p class="text-xs">{note}</p>
-				{/each}
-				{@html chart.tree}
+				<a href={chart.link} class="block text-black">
+					<h3 class={`text-center self-center text-2xl ${i && 'mt-16'} mb-1`}>{chart.title}</h3>
+					{#each chart.notes as note}
+						<p class="text-xs text-center">{note}</p>
+					{/each}
+					{@html chart.tree}
+				</a>
 			{/each}
 		{/if}
 	</div>

@@ -26,7 +26,7 @@
 
 <article class="w-screen text-center prose">
 	<h1 class="text-center mt-8 mb-4">The Tree of Forking Paths</h1>
-	<h2 class="text-center mt-1">In how many of our futures does humanity survive?</h2>
+	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
 </article>
 
 {#if chart}

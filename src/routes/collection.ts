@@ -33,20 +33,20 @@ export async function get(): Promise<RequestHandlerOutput> {
 		});
 	}
 
-	let charts: { tree: string; title: string; notes: string[] }[] = [];
+	let charts: { tree: string; title: string; notes: string[]; link: string }[] = [];
 	for (const entry of data) {
 		console.log(entry.children);
 		charts.push({
 			tree: treeify(entry, {
 				label: (d) => d.name,
 				title: (d, n) => d.name,
-				totalLink: entry.link,
 				width: 652,
 				height: 652,
 				margin: 50
 			}),
 			title: entry.title,
-			notes: entry.notes || []
+			notes: entry.notes || [],
+			link: entry.link
 		});
 	}
 
