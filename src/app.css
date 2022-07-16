@@ -115,3 +115,10 @@ path.outer.anime {
 	background-color: red;
 	display: block;
 }
+
+
+@media only screen and (max-width: 768px) {
+  .tree-text {
+    font-size: 13px;
+  }
+}

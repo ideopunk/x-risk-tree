@@ -40,7 +40,7 @@
 	</p>
 	<p>
 		But we are not doomed. We have the ability to prune the branches we face. We can reduce our
-		existential risks until every path leads to survival.
+		existential risks until every path leads to survival or even flourishing.
 	</p>
 	<p>
 		This tree is built from Metaculus's <ExternalLink

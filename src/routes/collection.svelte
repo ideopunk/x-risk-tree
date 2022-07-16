@@ -23,7 +23,7 @@
 	class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between pt-8 relative"
 >
 	<div class="flex justify-center lg:w-1/3 ">
-		<div class="w-[65ch] pl-0 lg:pl-24 pr-8 fixed top-8 left-0 pointer-events-none">
+		<div class="w-[65ch] pl-0 lg:pl-24 pr-8 lg:fixed top-8 left-0 pointer-events-none">
 			<h3 class="text-xl mb-4">Alternative X-Risk Estimates</h3>
 
 			<ul class="pointer-events-none">
@@ -58,7 +58,7 @@
 		{#if charts}
 			{#each charts as chart, i}
 				<a href={chart.link} class="block text-black">
-					<h3 class={`text-center self-center text-2xl ${i && 'mt-16'} mb-1`}>{chart.title}</h3>
+					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : "mt-16 lg:mt-0"} mb-1`}>{chart.title}</h3>
 					{#each chart.notes as note}
 						<p class="text-xs text-center">{note}</p>
 					{/each}
