@@ -89,7 +89,6 @@ export default function treeify(
 		haloWidth?: number; // padding around the labels
 	}
 ) {
-	console.log(JSON.stringify(data));
 	const document = new jsdom.JSDOM().window.document;
 	document.body.innerHTML = '';
 	let body = d3.select(document).select('body');

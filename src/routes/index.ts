@@ -21,7 +21,7 @@ function makeRelative(total: number, particular: number, xRisk: number) {
 
 	const roundedParticular = Math.round(realParticular * 100);
 	const roundedXRisk = Math.round(realXRisk * 100);
-	return [roundedParticular, roundedXRisk];
+	return { catastrophe: roundedParticular, extinction: roundedXRisk };
 }
 
 export async function get(): Promise<RequestHandlerOutput> {
@@ -85,19 +85,18 @@ export async function get(): Promise<RequestHandlerOutput> {
 		bioXQuestion
 	]);
 
-	// CALCULATE THE PORTIONS
-	const [climate, climateX] = makeRelative(totalAvg, climateAvg, climateXAvg);
-	const [nano, nanoX] = makeRelative(totalAvg, nanoAvg, nanoXAvg);
-	const [nuke, nukeX] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
-	const [ai, aiX] = makeRelative(totalAvg, aiAvg, aiXAvg);
-	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
-	const total = Math.round(totalAvg * 100);
+	let data = {};
 
-	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
+	// CALCULATE THE PORTIONS
+	data['climate'] = makeRelative(totalAvg, climateAvg, climateXAvg);
+	data['nanotechnology'] = makeRelative(totalAvg, nanoAvg, nanoXAvg);
+	data['nuclear war'] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
+	data['artificial intelligence'] = makeRelative(totalAvg, aiAvg, aiXAvg);
+	data['bioengineering'] = makeRelative(totalAvg, bioAvg, bioXAvg);
+	data['total'] = Math.round(totalAvg * 100);
 
 	// BUILD THE TREE
-	let input = metaculusDataTransform(vals);
-
+	let input = metaculusDataTransform(data);
 	const chart = treeify(input, {
 		label: (d) => d.name,
 		title: (d, n) => d.name,
@@ -111,7 +110,6 @@ export async function get(): Promise<RequestHandlerOutput> {
 	return {
 		status: 200,
 		body: {
-			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
 			chart: JSON.stringify(chart),
 			time: new Date().toString()
 		}

@@ -13,52 +13,56 @@ export default function linker(n: Node): string {
 	let name = n.data.name;
 	let parent = n.parent?.data.name;
 
-	// for the survivals and for the root, direct to the ragnarok question series in general
-	if (name === 'Survival' || n.depth === 0) questionNumber = 1493;
+	const names = [name, parent];
 
-	if (parent === 'Climate' || name === 'Climate') {
-		if (name === 'Extinction') {
+	// for the survivals and for the root, direct to the ragnarok question series in general
+	// if (name === 'survival' || n.depth === 0) ;
+
+	if (names.includes('climate')) {
+		if (names.includes('extinction')) {
 			questionNumber = 1604;
 		} else {
 			questionNumber = 1500;
 		}
 	}
 
-	if (parent === 'Artificial Intelligence' || name === 'Artificial Intelligence') {
-		if (name === 'Extinction') {
+	if (names.includes('artificial intelligence')) {
+		if (names.includes('extinction')) {
 			questionNumber = 2513;
 		} else {
 			questionNumber = 1495;
 		}
 	}
 
-	if (parent === 'Nanotechnology' || name === 'Nanotechnology') {
-		if (name === 'Extinction') {
+	if (names.includes('nanotechnology')) {
+		if (names.includes('extinction')) {
 			questionNumber = 7795;
 		} else {
 			questionNumber = 1501;
 		}
 	}
 
-	if (parent === 'Nuclear War' || name === 'Nuclear War') {
-		if (name === 'Extinction') {
+	if (names.includes('nuclear war')) {
+		if (names.includes('extinction')) {
 			questionNumber = 1585;
 		} else {
 			questionNumber = 1494;
 		}
 	}
 
-	if (parent === 'Bioengineering' || name === 'Bioengineering') {
-		if (name === 'Extinction') {
+	if (names.includes('bioengineering')) {
+		if (names.includes('extinction')) {
 			questionNumber = 2514;
 		} else {
 			questionNumber = 1502;
 		}
 	}
 
-	if (!questionNumber) {
-		throw new Error('could not assign question number to node ' + n);
-	}
+	console.log(names)
+	questionNumber = 1493
+	// if (!questionNumber) {
+	// 	throw new Error('could not assign question number to node ' + n);
+	// }
 
 	return 'https://www.metaculus.com/questions/' + questionNumber;
 }

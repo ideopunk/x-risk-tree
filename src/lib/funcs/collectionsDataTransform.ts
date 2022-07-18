@@ -1,4 +1,3 @@
-import type { TreeData } from '../types';
 
 export default function transform(key: string, value: number | Object) {
 	if (typeof value === 'object') {
