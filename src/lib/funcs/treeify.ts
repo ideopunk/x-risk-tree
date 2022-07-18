@@ -89,6 +89,7 @@ export default function treeify(
 		haloWidth?: number; // padding around the labels
 	}
 ) {
+	console.log(JSON.stringify(data));
 	const document = new jsdom.JSDOM().window.document;
 	document.body.innerHTML = '';
 	let body = d3.select(document).select('body');
@@ -165,20 +166,9 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => {
-			// this is an inner leaf
-			if (d.target.height) {
-				// if all the child leaves are extinction, then this inner path should be colored for extinction
-				const anyNonExtinction = d.target.children.some((c) => c.data.name !== 'Extinction');
-				if (!anyNonExtinction) return 'black';
-			}
-			const targetName = d.target.data.name;
-			return targetName === 'survival'
-				? 'green'
-				: targetName === 'flourishing'
-				? 'blue'
-				: targetName === 'extinction'
-				? 'black'
-				: 'red';
+			console.log(d);
+			const names = familyNames(d);
+			return colorizer(names);
 		})
 		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
 		.attr('stroke-dasharray', (d: any, n) => {
@@ -191,7 +181,6 @@ export default function treeify(
 		);
 
 	// LINKS
-
 	const node = svg
 		.append('g')
 		.selectAll('a')
@@ -215,12 +204,8 @@ export default function treeify(
 	innerAnchors
 		.append('circle')
 		.attr('fill', (d: any, i) => {
-			if (!d.depth) return 'orange'; // the future
-
-			const name = d.data.name;
-			if (name === 'flourishing') return 'blue';
-			if (goodOutcomes.includes(name)) return 'green';
-			return 'red';
+			const names = familyNames(d);
+			return colorizer(names);
 		})
 		.attr('r', r);
 
@@ -229,10 +214,8 @@ export default function treeify(
 		.append('path')
 		.attr('d', curveFunc(leafCoordinates as any))
 		.attr('fill', (d: any, i) => {
-			const name = d.data.name;
-			if (name === 'flourishing') return 'blue';
-			if (goodOutcomes.includes(name)) return 'green';
-			return 'red';
+			const names = familyNames(d);
+			return colorizer(names);
 		})
 		.attr('r', r)
 		.attr('class', 'leaf'); // class is used for css animation
@@ -256,4 +239,56 @@ export default function treeify(
 			.attr('class', 'tree-text');
 
 	return (body.node() as HTMLBodyElement).innerHTML;
+}
+
+type Data = { name: string };
+function familyNames(
+	d:
+		| {
+				data: Data;
+				parent: { data: Data; parent?: { data: Data } };
+				children: { data: Data }[];
+		  }
+		| { source: { data: Data }; target: { data: Data } }
+): string[] {
+	if ('data' in d) {
+		// root
+		if (!d.parent) {
+			return ['the future'];
+		}
+
+		let names = [d.data.name];
+
+		if (d.children) {
+			names.concat(...d.children.map((c) => c.data.name));
+		}
+
+		names.push(d.parent.data.name);
+
+		if (d?.parent?.parent) {
+			names.push(d.parent.parent.data.name);
+		}
+
+		return names;
+	} else {
+		let names = [d.source.data.name, d.target.data.name];
+
+		if (d?.source?.parent) {
+			names.push(d.source.parent.data.name);
+		}
+		return names;
+	}
+}
+
+function colorizer(names: string[]) {
+	// root
+	if (names.length === 1 && names[0] === 'the future') return 'orange';
+
+	if (names.includes('catastrophe')) return 'red';
+
+	if (names.includes('extinction')) return 'black';
+
+	if (names.includes('flourishing')) return 'blue';
+
+	return 'green';
 }
