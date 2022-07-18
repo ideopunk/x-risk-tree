@@ -84,11 +84,18 @@ path.outer.anime {
 }
 
 .leaf {
+	/* opacity: 0; */
+	/* transform: scale(0.1); */
+	visibility: hidden;
+}
+
+.leaf.anime {
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
-	animation-duration: calc(var(--duration) * 2.5ms);
+	animation-duration: calc(var(--duration) * 2.5ms - 150ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
+	visibility: visible;
 }
 
 @keyframes leaf-animation {
@@ -97,7 +104,7 @@ path.outer.anime {
 		transform: scale(0.1);
 	}
 
-	82% {
+	80% {
 		opacity: 0;
 		transform: scale(0.1);
 	}
@@ -116,9 +123,8 @@ path.outer.anime {
 	display: block;
 }
 
-
 @media only screen and (max-width: 768px) {
-  .tree-text {
-    font-size: 13px;
-  }
+	.tree-text {
+		font-size: 13px;
+	}
 }

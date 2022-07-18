@@ -268,5 +268,6 @@ export default function treeify(
 			.text((d, i) => L[i])
 			.attr('class', 'tree-text');
 
+	
 	return (body.node() as HTMLBodyElement).innerHTML;
 }

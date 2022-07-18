@@ -2,16 +2,19 @@
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import { onMount } from 'svelte';
 
-	export let charts: { tree: string; title: string; notes: string[]; link: string }[];
+	export let charts: { tree: SVGElement; title: string; notes: string[]; link: string }[];
 
 	onMount(() => {
 		const paths = document.querySelectorAll('path');
 		paths.forEach((path) => {
-			const length = path.getTotalLength();
-			path['stroke-dasharray'] = length;
-			path['stroke-dashoffset'] = length;
-			path.setAttribute('stroke-dasharray', String(length));
-			path.setAttribute('stroke-dashoffset', String(length));
+			if (!path.classList.contains('leaf')) {
+				const length = path.getTotalLength();
+				path['stroke-dasharray'] = length;
+				path['stroke-dashoffset'] = length;
+				path.setAttribute('stroke-dasharray', String(length));
+				path.setAttribute('stroke-dashoffset', String(length));
+			}
+
 			path.classList.add('anime');
 		});
 	});
@@ -58,7 +61,9 @@
 		{#if charts}
 			{#each charts as chart, i}
 				<a href={chart.link} class="block text-black">
-					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : "mt-16 lg:mt-0"} mb-1`}>{chart.title}</h3>
+					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : 'mt-16 lg:mt-0'} mb-1`}>
+						{chart.title}
+					</h3>
 					{#each chart.notes as note}
 						<p class="text-xs text-center">{note}</p>
 					{/each}
