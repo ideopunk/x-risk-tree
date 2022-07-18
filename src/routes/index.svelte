@@ -25,7 +25,7 @@
 </script>
 
 <article class="w-screen text-center prose">
-	<h1 class="text-center mt-8 mb-4">The Tree of Forking Paths</h1>
+	<h1 class="text-center mt-4 mb-4">The Tree of Forking Paths</h1>
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
 </article>
 
@@ -39,7 +39,7 @@
 		could even go extinct.
 	</p>
 	<p>
-		But we are not doomed. We have the ability to prune the branches we face. We can reduce our
+		But we are not doomed. Like gardeners, we can prune the branches of our future. We can reduce our
 		existential risks until every path leads to survival or even flourishing.
 	</p>
 	<p>
@@ -53,8 +53,7 @@
 	</p>
 	<p>
 		If you'd like to learn more about existential risks, see our <InternalLink href="faq"
-			>FAQ
-		</InternalLink>.
+			>FAQ</InternalLink>.
 	</p>
 	<p>
 		Other predictions can be found in our <InternalLink href="/collection">collection</InternalLink

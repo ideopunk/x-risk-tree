@@ -1,13 +1,17 @@
+import type { TreeData } from '$lib/types';
 import * as d3 from 'd3';
 import jsdom from 'jsdom';
+import titleCase from './titleCase';
 
-const leaf = [
-	{ x: 0, y: 0 },
+const leafCoordinates = [
+	{ x: -1, y: 0 },
 	{ x: 15, y: -10 },
 	{ x: 30, y: 0 },
 	{ x: 15, y: 10 },
-	{ x: 0, y: 0 }
+	{ x: -1, y: 0 }
 ];
+
+const goodOutcomes = ['survival', 'flourishing', 'sustenance'] as const;
 
 const curveFunc = d3
 	.line()
@@ -20,17 +24,20 @@ const curveFunc = d3
 // Released under the ISC license.
 // https://observablehq.com/@d3/radial-tree
 export default function treeify(
-	data,
+	data: {
+		name: string;
+		children: TreeData;
+	},
 	{
 		// data is either tabular (array of objects) or hierarchy (nested objects)
 		path = undefined, // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
 		id = Array.isArray(data) ? (d) => d.id : null, // if tabular data, given a d in data, returns a unique identifier (string)
 		parentId = Array.isArray(data) ? (d) => d.parentId : null, // if tabular data, given a node d, returns its parent’s identifier
 		children = undefined, // if hierarchical data, given a d in data, returns its children
-		tree = d3.tree, // layout algorithm (typically d3.tree or d3.cluster)
+		tree = d3.cluster, // layout algorithm (typically d3.tree or d3.cluster)
 		separation = tree === d3.tree
-			? (a, b) => (a.parent == b.parent ? 1 : 2) / a.depth
-			: (a, b) => (a.parent == b.parent ? 1 : 2),
+			? (a, b) => (a.parent == b.parent ? 1 : 3) / a.depth
+			: (a, b) => (a.parent == b.parent ? 1 : 3),
 		sort = null, // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
 		label = null, // given a node d, returns the display name
 		title = null, // given a node d, returns its hover text
@@ -46,10 +53,6 @@ export default function treeify(
 		marginLeft = margin, // left margin, in pixels
 		radius = Math.min(width - marginLeft - marginRight, height - marginTop - marginBottom) / 2, // outer radius
 		r = 3, // radius of nodes
-		padding = 1, // horizontal padding for first and last column
-		fill = '#999', // fill for nodes
-		// fillOpacity, // fill opacity for nodes
-		stroke = '#555', // stroke for links
 		strokeWidth = 2.5, // stroke width for links
 		strokeOpacity = 0.6, // stroke opacity for links
 		strokeLinejoin = 2, // stroke line join for links
@@ -78,10 +81,6 @@ export default function treeify(
 		marginLeft?: number; // left margin, in pixels
 		radius?: number;
 		r?: number; // radius of nodes
-		padding?: number; // horizontal padding for first and last column
-		fill?: string; // fill for nodes
-		// fillOpacity, // fill opacity for nodes
-		stroke?: string; // stroke for links
 		strokeWidth?: number; // stroke width for links
 		strokeOpacity?: number; // stroke opacity for links
 		strokeLinejoin?: number; // stroke line join for links
@@ -173,11 +172,11 @@ export default function treeify(
 				if (!anyNonExtinction) return 'black';
 			}
 			const targetName = d.target.data.name;
-			return targetName === 'Survival'
+			return targetName === 'survival'
 				? 'green'
-				: targetName === 'Flourishing'
+				: targetName === 'flourishing'
 				? 'blue'
-				: targetName === 'Extinction'
+				: targetName === 'extinction'
 				? 'black'
 				: 'red';
 		})
@@ -216,38 +215,26 @@ export default function treeify(
 	innerAnchors
 		.append('circle')
 		.attr('fill', (d: any, i) => {
-			if (d.height === 2) return 'orange'; // the future
-
-			const anyNonExtinction = d.children.some((c) => c.data.name !== 'Extinction'); // if all descendents are Extinction, color this for extinction
-			if (!anyNonExtinction) return 'black';
+			if (!d.depth) return 'orange'; // the future
 
 			const name = d.data.name;
-			return name === 'Survival'
-				? 'green'
-				: name === 'Flourishing'
-				? 'blue'
-				: name === 'Extinction'
-				? 'brown'
-				: 'red';
+			if (name === 'flourishing') return 'blue';
+			if (goodOutcomes.includes(name)) return 'green';
+			return 'red';
 		})
 		.attr('r', r);
 
 	// LEAVES
 	outerAnchors
 		.append('path')
-		.attr('d', curveFunc(leaf as any))
+		.attr('d', curveFunc(leafCoordinates as any))
 		.attr('fill', (d: any, i) => {
 			const name = d.data.name;
-			return name === 'Survival'
-				? 'green'
-				: name === 'Flourishing'
-				? 'blue'
-				: name === 'Extinction'
-				? 'black'
-				: 'red';
+			if (name === 'flourishing') return 'blue';
+			if (goodOutcomes.includes(name)) return 'green';
+			return 'red';
 		})
 		.attr('r', r)
-
 		.attr('class', 'leaf'); // class is used for css animation
 
 	// TITLE
@@ -265,9 +252,8 @@ export default function treeify(
 			.attr('paint-order', 'stroke')
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
-			.text((d, i) => L[i])
+			.text((d, i) => titleCase(L[i] || ''))
 			.attr('class', 'tree-text');
 
-	
 	return (body.node() as HTMLBodyElement).innerHTML;
 }

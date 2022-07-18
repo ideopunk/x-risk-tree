@@ -157,10 +157,10 @@
 			<Answer>Yes, <XLink href="https://github.com/ideopunk/x-risk-tree">right here</XLink>.</Answer
 			>
 			<Answer>
-				{' '}The tree is based on Mike Bostock's Radial Tidy Tree layout (Copyright 2022 Observable,
+				{' '}The tree is based on Mike Bostock's Radial Cluster Tree layout (Copyright 2022 Observable,
 				Inc. Released under the ISC license.
-				<XLink href="https://observablehq.com/@d3/radial-tree"
-					>https://observablehq.com/@d3/radial-tree</XLink
+				<XLink href="https://observablehq.com/@d3/radial-cluster"
+					>https://observablehq.com/@d3/radial-cluster</XLink
 				>)</Answer
 			>
 			<Question id="resources">Further Reading</Question>
