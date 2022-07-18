@@ -100,18 +100,15 @@ export default function treeify(
 	// format), and use d3.hierarchy.
 	const root =
 		path != null
-			? d3.stratify().path(path)(data)
+			? d3.stratify().path(path)(data as any)
 			: id !== null && parentId !== null
-			? d3.stratify().id(id).parentId(parentId)(data)
+			? d3.stratify().id(id).parentId(parentId)(data as any)
 			: d3.hierarchy(data, children);
 
 	// Sort the nodes.
 	if (sort != null) root.sort(sort);
 
 	// Compute labels and titles.
-	const descendants = root.descendants();
-	const L = label === null ? null : descendants.map((d) => label(d.data));
-	// const L = label === null ? null : descendants.map((d) => label(d.data, d));
 
 	// Compute the layout.
 	tree()
@@ -166,7 +163,6 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => {
-			console.log(d);
 			const names = familyNames(d);
 			return colorizer(names);
 		})
@@ -224,19 +220,18 @@ export default function treeify(
 	if (title != null) node.append('title').text((d) => title(d.data, d));
 
 	// TEXT
-	if (L)
-		innerAnchors
-			.append('text')
-			.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
-			.attr('dy', '0.32em')
-			.attr('dx', (d: any) => (d.x >= Math.PI ? '-5rem' : '0rem'))
-			.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
-			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
-			.attr('paint-order', 'stroke')
-			.attr('stroke', halo)
-			.attr('stroke-width', haloWidth)
-			.text((d, i) => titleCase(L[i] || ''))
-			.attr('class', 'tree-text');
+	innerAnchors
+		.append('text')
+		.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
+		.attr('dy', '0.32em')
+		// .attr('dx', (d: any) => (d.x >= Math.PI ? '-2.5rem' : '0rem'))
+		.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
+		.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
+		.attr('paint-order', 'stroke')
+		.attr('stroke', halo)
+		.attr('stroke-width', haloWidth)
+		.text((d: any) => titleCase(d.data.name))
+		.attr('class', 'tree-text');
 
 	return (body.node() as HTMLBodyElement).innerHTML;
 }
@@ -249,7 +244,7 @@ function familyNames(
 				parent: { data: Data; parent?: { data: Data } };
 				children: { data: Data }[];
 		  }
-		| { source: { data: Data }; target: { data: Data } }
+		| { source: { data: Data; parent?: { data: Data } }; target: { data: Data } }
 ): string[] {
 	if ('data' in d) {
 		// root
