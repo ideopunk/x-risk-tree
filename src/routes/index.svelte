@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import InternalLink from '$lib/components/InternalLink.svelte';
+	import Legend from '$lib/components/Legend.svelte';
 	import { onMount } from 'svelte';
 
 	export let time: string;
@@ -25,9 +26,10 @@
 </script>
 
 <article class="w-screen text-center prose">
-	<h1 class="text-center mt-8 mb-4">The Tree of Forking Paths</h1>
+	<h1 class="text-center mt-4 mb-4">The Tree of Forking Paths</h1>
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
 </article>
+<Legend />
 
 {#if chart}
 	{@html realChart}

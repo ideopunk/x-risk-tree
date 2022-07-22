@@ -90,6 +90,10 @@ path.outer.anime {
 }
 
 .leaf.anime {
+	transition-property: transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 1150ms;
+
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
 	animation-duration: calc(var(--duration) * 2.5ms - 150ms);
@@ -127,10 +131,8 @@ path.outer.anime {
 	}
 }
 
+/* INTERACTIVITY  */
 
-
-INTERACTIVITY
-
-.link:hover {
-	transform: scale(1.5)
+.link.outer:hover > .leaf.anime {
+	transform: scale(1.25);
 }
