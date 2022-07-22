@@ -231,9 +231,7 @@ export default function treeify(
 			.attr('paint-order', 'stroke')
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
-			// .text((d, i) => L[i])
 			.text((d: any) => titleCase(d.data.name))
-
 			.attr('class', 'tree-text');
 
 	return (body.node() as HTMLBodyElement).innerHTML;

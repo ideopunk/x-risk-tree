@@ -1,4 +1,6 @@
 <script lang="ts">
+	import toTitleCase from '$lib/funcs/titleCase';
+
 	import type { Highlight } from '$lib/types';
 	import { createEventDispatcher } from 'svelte';
 
@@ -6,21 +8,21 @@
 
 	let hoverHighlight: Highlight = '';
 	let clickedHighlight: Highlight = '';
-
+	let options = ['survival', 'extinction'] as const;
 	$: {
 		dispatch('message', { highlight: hoverHighlight ? hoverHighlight : clickedHighlight });
 	}
 
-	function onClick(e: any) {
-		if (clickedHighlight !== e.target.value) {
-			clickedHighlight = e.target.value;
+	function onClick(h: Highlight) {
+		if (clickedHighlight !== h) {
+			clickedHighlight = h;
 		} else {
 			clickedHighlight = '';
 		}
 	}
 
-	function onHoverBegin(e: MouseEvent | FocusEvent) {
-		hoverHighlight = (e.target as any).value;
+	function onHoverBegin(h: Highlight) {
+		hoverHighlight = h;
 	}
 
 	function onHoverEnd() {
@@ -29,32 +31,24 @@
 </script>
 
 <form class="absolute top-4 left-4 ">
-	<label class="block">
-		<input
-			checked={clickedHighlight === 'survival'}
-			on:change={onClick}
-			on:mouseover={onHoverBegin}
-			on:focus={onHoverBegin}
+	{#each options as option}
+		<label
+			class="block"
+			on:mouseover={() => onHoverBegin(option)}
+			on:focus={() => onHoverBegin(option)}
 			on:mouseout={onHoverEnd}
 			on:blur={onHoverEnd}
-			type="checkbox"
-			name="amount"
-			value="survival"
-			class={`${clickedHighlight === 'survival' ? 'border' : ''}`}
-		/> Survival
-	</label>
-	<label class="block">
-		<input
-			checked={clickedHighlight === 'extinction'}
-			on:change={onClick}
-			on:mouseover={onHoverBegin}
-			on:focus={onHoverBegin}
-			on:mouseout={onHoverEnd}
-			on:blur={onHoverEnd}
-			type="checkbox"
-			name="amount"
-			value="extinction"
-			class={`${clickedHighlight === 'extinction' ? 'border' : ''}`}
-		/> Extinction
-	</label>
+			value={option}
+		>
+			<input
+				checked={clickedHighlight === option}
+				on:change={() => onClick(option)}
+				type="checkbox"
+				name="amount"
+				value={option}
+				class={`${clickedHighlight === option ? 'border' : ''} opacity-0`}
+			/>
+			{toTitleCase(option)}
+		</label>
+	{/each}
 </form>
