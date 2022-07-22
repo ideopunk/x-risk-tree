@@ -1,14 +1,15 @@
 <script lang="ts">
-	type Highlight = 'survival' | 'extinction' | '';
+	import type { Highlight } from '$lib/types';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
-	
-	let set = false;
 	let hoverHighlight: Highlight = '';
 	let clickedHighlight: Highlight = '';
-	$: currHighlight = hoverHighlight ? hoverHighlight : clickedHighlight;
+
+	$: {
+		dispatch('message', { highlight: hoverHighlight ? hoverHighlight : clickedHighlight });
+	}
 
 	function onClick(e: any) {
 		if (clickedHighlight !== e.target.value) {
@@ -39,7 +40,7 @@
 			type="checkbox"
 			name="amount"
 			value="survival"
-			class={`${currHighlight === 'survival' ? 'border' : ''}`}
+			class={`${clickedHighlight === 'survival' ? 'border' : ''}`}
 		/> Survival
 	</label>
 	<label class="block">
@@ -53,7 +54,7 @@
 			type="checkbox"
 			name="amount"
 			value="extinction"
-			class={`${currHighlight === 'extinction' ? 'border' : ''}`}
+			class={`${clickedHighlight === 'extinction' ? 'border' : ''}`}
 		/> Extinction
 	</label>
 </form>

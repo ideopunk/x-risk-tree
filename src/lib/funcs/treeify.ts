@@ -212,7 +212,9 @@ export default function treeify(
 		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r)
 
-		.attr('class', 'leaf'); // class is used for css animation
+		.attr('class', (d: any) =>
+			d.data.name === 'extinction' ? 'leaf extinction' : 'leaf survival'
+		); // class is used for css animation
 
 	// TITLE
 	if (title != null) node.append('title').text((d) => title(d.data, d));

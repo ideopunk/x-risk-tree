@@ -7,3 +7,5 @@ export type TreeData = {
         }[];
     }[];
 };
+
+export type Highlight = "" | "survival" | "extinction"

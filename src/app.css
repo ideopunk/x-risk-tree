@@ -136,3 +136,21 @@ path.outer.anime {
 .link.outer:hover > .leaf.anime {
 	transform: scale(1.25);
 }
+
+/* LEGEND */
+.extinction .leaf.anime.extinction {
+	fill: black;
+	transform: scale(1.1);
+}
+
+.extinction .leaf.anime.survival {
+	transform: scale(0.9);
+}
+
+.survival .leaf.anime.survival {
+	transform: scale(1.1);
+}
+
+.survival .leaf.anime.extinction {
+	transform: scale(0.9);
+}

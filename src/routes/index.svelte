@@ -1,10 +1,30 @@
 <script lang="ts">
+	import Details from '$lib/components/details.svelte';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import Legend from '$lib/components/Legend.svelte';
+	import type { Highlight } from '$lib/types';
 	import { onMount } from 'svelte';
 
+	let highlight: Highlight = '';
+	function handleMessage(e: CustomEvent) {
+		highlight = e.detail.highlight;
+	}
+
 	export let time: string;
+	export let vals: {
+		total: number;
+		climate: number;
+		climateX: number;
+		nano: number;
+		nanoX: number;
+		nuke: number;
+		nukeX: number;
+		ai: number;
+		aiX: number;
+		bio: number;
+		bioX: number;
+	};
 
 	export let chart: string;
 	$: realChart = JSON.parse(chart);
@@ -29,12 +49,15 @@
 	<h1 class="text-center mt-4 mb-4">The Tree of Forking Paths</h1>
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
 </article>
-<Legend />
 
-{#if chart}
-	{@html realChart}
-{/if}
+<Legend on:message={handleMessage} />
+<Details {vals} {highlight} />
 
+<div class={`${highlight}`}>
+	{#if chart}
+		{@html realChart}
+	{/if}
+</div>
 <article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
 	<p>
 		Over the next century, humanity could flourish or it could experience a global catatastrophe. It
