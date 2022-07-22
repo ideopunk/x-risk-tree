@@ -33,22 +33,20 @@
 <form class="absolute top-4 left-4 ">
 	{#each options as option}
 		<label
-			class="block"
+			class={`block hover:underline ${clickedHighlight === option && 'underline'} cursor-pointer`}
 			on:mouseover={() => onHoverBegin(option)}
 			on:focus={() => onHoverBegin(option)}
 			on:mouseout={onHoverEnd}
 			on:blur={onHoverEnd}
 			value={option}
-		>
-			<input
+			><input
 				checked={clickedHighlight === option}
 				on:change={() => onClick(option)}
 				type="checkbox"
 				name="amount"
 				value={option}
 				class={`${clickedHighlight === option ? 'border' : ''} opacity-0`}
-			/>
-			{toTitleCase(option)}
+			/>{toTitleCase(option)}
 		</label>
 	{/each}
 </form>

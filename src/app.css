@@ -92,11 +92,12 @@ path.outer.anime {
 .leaf.anime {
 	transition-property: transform;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 1150ms;
+	transition-duration: 300ms;
+	transform: scale(1);
 
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
-	animation-duration: calc(var(--duration) * 2.5ms - 150ms);
+	animation-duration: calc(var(--duration) * 2.6ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 	visibility: visible;
@@ -105,17 +106,17 @@ path.outer.anime {
 @keyframes leaf-animation {
 	from {
 		opacity: 0;
-		transform: scale(0.1);
+		/*	transform: scale(0.1);*/
 	}
 
 	80% {
 		opacity: 0;
-		transform: scale(0.1);
+		/*	transform: scale(0.1);*/
 	}
 
 	to: {
 		opacity: 0.8;
-		transform: scale(1);
+		/*	transform: scale(1);*/
 	}
 }
 
