@@ -47,9 +47,9 @@
 			href="https://www.metaculus.com/questions/2568">Ragnarok series</ExternalLink
 		>. It is updated every night (last: {new Date(time).toDateString()}). It tracks predictions
 		concerning
-		<span class="text-red-500 font-bold">global catastrophes</span>
+		<span class="text-yellow-theme font-bold">global catastrophes</span>
 		and
-		<span class="text-black font-bold">(near-)extinction events</span>.
+		<span class="text-red-theme font-bold">(near-)extinction events</span>.
 	</p>
 	<p>
 		If you'd like to learn more about existential risks, see our <InternalLink href="faq"

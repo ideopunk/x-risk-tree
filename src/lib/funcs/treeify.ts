@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { color } from 'd3';
 import jsdom from 'jsdom';
 
 const leaf = [
@@ -8,6 +9,13 @@ const leaf = [
 	{ x: 15, y: 10 },
 	{ x: 0, y: 0 }
 ];
+
+enum Color {
+	Red = '#E8624A',
+	Green = '#5BC26A',
+	Yellow = '#E9B44C',
+	Blue = '#255C99'
+}
 
 const curveFunc = d3
 	.line()
@@ -170,16 +178,16 @@ export default function treeify(
 			if (d.target.height) {
 				// if all the child leaves are extinction, then this inner path should be colored for extinction
 				const anyNonExtinction = d.target.children.some((c) => c.data.name !== 'Extinction');
-				if (!anyNonExtinction) return 'black';
+				if (!anyNonExtinction) return Color.Red;
 			}
 			const targetName = d.target.data.name;
 			return targetName === 'Survival'
-				? 'green'
+				? Color.Green
 				: targetName === 'Flourishing'
-				? 'blue'
+				? Color.Blue
 				: targetName === 'Extinction'
-				? 'black'
-				: 'red';
+				? Color.Red
+				: Color.Yellow;
 		})
 		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
 		.attr('stroke-dasharray', (d: any, n) => {
@@ -219,16 +227,16 @@ export default function treeify(
 			if (d.height === 2) return 'orange'; // the future
 
 			const anyNonExtinction = d.children.some((c) => c.data.name !== 'Extinction'); // if all descendents are Extinction, color this for extinction
-			if (!anyNonExtinction) return 'black';
+			if (!anyNonExtinction) return Color.Red;
 
 			const name = d.data.name;
 			return name === 'Survival'
-				? 'green'
+				? Color.Green
 				: name === 'Flourishing'
-				? 'blue'
+				? Color.Blue
 				: name === 'Extinction'
-				? 'brown'
-				: 'red';
+				? Color.Red
+				: Color.Yellow;
 		})
 		.attr('r', r);
 
@@ -239,12 +247,12 @@ export default function treeify(
 		.attr('fill', (d: any, i) => {
 			const name = d.data.name;
 			return name === 'Survival'
-				? 'green'
+				? Color.Green
 				: name === 'Flourishing'
-				? 'blue'
+				? Color.Blue
 				: name === 'Extinction'
-				? 'black'
-				: 'red';
+				? Color.Red
+				: Color.Yellow;
 		})
 		.attr('r', r)
 
@@ -268,6 +276,5 @@ export default function treeify(
 			.text((d, i) => L[i])
 			.attr('class', 'tree-text');
 
-	
 	return (body.node() as HTMLBodyElement).innerHTML;
 }

@@ -116,10 +116,8 @@ path.outer.anime {
 }
 
 .total-link: {
-	border: 2px solid red;
 	width: 100px;
 	height: 100px;
-	background-color: red;
 	display: block;
 }
 

@@ -31,16 +31,16 @@
 
 			<ul class="pointer-events-none">
 				<li class="my-2 text-gray-700">
-					<span style="color: blue;">Blue</span> branches indicate flourishing
+					<span class="text-blue-theme">Blue</span> branches indicate flourishing
 				</li>
 				<li class="my-2 text-gray-700">
-					<span style="color: green;">Green</span> branches indicate survival
+					<span class="text-green-theme">Green</span> branches indicate survival
 				</li>
 				<li class="my-2 text-gray-700">
-					<span style="color: red;">Red</span> branches indicate catastrophe
+					<span class="text-yellow-theme">Yellow</span> branches indicate catastrophe
 				</li>
 				<li class="my-2 text-gray-700">
-					<span style="color: black;">Black</span> branches indicate extinction
+					<span class="text-red-theme">Red</span> branches indicate extinction
 				</li>
 			</ul>
 			<p class="text-gray-700">

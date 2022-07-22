@@ -72,7 +72,7 @@
 			<Answer>
 				<ul>
 					<li>
-						<span class="font-bold text-green-forest">Green</span> branches are ones where humans do
+						<span class="font-bold text-green-theme">Green</span> branches are ones where humans do
 						not suffer a catastrophe in the next 100 years (per this <XLink
 							href="https://www.metaculus.com/questions/1493/ragnar%25C3%25B6k-question-series-by-2100-will-the-human-population-decrease-by-at-least-10-during-any-period-of-5-years/"
 							>Metaculus question</XLink
