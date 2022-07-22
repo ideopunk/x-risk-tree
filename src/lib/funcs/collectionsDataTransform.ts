@@ -19,7 +19,7 @@ function outcomeTransform(outcome: { name: string; probabilities: GoodOutcome | 
 		return {
 			name: outcome.name,
 			children: Array.from({ length: outcome.probabilities.survival! }).map(() => {
-				return { name: 'Survival' };
+				return { name: 'survival' };
 			})
 		};
 	}
@@ -29,7 +29,7 @@ function outcomeTransform(outcome: { name: string; probabilities: GoodOutcome | 
 		return {
 			name: outcome.name,
 			children: Array.from({ length: outcome.probabilities.flourishing! }).map(() => {
-				return { name: 'Flourishing' };
+				return { name: 'flourishing' };
 			})
 		};
 	}
@@ -37,19 +37,15 @@ function outcomeTransform(outcome: { name: string; probabilities: GoodOutcome | 
 		name: outcome.name,
 		children: [
 			...Array.from({ length: outcome?.probabilities?.catastrophe || 0 }).map(() => {
-				return { name: 'Catastrophe' };
+				return { name: 'catastrophe' };
 			}),
 			...Array.from({ length: outcome?.probabilities?.extinction || 0 }).map(() => {
-				return { name: 'Extinction' };
+				return { name: 'extinction' };
 			})
 		]
 	};
 }
 
 export default function entryTransform(outcomes: Outcomes): TreeData {
-	return { name: 'The Future', children: outcomes.map((o) => outcomeTransform(o)) };
+	return { name: 'the future', children: outcomes.map((o) => outcomeTransform(o)) };
 }
-
-// export default function collectionDataTransform(entries: Entry[]): TreeData {
-// 	return {name: "The Future", }
-// }

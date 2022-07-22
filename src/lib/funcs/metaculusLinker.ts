@@ -14,42 +14,42 @@ export default function linker(n: Node): string {
 	let parent = n.parent?.data.name;
 
 	// for the survivals and for the root, direct to the ragnarok question series in general
-	if (name === 'Survival' || n.depth === 0) questionNumber = 1493;
+	if (name === 'survival' || name === "sustenance" || n.depth === 0) questionNumber = 1493;
 
-	if (parent === 'Climate' || name === 'Climate') {
-		if (name === 'Extinction') {
+	if (parent === 'climate' || name === 'climate') {
+		if (name === 'extinction') {
 			questionNumber = 1604;
 		} else {
 			questionNumber = 1500;
 		}
 	}
 
-	if (parent === 'Artificial Intelligence' || name === 'Artificial Intelligence') {
-		if (name === 'Extinction') {
+	if (parent === 'artificial intelligence' || name === 'artificial intelligence') {
+		if (name === 'extinction') {
 			questionNumber = 2513;
 		} else {
 			questionNumber = 1495;
 		}
 	}
 
-	if (parent === 'Nanotechnology' || name === 'Nanotechnology') {
-		if (name === 'Extinction') {
+	if (parent === 'nanotechnology' || name === 'nanotechnology') {
+		if (name === 'extinction') {
 			questionNumber = 7795;
 		} else {
 			questionNumber = 1501;
 		}
 	}
 
-	if (parent === 'Nuclear War' || name === 'Nuclear War') {
-		if (name === 'Extinction') {
+	if (parent === 'nuclear war' || name === 'nuclear war') {
+		if (name === 'extinction') {
 			questionNumber = 1585;
 		} else {
 			questionNumber = 1494;
 		}
 	}
 
-	if (parent === 'Bioengineering' || name === 'Bioengineering') {
-		if (name === 'Extinction') {
+	if (parent === 'bioengineering' || name === 'bioengineering') {
+		if (name === 'extinction') {
 			questionNumber = 2514;
 		} else {
 			questionNumber = 1502;
@@ -57,7 +57,7 @@ export default function linker(n: Node): string {
 	}
 
 	if (!questionNumber) {
-		throw new Error('could not assign question number to node ' + n);
+		throw new Error('could not assign question number to node ' + n.data.name);
 	}
 
 	return 'https://www.metaculus.com/questions/' + questionNumber;

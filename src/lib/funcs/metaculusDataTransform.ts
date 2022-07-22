@@ -14,42 +14,42 @@ export default function metaculusDataTransform(vals: {
 	bioX: number;
 }): TreeData {
 	const transformed = {
-		name: 'The Future',
+		name: 'the future',
 		children: [
 			{
-				name: 'Climate',
+				name: 'climate',
 				children: Array.from({ length: vals.climate }).map((_, i) => {
-					return { name: i < vals.climateX ? 'Extinction' : 'Catastrophe' };
+					return { name: i < vals.climateX ? 'extinction' : 'catastrophe' };
 				})
 			},
 			{
-				name: 'Nanotechnology',
+				name: 'nanotechnology',
 				children: Array.from({ length: vals.nano }).map((_, i) => {
-					return { name: i < vals.nanoX ? 'Extinction' : 'Catastrophe' };
+					return { name: i < vals.nanoX ? 'extinction' : 'catastrophe' };
 				})
 			},
 			{
-				name: 'Nuclear War',
+				name: 'nuclear war',
 				children: Array.from({ length: vals.nuke }).map((_, i) => {
-					return { name: i < vals.nukeX ? 'Extinction' : 'Catastrophe' };
+					return { name: i < vals.nukeX ? 'extinction' : 'catastrophe' };
 				})
 			},
 			{
-				name: 'Artificial Intelligence',
+				name: 'artificial intelligence',
 				children: Array.from({ length: vals.ai }).map((_, i) => {
-					return { name: i < vals.aiX ? 'Extinction' : 'Catastrophe' };
+					return { name: i < vals.aiX ? 'extinction' : 'catastrophe' };
 				})
 			},
 			{
-				name: 'Bioengineering',
+				name: 'bioengineering',
 				children: Array.from({ length: vals.bio }).map((_, i) => {
-					return { name: i < vals.bioX ? 'Extinction' : 'Catastrophe' };
+					return { name: i < vals.bioX ? 'extinction' : 'catastrophe' };
 				})
 			},
 			{
-				name: 'Survival',
+				name: 'sustenance',
 				children: Array.from({ length: 100 - vals.total }).map(() => {
-					return { name: 'Survival' };
+					return { name: 'survival' };
 				})
 			}
 		]

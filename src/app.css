@@ -126,3 +126,11 @@ path.outer.anime {
 		font-size: 13px;
 	}
 }
+
+
+
+INTERACTIVITY
+
+.link:hover {
+	transform: scale(1.5)
+}

@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
-import { color } from 'd3';
 import jsdom from 'jsdom';
+import titleCase from './titleCase';
+import { colorizer, familyNames } from './treeUtilities';
 
 const leaf = [
 	{ x: 0, y: 0 },
@@ -9,13 +10,6 @@ const leaf = [
 	{ x: 15, y: 10 },
 	{ x: 0, y: 0 }
 ];
-
-enum Color {
-	Red = '#E8624A',
-	Green = '#5BC26A',
-	Yellow = '#E9B44C',
-	Blue = '#255C99'
-}
 
 const curveFunc = d3
 	.line()
@@ -173,22 +167,7 @@ export default function treeify(
 				.angle((d: any) => d.x)
 				.radius((d: any) => d.y) as any
 		)
-		.attr('stroke', (d: any, i) => {
-			// this is an inner leaf
-			if (d.target.height) {
-				// if all the child leaves are extinction, then this inner path should be colored for extinction
-				const anyNonExtinction = d.target.children.some((c) => c.data.name !== 'Extinction');
-				if (!anyNonExtinction) return Color.Red;
-			}
-			const targetName = d.target.data.name;
-			return targetName === 'Survival'
-				? Color.Green
-				: targetName === 'Flourishing'
-				? Color.Blue
-				: targetName === 'Extinction'
-				? Color.Red
-				: Color.Yellow;
-		})
+		.attr('stroke', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
 		.attr('stroke-dasharray', (d: any, n) => {
 			return 1000; // necessary filler, real s-do is set onMount
@@ -209,13 +188,13 @@ export default function treeify(
 		.attr('rel', link === null ? null : 'external')
 		.attr('tabindex', (d: any, n) => {
 			if (link === null) return null;
-			return d.depth === 2 && d.data.name !== 'Extinction' ? '-1' : '0';
+			return d.depth === 2 && d.data.name !== 'extinction' ? '-1' : '0';
 		})
 		.attr('href', link == null ? null : (d) => link(d.data, d))
 
 		.attr('target', link == null ? null : linkTarget)
 		.attr('transform', (d: any) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`)
-		.attr('class', (d, n) => (d.height ? 'inner' : 'outer')); // class is used later for conditionally attaching text to anchors
+		.attr('class', (d, n) => (d.height ? 'link inner' : 'link outer')); // class is used later for conditionally attaching text to anchors
 
 	const outerAnchors = svg.selectAll('a.outer');
 	const innerAnchors = svg.selectAll('a.inner');
@@ -223,37 +202,14 @@ export default function treeify(
 	// DOTS
 	innerAnchors
 		.append('circle')
-		.attr('fill', (d: any, i) => {
-			if (d.height === 2) return 'orange'; // the future
-
-			const anyNonExtinction = d.children.some((c) => c.data.name !== 'Extinction'); // if all descendents are Extinction, color this for extinction
-			if (!anyNonExtinction) return Color.Red;
-
-			const name = d.data.name;
-			return name === 'Survival'
-				? Color.Green
-				: name === 'Flourishing'
-				? Color.Blue
-				: name === 'Extinction'
-				? Color.Red
-				: Color.Yellow;
-		})
+		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r);
 
 	// LEAVES
 	outerAnchors
 		.append('path')
 		.attr('d', curveFunc(leaf as any))
-		.attr('fill', (d: any, i) => {
-			const name = d.data.name;
-			return name === 'Survival'
-				? Color.Green
-				: name === 'Flourishing'
-				? Color.Blue
-				: name === 'Extinction'
-				? Color.Red
-				: Color.Yellow;
-		})
+		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r)
 
 		.attr('class', 'leaf'); // class is used for css animation
@@ -273,7 +229,9 @@ export default function treeify(
 			.attr('paint-order', 'stroke')
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
-			.text((d, i) => L[i])
+			// .text((d, i) => L[i])
+			.text((d: any) => titleCase(d.data.name))
+
 			.attr('class', 'tree-text');
 
 	return (body.node() as HTMLBodyElement).innerHTML;
