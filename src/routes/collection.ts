@@ -2,6 +2,7 @@ import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 import estimates from '$lib/data/estimates.json';
 import collectionsDataTransform from '$lib/funcs/collectionsDataTransform';
+import toTitleCase from '$lib/funcs/titleCase';
 
 export async function get(): Promise<RequestHandlerOutput> {
 	let data: {
@@ -39,7 +40,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 		charts.push({
 			tree: treeify(entry, {
 				label: (d) => d.name,
-				title: (d, n) => d.name,
+				title: (d, n) => toTitleCase(d.name),
 				width: 652,
 				height: 652,
 				margin: 50

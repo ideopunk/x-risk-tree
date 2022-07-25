@@ -1,5 +1,6 @@
 import metaculusDataTransform from '$lib/funcs/metaculusDataTransform';
 import metaculusLinker from '$lib/funcs/metaculusLinker';
+import toTitleCase from '$lib/funcs/titleCase';
 import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
@@ -101,7 +102,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 
 	const chart = treeify(input, {
 		label: (d) => d.name,
-		title: (d, n) => d.name,
+		title: (d, n) => toTitleCase(d.name),
 		link: (d, n) => metaculusLinker(n),
 		width: 652,
 		height: 652,

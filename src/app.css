@@ -40,6 +40,21 @@ a:hover {
 	--duration: 2000;
 }
 
+svg {
+	animation-name: svg-animation;
+	animation-timing-function: linear;
+	animation-duration: calc(var(--duration) * 0.5ms);
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+@keyframes svg-animation {
+	to {
+		opacity: 1;
+	}
+}
+
 circle,
 text {
 	animation-name: circle-animation;
@@ -47,13 +62,10 @@ text {
 	animation-duration: calc(var(--duration) * 1.5ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
+	opacity: 0;
 }
 
 @keyframes circle-animation {
-	from {
-		opacity: 0;
-	}
-
 	to {
 		opacity: 0.8;
 	}
@@ -91,8 +103,8 @@ path.outer.anime {
 
 .leaf.anime {
 	transition-property: transform;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 300ms;
+	/* transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); */
+	transition-duration: 400ms;
 	transform: scale(1);
 
 	animation-name: leaf-animation;
@@ -154,4 +166,13 @@ path.outer.anime {
 
 .survival .leaf.anime.extinction {
 	transform: scale(0.9);
+}
+
+text {
+	transition-property: transform;
+	transition-duration: 400ms;
+}
+
+text:hover {
+	transform: scale(1.1);
 }

@@ -222,13 +222,15 @@ export default function treeify(
 	// TEXT
 	if (L)
 		innerAnchors
-			.append('text')
+			.append('g')
 			.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
+
+			.append('text')
 			.attr('dy', '0.32em')
 			.attr('dx', (d: any) => (d.x >= Math.PI ? '-5rem' : '0rem'))
 			.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
-			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
 			.attr('paint-order', 'stroke')
+			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
 			.text((d: any) => titleCase(d.data.name))

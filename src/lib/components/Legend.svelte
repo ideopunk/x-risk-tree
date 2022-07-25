@@ -30,16 +30,26 @@
 	}
 </script>
 
-<form class="absolute top-4 left-4 ">
+<form class="absolute top-8 left-8 border-2 p-4 pr-6">
 	{#each options as option}
 		<label
-			class={`block hover:underline ${clickedHighlight === option && 'underline'} cursor-pointer`}
+			class={`block cursor-pointer`}
 			on:mouseover={() => onHoverBegin(option)}
 			on:focus={() => onHoverBegin(option)}
 			on:mouseout={onHoverEnd}
 			on:blur={onHoverEnd}
 			value={option}
-			><input
+		>
+			<span
+				class={`${
+					clickedHighlight === option
+						? 'opacity-100'
+						: hoverHighlight === option
+						? 'opacity-50'
+						: 'opacity-0'
+				} transition-opacity font-old text-2xl relative top-0.5`}>•</span
+			>
+			<input
 				checked={clickedHighlight === option}
 				on:change={() => onClick(option)}
 				type="checkbox"
