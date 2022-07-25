@@ -6,6 +6,10 @@
 	import InternalLink from '$lib/components/InternalLink.svelte';
 </script>
 
+<svelte:head>
+	<link rel="canonical" href="https://x-risk-tree.com/faq" />
+</svelte:head>
+
 <div class="flex flex-col lg:flex-row px-8 lg:px-0  w-screen justify-between relative">
 	<div class="flex justify-center lg:w-1/3 ">
 		<div class="w-[65ch] lg:w-1/3 pl-0 lg:pl-24 pr-8 mt-8 left-0 top-0 h-min lg:fixed ">

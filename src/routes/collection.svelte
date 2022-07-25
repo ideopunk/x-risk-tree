@@ -20,7 +20,9 @@
 	});
 </script>
 
-<!-- <h3 class="text-2xl mb-12 text-center">Alternative X-Risk Estimates</h3> -->
+<svelte:head>
+	<link rel="canonical" href="https://x-risk-tree.com/collection" />
+</svelte:head>
 
 <div
 	class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between pt-8 relative"

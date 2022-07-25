@@ -13,7 +13,6 @@ a:hover {
 	color: black;
 }
 
-/* fonts.css */
 
 @font-face {
 	font-family: 'heebo';
@@ -95,14 +94,34 @@ path.outer.anime {
 	}
 }
 
+.total-link: {
+	width: 100px;
+	height: 100px;
+	display: block;
+}
+
+@media only screen and (max-width: 768px) {
+	.tree-text {
+		font-size: 13px;
+	}
+}
+
+.leaf-container {
+	transition-property: transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 400ms;
+}
+
+.leaf-container:hover {
+	transform: scale(1.25);
+}
+
 .leaf {
-	/* opacity: 0; */
-	/* transform: scale(0.1); */
 	visibility: hidden;
 }
 
 .leaf.anime {
-	transition-property: transform;
+	transition-property: transform, fill;
 	/* transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); */
 	transition-duration: 400ms;
 	transform: scale(1);
@@ -118,53 +137,35 @@ path.outer.anime {
 @keyframes leaf-animation {
 	from {
 		opacity: 0;
-		/*	transform: scale(0.1);*/
+		transform: scale(0.1);
 	}
 
 	80% {
 		opacity: 0;
-		/*	transform: scale(0.1);*/
+		transform: scale(0.1);
 	}
 
 	to: {
 		opacity: 0.8;
-		/*	transform: scale(1);*/
-	}
-}
-
-.total-link: {
-	width: 100px;
-	height: 100px;
-	display: block;
-}
-
-@media only screen and (max-width: 768px) {
-	.tree-text {
-		font-size: 13px;
+		transform: scale(1);
 	}
 }
 
 /* INTERACTIVITY  */
 
-.link.outer:hover > .leaf.anime {
-	transform: scale(1.25);
-}
-
-/* LEGEND */
-.extinction .leaf.anime.extinction {
-	fill: black;
+.extinction .leaf-container.extinction {
 	transform: scale(1.1);
 }
 
-.extinction .leaf.anime.survival {
+.extinction .leaf-container.survival {
 	transform: scale(0.9);
 }
 
-.survival .leaf.anime.survival {
+.survival .leaf-container.survival {
 	transform: scale(1.1);
 }
 
-.survival .leaf.anime.extinction {
+.survival .leaf-container.extinction {
 	transform: scale(0.9);
 }
 
