@@ -30,33 +30,35 @@
 	}
 </script>
 
-<form class="absolute top-8 left-8 border-2 p-4 pr-6">
+<form
+	class="lg:absolute border-black lg:border-2 gap-8 lg:gap-0 ml-2 lg:ml-0 mt-8 lg:mt-0 p-3 pr-4 flex lg:block z-20 text-sm"
+>
 	{#each options as option}
 		<label
-			class={`block cursor-pointer`}
+			class={`flex items-center cursor-pointer`}
 			on:mouseover={() => onHoverBegin(option)}
 			on:focus={() => onHoverBegin(option)}
 			on:mouseout={onHoverEnd}
 			on:blur={onHoverEnd}
 			value={option}
 		>
-			<span
-				class={`${
-					clickedHighlight === option
-						? 'opacity-100'
-						: hoverHighlight === option
-						? 'opacity-50'
-						: 'opacity-0'
-				} transition-opacity font-old text-2xl relative top-0.5`}>•</span
-			>
 			<input
 				checked={clickedHighlight === option}
 				on:change={() => onClick(option)}
 				type="checkbox"
 				name="amount"
 				value={option}
-				class={`${clickedHighlight === option ? 'border' : ''} opacity-0`}
-			/>{toTitleCase(option)}
+				class={`${option === 'survival' ? 'accent-green-theme' : 'accent-red-theme'} relative -top-[1px]`}
+			/>
+			<span
+				class={`ml-2 transition-transform ${
+					clickedHighlight === option
+						? 'scale-110'
+						: hoverHighlight === option
+						? 'scale-105'
+						: 'scale-100'
+				}`}>{toTitleCase(option)}</span
+			>
 		</label>
 	{/each}
 </form>

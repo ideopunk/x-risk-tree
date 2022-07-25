@@ -50,10 +50,10 @@
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
 </article>
 
-<Legend on:message={handleMessage} />
-<Details {vals} {highlight} />
+<div class={`${highlight} relative`}>
+	<Legend on:message={handleMessage} />
+	<Details {vals} {highlight} />
 
-<div class={`${highlight}`}>
 	{#if chart}
 		{@html realChart}
 	{/if}
@@ -78,8 +78,8 @@
 	</p>
 	<p>
 		If you'd like to learn more about existential risks, see our <InternalLink href="faq"
-			>FAQ
-		</InternalLink>.
+			>FAQ</InternalLink
+		>.
 	</p>
 	<p>
 		Other predictions can be found in our <InternalLink href="/collection">collection</InternalLink
