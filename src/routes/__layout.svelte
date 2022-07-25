@@ -3,11 +3,11 @@
 </script>
 
 <svelte:head>
-	<title>The Tree of Forking Paths</title>
-	<meta name="title" content="The Tree of Forking Paths" />
+	<title>The X-Risk Tree</title>
+	<meta name="title" content="The X-Risk Tree" />
 	<meta name="description" content="In how many of our branching paths does humanity survive?" />
 
-	<meta name="og:title" content="The Tree of Forking Paths" />
+	<meta name="og:title" content="The X-Risk Tree" />
 	<meta name="og:description" content="In how many of our branching paths does humanity survive?" />
 	<meta name="og:url" content="https://x-risk-tree.vercel.app/" />
 	<meta name="og:type" content="website" />
