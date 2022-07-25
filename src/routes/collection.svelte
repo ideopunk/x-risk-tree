@@ -62,7 +62,7 @@
 	<div class="lg:w-2/3 pb-12 flex flex-col items-center">
 		{#if charts}
 			{#each charts as chart, i}
-				<a href={chart.link} class="block text-black flex flex-col items-center">
+				<a href={chart.link} class="block text-black">
 					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : 'mt-16 lg:mt-0'} mb-1`}>
 						{chart.title}
 					</h3>
