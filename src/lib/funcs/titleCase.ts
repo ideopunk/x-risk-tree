@@ -4,7 +4,7 @@ export default function toTitleCase(s: string): string {
 
 		return lowerCase.replace(
 			/\w\S*/g,
-			(x) => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()
+			(x) => x.charAt(0).toUpperCase() + x.substring(1).toLowerCase()
 		);
 	}
 

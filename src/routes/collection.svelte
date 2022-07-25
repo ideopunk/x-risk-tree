@@ -31,19 +31,21 @@
 
 			<ul class="pointer-events-none">
 				<li class="my-2 text-gray-700">
-					<span style="color: blue;">Blue</span> branches indicate flourishing
+					<span class="text-blue-theme">Blue</span> branches indicate flourishing
 				</li>
 				<li class="my-2 text-gray-700">
-					<span style="color: green;">Green</span> branches indicate survival
+					<span class="text-green-theme">Green</span> branches indicate either survival or sustenance
 				</li>
 				<li class="my-2 text-gray-700">
-					<span style="color: red;">Red</span> branches indicate catastrophe
+					<span class="text-yellow-theme">Yellow</span> branches indicate catastrophe
 				</li>
 				<li class="my-2 text-gray-700">
-					<span style="color: black;">Black</span> branches indicate extinction
+					<span class="text-red-theme">Red</span> branches indicate extinction. While red branches in
+					the Metaculus tree track near-extinction, in the collection they indicate total human extinction
+					unless otherwise noted.
 				</li>
 			</ul>
-			<p class="text-gray-700">
+			<p class="text-gray-700 pt-4">
 				Different predictors evaluate different possibilities. Some do not include predictions
 				concerning flourishing, some do not include predictions concerning catastrophes.
 			</p>

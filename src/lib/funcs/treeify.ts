@@ -1,17 +1,15 @@
-import type { TreeData } from '$lib/types';
 import * as d3 from 'd3';
 import jsdom from 'jsdom';
 import titleCase from './titleCase';
+import { colorizer, familyNames } from './treeUtilities';
 
-const leafCoordinates = [
-	{ x: -1, y: 0 },
+const leaf = [
+	{ x: 0, y: 0 },
 	{ x: 15, y: -10 },
 	{ x: 30, y: 0 },
 	{ x: 15, y: 10 },
-	{ x: -1, y: 0 }
+	{ x: 0, y: 0 }
 ];
-
-const goodOutcomes = ['survival', 'flourishing', 'sustenance'] as const;
 
 const curveFunc = d3
 	.line()
@@ -24,20 +22,17 @@ const curveFunc = d3
 // Released under the ISC license.
 // https://observablehq.com/@d3/radial-tree
 export default function treeify(
-	data: {
-		name: string;
-		children: TreeData;
-	},
+	data,
 	{
 		// data is either tabular (array of objects) or hierarchy (nested objects)
 		path = undefined, // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
 		id = Array.isArray(data) ? (d) => d.id : null, // if tabular data, given a d in data, returns a unique identifier (string)
 		parentId = Array.isArray(data) ? (d) => d.parentId : null, // if tabular data, given a node d, returns its parent’s identifier
 		children = undefined, // if hierarchical data, given a d in data, returns its children
-		tree = d3.cluster, // layout algorithm (typically d3.tree or d3.cluster)
+		tree = d3.tree, // layout algorithm (typically d3.tree or d3.cluster)
 		separation = tree === d3.tree
-			? (a, b) => (a.parent == b.parent ? 1 : 3) / a.depth
-			: (a, b) => (a.parent == b.parent ? 1 : 3),
+			? (a, b) => (a.parent == b.parent ? 1 : 2) / a.depth
+			: (a, b) => (a.parent == b.parent ? 1 : 2),
 		sort = null, // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
 		label = null, // given a node d, returns the display name
 		title = null, // given a node d, returns its hover text
@@ -53,6 +48,10 @@ export default function treeify(
 		marginLeft = margin, // left margin, in pixels
 		radius = Math.min(width - marginLeft - marginRight, height - marginTop - marginBottom) / 2, // outer radius
 		r = 3, // radius of nodes
+		padding = 1, // horizontal padding for first and last column
+		fill = '#999', // fill for nodes
+		// fillOpacity, // fill opacity for nodes
+		stroke = '#555', // stroke for links
 		strokeWidth = 2.5, // stroke width for links
 		strokeOpacity = 0.6, // stroke opacity for links
 		strokeLinejoin = 2, // stroke line join for links
@@ -81,6 +80,10 @@ export default function treeify(
 		marginLeft?: number; // left margin, in pixels
 		radius?: number;
 		r?: number; // radius of nodes
+		padding?: number; // horizontal padding for first and last column
+		fill?: string; // fill for nodes
+		// fillOpacity, // fill opacity for nodes
+		stroke?: string; // stroke for links
 		strokeWidth?: number; // stroke width for links
 		strokeOpacity?: number; // stroke opacity for links
 		strokeLinejoin?: number; // stroke line join for links
@@ -99,15 +102,18 @@ export default function treeify(
 	// format), and use d3.hierarchy.
 	const root =
 		path != null
-			? d3.stratify().path(path)(data as any)
+			? d3.stratify().path(path)(data)
 			: id !== null && parentId !== null
-			? d3.stratify().id(id).parentId(parentId)(data as any)
+			? d3.stratify().id(id).parentId(parentId)(data)
 			: d3.hierarchy(data, children);
 
 	// Sort the nodes.
 	if (sort != null) root.sort(sort);
 
 	// Compute labels and titles.
+	const descendants = root.descendants();
+	const L = label === null ? null : descendants.map((d) => label(d.data));
+	// const L = label === null ? null : descendants.map((d) => label(d.data, d));
 
 	// Compute the layout.
 	tree()
@@ -161,10 +167,7 @@ export default function treeify(
 				.angle((d: any) => d.x)
 				.radius((d: any) => d.y) as any
 		)
-		.attr('stroke', (d: any, i) => {
-			const names = familyNames(d);
-			return colorizer(names);
-		})
+		.attr('stroke', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
 		.attr('stroke-dasharray', (d: any, n) => {
 			return 1000; // necessary filler, real s-do is set onMount
@@ -176,6 +179,7 @@ export default function treeify(
 		);
 
 	// LINKS
+
 	const node = svg
 		.append('g')
 		.selectAll('a')
@@ -184,13 +188,13 @@ export default function treeify(
 		.attr('rel', link === null ? null : 'external')
 		.attr('tabindex', (d: any, n) => {
 			if (link === null) return null;
-			return d.depth === 2 && d.data.name !== 'Extinction' ? '-1' : '0';
+			return d.depth === 2 && d.data.name !== 'extinction' ? '-1' : '0';
 		})
 		.attr('href', link == null ? null : (d) => link(d.data, d))
 
 		.attr('target', link == null ? null : linkTarget)
 		.attr('transform', (d: any) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`)
-		.attr('class', (d, n) => (d.height ? 'inner' : 'outer')); // class is used later for conditionally attaching text to anchors
+		.attr('class', (d, n) => (d.height ? 'link inner' : 'link outer')); // class is used later for conditionally attaching text to anchors
 
 	const outerAnchors = svg.selectAll('a.outer');
 	const innerAnchors = svg.selectAll('a.inner');
@@ -198,91 +202,39 @@ export default function treeify(
 	// DOTS
 	innerAnchors
 		.append('circle')
-		.attr('fill', (d: any, i) => {
-			const names = familyNames(d);
-			return colorizer(names);
-		})
+		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r);
 
 	// LEAVES
 	outerAnchors
 		.append('path')
-		.attr('d', curveFunc(leafCoordinates as any))
-		.attr('fill', (d: any, i) => {
-			const names = familyNames(d);
-			return colorizer(names);
-		})
+		.attr('d', curveFunc(leaf as any))
+		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r)
-		.attr('class', 'leaf'); // class is used for css animation
+
+		.attr('class', (d: any) =>
+			d.data.name === 'extinction' ? 'leaf extinction' : 'leaf survival'
+		); // class is used for css animation
 
 	// TITLE
 	if (title != null) node.append('title').text((d) => title(d.data, d));
 
 	// TEXT
-	innerAnchors
-		.append('text')
-		.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
-		.attr('dy', '0.32em')
-		// .attr('dx', (d: any) => (d.x >= Math.PI ? '-2.5rem' : '0rem'))
-		.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
-		.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
-		.attr('paint-order', 'stroke')
-		.attr('stroke', halo)
-		.attr('stroke-width', haloWidth)
-		.text((d: any) => titleCase(d.data.name))
-		.attr('class', 'tree-text');
+	if (L)
+		innerAnchors
+			.append('g')
+			.attr('transform', (d: any) => `rotate(${d.x >= Math.PI ? 180 : 0})`)
+
+			.append('text')
+			.attr('dy', '0.32em')
+			.attr('dx', (d: any) => (d.x >= Math.PI ? '-5rem' : '0rem'))
+			.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
+			.attr('paint-order', 'stroke')
+			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
+			.attr('stroke', halo)
+			.attr('stroke-width', haloWidth)
+			.text((d: any) => titleCase(d.data.name))
+			.attr('class', 'tree-text');
 
 	return (body.node() as HTMLBodyElement).innerHTML;
-}
-
-type Data = { name: string };
-function familyNames(
-	d:
-		| {
-				data: Data;
-				parent: { data: Data; parent?: { data: Data } };
-				children: { data: Data }[];
-		  }
-		| { source: { data: Data; parent?: { data: Data } }; target: { data: Data } }
-): string[] {
-	if ('data' in d) {
-		// root
-		if (!d.parent) {
-			return ['the future'];
-		}
-
-		let names = [d.data.name];
-
-		if (d.children) {
-			names.concat(...d.children.map((c) => c.data.name));
-		}
-
-		names.push(d.parent.data.name);
-
-		if (d?.parent?.parent) {
-			names.push(d.parent.parent.data.name);
-		}
-
-		return names;
-	} else {
-		let names = [d.source.data.name, d.target.data.name];
-
-		if (d?.source?.parent) {
-			names.push(d.source.parent.data.name);
-		}
-		return names;
-	}
-}
-
-function colorizer(names: string[]) {
-	// root
-	if (names.length === 1 && names[0] === 'the future') return 'orange';
-
-	if (names.includes('catastrophe')) return 'red';
-
-	if (names.includes('extinction')) return 'black';
-
-	if (names.includes('flourishing')) return 'blue';
-
-	return 'green';
 }

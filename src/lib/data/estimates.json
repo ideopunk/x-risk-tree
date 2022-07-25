@@ -3,39 +3,37 @@
 		"title": "Toby Ord (2020) - By 2120",
 		"link": "https://slatestarcodex.com/2020/04/01/book-review-the-precipice/",
 		"notes": [],
-		"outcomes": {
-			"survival": { "flourishing": 50, "survival": 32 },
-			"extinction": {
-				"engineered pandemics": 3,
-				"unaligned artificial intelligence": 10,
-				"unforeseen anthropogenic risks": 3,
-				"other anthropogenic risks": 2
-			}
-		}
+		"outcomes": [
+			{ "name": "flourishing", "probabilities": { "flourishing": 50 } },
+			{ "name": "survival", "probabilities": { "survival": 32 } },
+			{ "name": "engineered pandemics", "probabilities": { "extinction": 3 } },
+			{ "name": "unaligned artificial intelligence", "probabilities": { "extinction": 10 } },
+			{ "name": "unforeseen anthropogenic risks", "probabilities": { "extinction": 3 } },
+			{ "name": "other anthropogenic risks", "probabilities": { "extinction": 2 } }
+		]
 	},
 
 	{
 		"title": "GCR Conference (2008) - Overall Risk of Extinction Prior to 2100",
 		"link": "https://www.fhi.ox.ac.uk/reports/2008-1.pdf",
 		"notes": ["Catastrophes are defined as at least 1 billion dead"],
-		"outcomes": {
-			"survival": {
-				"sustenance": 30,
-				"catastrophe": {
-					"nanotechnology": 5,
-					"non-nuclear war": 17,
-					"nuclear war": 9,
-					"bioengineering": 8,
-					"natural pandemic": 5
-				}
-			},
-			"extinction": {
-				"nanotechnology": 5,
-				"non-nuclear war": 3,
-				"nuclear war": 1,
-				"bioengineering": 2,
-				"artificial intelligence": 5
-			}
-		}
+		"outcomes": [
+			{ "name": "survival", "probabilities": { "survival": 30 } },
+
+			{ "name": "nanotechnology", "probabilities": { "catastrophe": 5, "extinction": 5 } },
+			{ "name": "non-nuclear war", "probabilities": { "catastrophe": 17, "extinction": 3 } },
+			{ "name": "nuclear war", "probabilities": { "catastrophe": 9, "extinction": 1 } },
+			{ "name": "bioengineering", "probabilities": { "catastrophe": 8, "extinction": 2 } },
+			{ "name": "natural pandemic", "probabilities": { "catastrophe": 5 } },
+			{ "name": "artificial intelligence", "probabilities": { "extinction": 5 } }
+		]
+	},
+	{
+		"title": "William MacAskill (2020) - Existential risk in the 21st century",
+		"link": "https://80000hours.org/podcast/episodes/will-macaskill-paralysis-and-hinge-of-history/#transcript",
+		"outcomes": [
+			{ "name": "survival", "probabilities": { "survival": 99 } },
+			{ "name": "extinction", "probabilities": { "extinction": 1 } }
+		]
 	}
 ]

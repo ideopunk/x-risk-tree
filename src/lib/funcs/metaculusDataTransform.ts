@@ -2,46 +2,58 @@ import type { TreeData } from '../types';
 
 export default function metaculusDataTransform(vals: {
 	total: number;
-	climate: { catastrophe: number; extinction: number };
-	nanotechnology: { catastrophe: number; extinction: number };
-	'nuclear war': { catastrophe: number; extinction: number };
-	'artificial intelligence': { catastrophe: number; extinction: number };
-	bioengineering: { catastrophe: number; extinction: number };
+	climate: number;
+	climateX: number;
+	nano: number;
+	nanoX: number;
+	nuke: number;
+	nukeX: number;
+	ai: number;
+	aiX: number;
+	bio: number;
+	bioX: number;
 }): TreeData {
-	let tree: TreeData = {
+	const transformed = {
 		name: 'the future',
 		children: [
-			{ name: 'survival', children: [{name: "catastrophe", children: []}] },
-			{ name: 'extinction', children: [] }
+			{
+				name: 'climate',
+				children: Array.from({ length: vals.climate }).map((_, i) => {
+					return { name: i < vals.climateX ? 'extinction' : 'catastrophe' };
+				})
+			},
+			{
+				name: 'nanotechnology',
+				children: Array.from({ length: vals.nano }).map((_, i) => {
+					return { name: i < vals.nanoX ? 'extinction' : 'catastrophe' };
+				})
+			},
+			{
+				name: 'nuclear war',
+				children: Array.from({ length: vals.nuke }).map((_, i) => {
+					return { name: i < vals.nukeX ? 'extinction' : 'catastrophe' };
+				})
+			},
+			{
+				name: 'artificial intelligence',
+				children: Array.from({ length: vals.ai }).map((_, i) => {
+					return { name: i < vals.aiX ? 'extinction' : 'catastrophe' };
+				})
+			},
+			{
+				name: 'bioengineering',
+				children: Array.from({ length: vals.bio }).map((_, i) => {
+					return { name: i < vals.bioX ? 'extinction' : 'catastrophe' };
+				})
+			},
+			{
+				name: 'sustenance',
+				children: Array.from({ length: 100 - vals.total }).map(() => {
+					return { name: 'survival' };
+				})
+			}
 		]
 	};
 
-	for (const pair of Object.entries(vals)) {
-		// survival
-		if (pair[0] === 'total') {
-			const leaves = Array.from({ length: 100 - vals.total }).map(() => {
-				return { name: 'sustenance' };
-			});
-
-			tree.children[0].children.push({ name: 'sustenance', children: leaves });
-		} else {
-			if (typeof pair[1] === 'number') {
-				throw new Error(
-					`${pair[0]} should have a value with a catastrophe and an extinction, not just a number`
-				);
-			}
-			const catastrophes = Array.from({ length: pair[1].catastrophe }).map(() => {
-				return { name: 'catastrophe' };
-			});
-
-			const extinctions = Array.from({ length: pair[1].extinction }).map(() => {
-				return { name: 'extinction' };
-			});
-
-			tree.children[0].children[0].children.push({ name: pair[0], children: catastrophes });
-			tree.children[1].children.push({ name: pair[0], children: extinctions });
-		}
-	}
-
-	return tree;
+	return transformed;
 }

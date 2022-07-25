@@ -40,6 +40,21 @@ a:hover {
 	--duration: 2000;
 }
 
+svg {
+	animation-name: svg-animation;
+	animation-timing-function: linear;
+	animation-duration: calc(var(--duration) * 0.5ms);
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+@keyframes svg-animation {
+	to {
+		opacity: 1;
+	}
+}
+
 circle,
 text {
 	animation-name: circle-animation;
@@ -47,13 +62,10 @@ text {
 	animation-duration: calc(var(--duration) * 1.5ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
+	opacity: 0;
 }
 
 @keyframes circle-animation {
-	from {
-		opacity: 0;
-	}
-
 	to {
 		opacity: 0.8;
 	}
@@ -90,9 +102,14 @@ path.outer.anime {
 }
 
 .leaf.anime {
+	transition-property: transform;
+	/* transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); */
+	transition-duration: 400ms;
+	transform: scale(1);
+
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
-	animation-duration: calc(var(--duration) * 2.5ms - 150ms);
+	animation-duration: calc(var(--duration) * 2.6ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 	visibility: visible;
@@ -101,25 +118,23 @@ path.outer.anime {
 @keyframes leaf-animation {
 	from {
 		opacity: 0;
-		transform: scale(0.1);
+		/*	transform: scale(0.1);*/
 	}
 
 	80% {
 		opacity: 0;
-		transform: scale(0.1);
+		/*	transform: scale(0.1);*/
 	}
 
 	to: {
 		opacity: 0.8;
-		transform: scale(1);
+		/*	transform: scale(1);*/
 	}
 }
 
 .total-link: {
-	border: 2px solid red;
 	width: 100px;
 	height: 100px;
-	background-color: red;
 	display: block;
 }
 
@@ -127,4 +142,37 @@ path.outer.anime {
 	.tree-text {
 		font-size: 13px;
 	}
+}
+
+/* INTERACTIVITY  */
+
+.link.outer:hover > .leaf.anime {
+	transform: scale(1.25);
+}
+
+/* LEGEND */
+.extinction .leaf.anime.extinction {
+	fill: black;
+	transform: scale(1.1);
+}
+
+.extinction .leaf.anime.survival {
+	transform: scale(0.9);
+}
+
+.survival .leaf.anime.survival {
+	transform: scale(1.1);
+}
+
+.survival .leaf.anime.extinction {
+	transform: scale(0.9);
+}
+
+text {
+	transition-property: transform;
+	transition-duration: 400ms;
+}
+
+text:hover {
+	transform: scale(1.1);
 }

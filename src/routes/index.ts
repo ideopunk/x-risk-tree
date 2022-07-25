@@ -1,5 +1,6 @@
 import metaculusDataTransform from '$lib/funcs/metaculusDataTransform';
 import metaculusLinker from '$lib/funcs/metaculusLinker';
+import toTitleCase from '$lib/funcs/titleCase';
 import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
@@ -21,7 +22,7 @@ function makeRelative(total: number, particular: number, xRisk: number) {
 
 	const roundedParticular = Math.round(realParticular * 100);
 	const roundedXRisk = Math.round(realXRisk * 100);
-	return { catastrophe: roundedParticular, extinction: roundedXRisk };
+	return [roundedParticular, roundedXRisk];
 }
 
 export async function get(): Promise<RequestHandlerOutput> {
@@ -85,21 +86,23 @@ export async function get(): Promise<RequestHandlerOutput> {
 		bioXQuestion
 	]);
 
-	let data = {};
-
 	// CALCULATE THE PORTIONS
-	data['climate'] = makeRelative(totalAvg, climateAvg, climateXAvg);
-	data['nanotechnology'] = makeRelative(totalAvg, nanoAvg, nanoXAvg);
-	data['nuclear war'] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
-	data['artificial intelligence'] = makeRelative(totalAvg, aiAvg, aiXAvg);
-	data['bioengineering'] = makeRelative(totalAvg, bioAvg, bioXAvg);
-	data['total'] = Math.round(totalAvg * 100);
+	const [climate, climateX] = makeRelative(totalAvg, climateAvg, climateXAvg);
+	const [nano, nanoX] = makeRelative(totalAvg, nanoAvg, nanoXAvg);
+	const [nuke, nukeX] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
+	const [ai, aiX] = makeRelative(totalAvg, aiAvg, aiXAvg);
+	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
+	const total = Math.round(totalAvg * 100);
+
+	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
 
 	// BUILD THE TREE
-	let input = metaculusDataTransform(data);
+	let input = metaculusDataTransform(vals);
+	console.log(input.children);
+
 	const chart = treeify(input, {
 		label: (d) => d.name,
-		title: (d, n) => d.name,
+		title: (d, n) => toTitleCase(d.name),
 		link: (d, n) => metaculusLinker(n),
 		width: 652,
 		height: 652,
@@ -110,6 +113,7 @@ export async function get(): Promise<RequestHandlerOutput> {
 	return {
 		status: 200,
 		body: {
+			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
 			chart: JSON.stringify(chart),
 			time: new Date().toString()
 		}
