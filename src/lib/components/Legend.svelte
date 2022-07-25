@@ -30,12 +30,10 @@
 	}
 </script>
 
-<form
-	class="lg:absolute border-black lg:border-2 gap-8 lg:gap-0 ml-2 lg:ml-0 mt-8 lg:mt-0 p-3 pr-4 flex lg:block z-20 text-sm"
->
+<form class=" border-black border-2  p-3 pr-4 block z-20 text-sm">
 	{#each options as option}
 		<label
-			class={`flex items-center cursor-pointer`}
+			class={`flex group items-center cursor-pointer`}
 			on:mouseover={() => onHoverBegin(option)}
 			on:focus={() => onHoverBegin(option)}
 			on:mouseout={onHoverEnd}
@@ -48,7 +46,9 @@
 				type="checkbox"
 				name="amount"
 				value={option}
-				class={`${option === 'survival' ? 'accent-green-theme' : 'accent-red-theme'} relative -top-[1px]`}
+				class={`${
+					option === 'survival' ? 'accent-green-theme' : 'accent-red-theme'
+				} group-hover:border-green-theme  relative -top-[1px]`}
 			/>
 			<span
 				class={`ml-2 transition-transform ${

@@ -79,11 +79,11 @@
 						>).
 					</li>
 					<li>
-						<span class="font-bold text-red-500">Red</span> branches are ones where humans suffer a catastrophe
+						<span class="font-bold text-yellow-theme">Yellow</span> branches are ones where humans suffer a catastrophe
 						in the next 100 years.
 					</li>
 					<li>
-						<span class="font-bold text-black">Black</span> branches are ones where humans suffer a near-extinction
+						<span class="font-bold text-red-theme">Red</span> branches are ones where humans suffer a near-extinction
 						event in the next 100 years.
 					</li>
 					<li>

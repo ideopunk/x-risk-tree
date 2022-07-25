@@ -50,10 +50,11 @@
 	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
 </article>
 
-<div class={`${highlight} relative`}>
-	<Legend on:message={handleMessage} />
-	<Details {vals} {highlight} />
-
+<div class={`${highlight} relative mt-4`}>
+	<div class="flex absolute justify-between w-full">
+		<Legend on:message={handleMessage} />
+		<Details {vals} {highlight} />
+	</div>
 	{#if chart}
 		{@html realChart}
 	{/if}

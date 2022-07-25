@@ -3,6 +3,7 @@ import type { TreeData } from '../types';
 interface Outcome {}
 interface GoodOutcome extends Outcome {
 	survival?: number;
+	sustenance?: number;
 	flourishing?: number;
 	extinction?: never;
 	catastrophe?: never;
@@ -11,28 +12,21 @@ type BadOutcome = Outcome & { extinction?: number; catastrophe?: number; surviva
 
 type Outcomes = { name: string; probabilities: GoodOutcome | BadOutcome }[];
 
+import { goodOutcomes } from '../funcs/treeUtilities';
 function outcomeTransform(outcome: { name: string; probabilities: GoodOutcome | BadOutcome }): {
 	name: string;
 	children: { name: string }[];
 } {
-	if ('survival' in outcome.probabilities) {
+	const goodKey = Object.keys(outcome.probabilities).find((k: any) => goodOutcomes.includes(k));
+	if (goodKey) {
 		return {
 			name: outcome.name,
-			children: Array.from({ length: outcome.probabilities.survival! }).map(() => {
-				return { name: 'survival' };
+			children: Array.from({ length: outcome.probabilities[goodKey]! }).map(() => {
+				return { name: goodKey };
 			})
 		};
 	}
 
-
-	if ('flourishing' in outcome.probabilities) {
-		return {
-			name: outcome.name,
-			children: Array.from({ length: outcome.probabilities.flourishing! }).map(() => {
-				return { name: 'flourishing' };
-			})
-		};
-	}
 	return {
 		name: outcome.name,
 		children: [

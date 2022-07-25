@@ -23,5 +23,5 @@
 </script>
 
 {#if num}
-	<div transition:fade class="fixed right-4 top-4">{num} / 100 Futures</div>
+	<div transition:fade>{num} out of 100 Futures</div>
 {/if}
