@@ -13,7 +13,6 @@ a:hover {
 	color: black;
 }
 
-
 @font-face {
 	font-family: 'heebo';
 	font-style: normal;
@@ -94,7 +93,7 @@ path.outer.anime {
 	}
 }
 
-.total-link: {
+.total-link {
 	width: 100px;
 	height: 100px;
 	display: block;
@@ -145,7 +144,7 @@ path.outer.anime {
 		transform: scale(0.1);
 	}
 
-	to: {
+	to {
 		opacity: 0.8;
 		transform: scale(1);
 	}
