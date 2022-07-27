@@ -18,7 +18,7 @@
 		"link": "https://www.fhi.ox.ac.uk/reports/2008-1.pdf",
 		"notes": ["Catastrophes are defined as at least 1 billion dead"],
 		"outcomes": [
-			{ "name": "survival", "probabilities": { "survival": 30 } },
+			{ "name": "sustenance", "probabilities": { "survival": 30 } },
 
 			{ "name": "nanotechnology", "probabilities": { "catastrophe": 5, "extinction": 5 } },
 			{ "name": "non-nuclear war", "probabilities": { "catastrophe": 17, "extinction": 3 } },

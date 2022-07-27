@@ -29,9 +29,6 @@
 	export let chart: string;
 	$: realChart = JSON.parse(chart);
 
-	/* 
-	For some reason I can't crack using getTotalPath serverside. Perhaps it's a jsdom issue? 
-	*/
 	onMount(() => {
 		const paths = document.querySelectorAll('path');
 		paths.forEach((path) => {
@@ -42,6 +39,24 @@
 			path.setAttribute('stroke-dashoffset', String(length));
 			path.classList.add('anime');
 		});
+
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+		if (mediaQuery.matches) {
+			paths.forEach((p) => {
+				p.classList.add('instant');
+			});
+
+			const texts = document.querySelectorAll('text');
+			texts.forEach((t) => {
+				t.classList.add('instant');
+			});
+
+			const svgs = document.querySelectorAll('svg');
+			svgs.forEach((s) => {
+				s.classList.add('instant');
+			});
+		}
 	});
 </script>
 
@@ -55,7 +70,7 @@
 </article>
 
 <div class={`${highlight} relative mt-4`}>
-	<div class="flex absolute justify-between w-full">
+	<div class="flex lg:absolute px-6 lg:px-0 justify-between w-full">
 		<Legend on:message={handleMessage} />
 		<Details {vals} {highlight} />
 	</div>

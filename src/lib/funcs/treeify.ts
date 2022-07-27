@@ -144,7 +144,7 @@ export default function treeify(
 		.attr('height', height)
 		.attr('style', 'max-width: 100%; height: auto; height: intrinsic;')
 		.attr('font-family', 'sans-serif')
-		.attr('font-size', 12);
+		.attr('font-size', 13);
 
 	// BACKGROUND
 	// svg.append('circle').attr('fill', 'rgba(197, 239, 247,1)').attr('r', width / Math.PI)

@@ -4,6 +4,7 @@
 
 	export let charts: { tree: SVGElement; title: string; notes: string[]; link: string }[];
 
+	let width: number;
 	onMount(() => {
 		const paths = document.querySelectorAll('path');
 		paths.forEach((path) => {
@@ -17,13 +18,31 @@
 
 			path.classList.add('anime');
 		});
+
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+		if (mediaQuery.matches || (width && width < 767)) {
+			paths.forEach((p) => {
+				p.classList.add('instant');
+			});
+
+			const texts = document.querySelectorAll('text');
+			texts.forEach((t) => {
+				t.classList.add('instant');
+			});
+
+			const svgs = document.querySelectorAll('svg');
+			svgs.forEach((s) => {
+				s.classList.add('instant');
+			});
+		}
 	});
 </script>
 
 <svelte:head>
 	<link rel="canonical" href="https://x-risk-tree.com/collection" />
 </svelte:head>
-
+<svelte:window bind:innerWidth={width} />
 <div
 	class="flex flex-col lg:flex-row px-8 lg:px-0 lg:h-screen w-screen justify-between pt-8 relative"
 >

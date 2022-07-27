@@ -93,6 +93,12 @@ path.outer.anime {
 	}
 }
 
+.instant {
+	animation-duration: 1ms !important;
+	animation-delay: 1ms !important;
+	animation-timing-function: steps(1, end) !important;
+}
+
 .total-link {
 	width: 100px;
 	height: 100px;
