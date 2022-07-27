@@ -12,7 +12,7 @@
 	<meta name="og:url" content="https://x-risk-tree.com/" />
 	<meta name="og:type" content="website" />
 
-	<meta name="og:image" content="https://x-risk-tree.come/tree-sample.png" />
+	<meta name="og:image" content="https://x-risk-tree.com/tree-sample.png" />
 	<meta name="og:image:alt" content="A tree symbolizing humanity's possible futures" />
 	<meta name="og:image:width" content="773" />
 	<meta name="og:image:height" content="773" />
