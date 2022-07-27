@@ -4,11 +4,11 @@ import titleCase from './titleCase';
 import { colorizer, familyNames } from './treeUtilities';
 
 const leaf = [
-	{ x: 0, y: 0 },
+	{ x: -2, y: 0 },
 	{ x: 15, y: -10 },
 	{ x: 30, y: 0 },
 	{ x: 15, y: 10 },
-	{ x: 0, y: 0 }
+	{ x: -2, y: 0 }
 ];
 
 const curveFunc = d3

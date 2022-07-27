@@ -98,7 +98,6 @@ export async function get(): Promise<RequestHandlerOutput> {
 
 	// BUILD THE TREE
 	let input = metaculusDataTransform(vals);
-	console.log(input.children);
 
 	const chart = treeify(input, {
 		label: (d) => d.name,

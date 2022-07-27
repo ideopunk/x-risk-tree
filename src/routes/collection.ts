@@ -36,7 +36,6 @@ export async function get(): Promise<RequestHandlerOutput> {
 
 	let charts: { tree: string; title: string; notes: string[]; link: string }[] = [];
 	for (const entry of data) {
-		console.log(entry.children);
 		charts.push({
 			tree: treeify(entry, {
 				label: (d) => d.name,
