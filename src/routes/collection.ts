@@ -4,7 +4,7 @@ import estimates from '$lib/data/estimates.json';
 import collectionsDataTransform from '$lib/funcs/collectionsDataTransform';
 import toTitleCase from '$lib/funcs/titleCase';
 
-export async function get(): Promise<RequestHandlerOutput> {
+export async function GET(): Promise<RequestHandlerOutput> {
 	let data: {
 		title: string;
 		link: string;
