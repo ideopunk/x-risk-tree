@@ -65,11 +65,10 @@
 </svelte:head>
 
 <article class="w-screen text-center prose">
-	<h1 class="text-center mt-4 mb-4">The X-Risk Tree</h1>
-	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
+	<h1 class="text-center mt-4 mb-1">The X-Risk Tree</h1>
 </article>
 
-<div class={`${highlight} relative mt-4`}>
+<div class={`${highlight} relative `}>
 	<div class="flex lg:absolute px-6 lg:px-0 justify-between w-full">
 		<Legend on:message={handleMessage} />
 		<Details {vals} {highlight} />
@@ -78,6 +77,11 @@
 		{@html realChart}
 	{/if}
 </div>
+
+<article class="w-screen text-center prose">
+	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
+</article>
+
 <article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
 	<p>
 		Over the next century, humanity could flourish or it could experience a global catatastrophe. It

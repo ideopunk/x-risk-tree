@@ -14,6 +14,7 @@
 	}
 
 	function onClick(h: Highlight) {
+		console.log('ONCLICK', h);
 		if (clickedHighlight !== h) {
 			clickedHighlight = h;
 		} else {
@@ -42,13 +43,13 @@
 		>
 			<input
 				checked={clickedHighlight === option}
-				on:change={() => onClick(option)}
-				type="checkbox"
+				on:click={() => onClick(option)}
+				type="radio"
 				name="amount"
 				value={option}
 				class={`${
 					option === 'survival' ? 'accent-green-theme' : 'accent-red-theme'
-				} group-hover:border-green-theme  relative -top-[1px]`}
+				}   relative -top-[1px]`}
 			/>
 			<span
 				class={`ml-2 transition-transform ${

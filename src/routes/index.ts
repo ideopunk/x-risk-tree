@@ -103,8 +103,8 @@ export async function get(): Promise<RequestHandlerOutput> {
 		label: (d) => d.name,
 		title: (d, n) => toTitleCase(d.name),
 		link: (d, n) => metaculusLinker(n),
-		width: 652,
-		height: 652,
+		width: 632,
+		height: 632,
 		margin: 50
 	});
 

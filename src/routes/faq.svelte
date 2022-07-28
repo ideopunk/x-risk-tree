@@ -38,7 +38,7 @@
 		<article class="prose w-full  ">
 			<Question id="what-is-x-risk">What is existential risk?</Question>
 			<Answer
-				>Existential risk is the possibility of all of humanity dying out. This could look like an
+				>Existential risk is the possibility of humanity's long-term potential being destroyed. This includes both humanity going extinct and unrecoverable civilizational collapse. This could look like an
 				engineered disease, or artificial intelligence, or something we haven't foreseen.</Answer
 			>
 
