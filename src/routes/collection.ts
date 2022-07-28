@@ -19,12 +19,7 @@ export async function GET(): Promise<RequestHandlerOutput> {
 	}[] = [];
 
 	for (const entry of estimates) {
-		// const sum = entry.outcomes.reduce((prev, curr) => curr + prev, 0);
-		// if (Math.abs(100 - sum) > 1) {
-		// 	throw new Error(
-		// 		`Outcome probabilities must sum to ~100. For ${entry.name}'s predictions they instead summed to ${sum}`
-		// 	);
-		// }
+
 
 		data.push({
 			...collectionsDataTransform(entry.outcomes),
