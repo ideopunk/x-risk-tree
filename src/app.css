@@ -38,7 +38,7 @@ a:hover {
 	--duration: 2000;
 }
 
-svg {
+svg.treeSVG {
 	animation-name: svg-animation;
 	animation-timing-function: linear;
 	animation-duration: calc(var(--duration) * 0.5ms);

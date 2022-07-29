@@ -52,7 +52,7 @@
 				t.classList.add('instant');
 			});
 
-			const svgs = document.querySelectorAll('svg');
+			const svgs = document.querySelectorAll('svg.treeSVG');
 			svgs.forEach((s) => {
 				s.classList.add('instant');
 			});
