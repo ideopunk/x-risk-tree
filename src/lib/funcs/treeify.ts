@@ -169,7 +169,7 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => colorizer(...familyNames(d)))
-		.attr('class', (d: any, i) => (d.target.height ? 'inner' : 'outer')) // class is used for conditionally animating
+		.attr('class', (d: any, i) => (d.target.height ? 'inner line' : 'outer line')) // class is used for conditionally animating
 		.attr('stroke-dasharray', (d: any, n) => {
 			return 1000; // necessary filler, real s-do is set onMount
 		})
@@ -218,7 +218,7 @@ export default function treeify(
 		.attr('r', r)
 
 		.attr('class', (d: any) =>
-			d.data.name === 'extinction' ? 'leaf extinction' : 'leaf survival'
+			d.data.name === 'extinction' ? 'leaf line extinction' : 'leaf line survival'
 		); // class is used for css animation
 
 	// TITLE

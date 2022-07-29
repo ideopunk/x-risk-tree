@@ -30,7 +30,7 @@
 	$: realChart = JSON.parse(chart);
 
 	onMount(() => {
-		const paths = document.querySelectorAll('path');
+		const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
 		paths.forEach((path) => {
 			const length = path.getTotalLength();
 			path['stroke-dasharray'] = length;

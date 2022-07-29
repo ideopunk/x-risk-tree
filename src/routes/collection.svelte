@@ -6,7 +6,7 @@
 
 	let width: number;
 	onMount(() => {
-		const paths = document.querySelectorAll('path');
+		const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
 		paths.forEach((path) => {
 			if (!path.classList.contains('leaf')) {
 				const length = path.getTotalLength();

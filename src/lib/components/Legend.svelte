@@ -55,7 +55,7 @@
 	></button
 >
 {#if showLegend}
-	<form transition:slide class={`border-black border-2  p-3 pr-4 block z-20 text-sm`}>
+	<form transition:slide|local class={`border-black border-2  p-3 pr-4 block z-20 text-sm`}>
 		{#each options as option}
 			<label
 				class={`flex group items-center cursor-pointer`}
