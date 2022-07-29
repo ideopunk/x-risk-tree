@@ -49,7 +49,7 @@
 				>In the abstract, it can sound less menacing. In reality, this would mean everybody you love
 				dying, everybody you know dying, all children dying, etc. This is a future worth avoiding!
 				Furthermore, it means the loss of humanity's long-term potential. In the future, we could
-				engineer the world to be better for all forms of life. If we die now, we lose our chance to
+				engineer the world to be better for all forms of life. We shouldn't miss our chance to
 				try.
 			</Answer>
 
