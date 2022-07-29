@@ -92,7 +92,7 @@
 		our existential risks until every path leads to survival or even flourishing.
 	</p>
 	<p>
-		This tree is built from Metaculus's <ExternalLink
+		This tree is built from the prediction platform Metaculus's <ExternalLink
 			href="https://www.metaculus.com/questions/2568">Ragnarok series</ExternalLink
 		>. It is updated every night (last: {new Date(time).toDateString()}). It tracks predictions
 		concerning
@@ -101,7 +101,7 @@
 		<span class="text-red-theme font-bold">(near-)extinction events</span>.
 	</p>
 	<p>
-		If you'd like to learn more about existential risks, see our <InternalLink href="faq"
+		If you'd like to learn more about existential risk, see our <InternalLink href="faq"
 			>FAQ</InternalLink
 		>.
 	</p>
