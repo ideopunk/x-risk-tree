@@ -1,7 +1,3 @@
-import metaculusDataTransform from '$lib/funcs/metaculusDataTransform';
-import metaculusLinker from '$lib/funcs/metaculusLinker';
-import toTitleCase from '$lib/funcs/titleCase';
-import treeify from '$lib/funcs/treeify';
 import type { RequestHandlerOutput } from '@sveltejs/kit';
 
 async function metaculusFetch(question: number): Promise<number> {
@@ -96,24 +92,11 @@ export async function GET(): Promise<RequestHandlerOutput> {
 
 	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
 
-	// BUILD THE TREE
-	let input = metaculusDataTransform(vals);
-
-	const chart = treeify(input, {
-		label: (d) => d.name,
-		title: (d, n) => toTitleCase(d.name),
-		link: (d, n) => metaculusLinker(n),
-		width: 632,
-		height: 632,
-		margin: 50
-	});
-
 	console.log('BUILD COMPLETE'); // make sure this only logs during build, not runtime.
 	return {
 		status: 200,
 		body: {
-			vals: { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX },
-			chart: JSON.stringify(chart),
+			vals,
 			time: new Date().toString()
 		}
 	};

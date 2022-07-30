@@ -31,6 +31,7 @@
 	{
 		"title": "William MacAskill (2020) - Existential risk in the 20th century",
 		"link": "https://80000hours.org/podcast/episodes/will-macaskill-paralysis-and-hinge-of-history/#transcript",
+		"notes": [],
 		"outcomes": [
 			{ "name": "survival", "probabilities": { "survival": 99 } },
 			{ "name": "extinction", "probabilities": { "extinction": 1 } }

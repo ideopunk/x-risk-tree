@@ -1,10 +1,15 @@
 <script lang="ts">
 	import Details from '$lib/components/details.svelte';
+	import { browser } from '$app/env';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import Legend from '$lib/components/Legend.svelte';
 	import type { Highlight } from '$lib/types';
 	import { onMount } from 'svelte';
+	import treeify from '$lib/funcs/treeify';
+	import metaculusDataTransform from '$lib/funcs/metaculusDataTransform';
+	import linker from '$lib/funcs/metaculusLinker';
+	import toTitleCase from '$lib/funcs/titleCase';
 
 	let highlight: Highlight = '';
 	function handleMessage(e: CustomEvent) {
@@ -26,23 +31,26 @@
 		bioX: number;
 	};
 
-	export let chart: string;
-	$: realChart = JSON.parse(chart);
+	let input = metaculusDataTransform(vals);
+	console.log(input);
+
+	let chart: SVGSVGElement | null = null;
+	if (browser) {
+		chart = treeify(input, {
+			label: (d) => d.name,
+			title: (d, n) => toTitleCase(d.name),
+			link: (d, n) => linker(n),
+			width: 632,
+			height: 632,
+			margin: 50
+		});
+	}
 
 	onMount(() => {
-		const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
-		paths.forEach((path) => {
-			const length = path.getTotalLength();
-			path['stroke-dasharray'] = length;
-			path['stroke-dashoffset'] = length;
-			path.setAttribute('stroke-dasharray', String(length));
-			path.setAttribute('stroke-dashoffset', String(length));
-			path.classList.add('anime');
-		});
-
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 		if (mediaQuery.matches) {
+			const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
 			paths.forEach((p) => {
 				p.classList.add('instant');
 			});
@@ -68,13 +76,15 @@
 	<h1 class="text-center mt-4 mb-1">The X-Risk Tree</h1>
 </article>
 
-<div class={`${highlight} relative `}>
+<div class={`${highlight} relative `} style="height: 632px; width: 632px;">
 	<div class="flex lg:absolute px-6 lg:px-0 justify-between w-full">
 		<Legend on:message={handleMessage} />
-		<Details {vals} {highlight} />
+		<div>
+			<Details {vals} {highlight} />
+		</div>
 	</div>
 	{#if chart}
-		{@html realChart}
+		{@html chart.outerHTML}
 	{/if}
 </div>
 

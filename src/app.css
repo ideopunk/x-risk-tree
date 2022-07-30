@@ -133,7 +133,7 @@ path.outer.anime {
 
 	animation-name: leaf-animation;
 	animation-timing-function: linear;
-	animation-duration: calc(var(--duration) * 2.6ms);
+	animation-duration: calc(var(--duration) * 2.5ms);
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 	visibility: visible;

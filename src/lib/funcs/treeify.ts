@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import jsdom from 'jsdom';
 import titleCase from './titleCase';
 import { colorizer, familyNames } from './treeUtilities';
 
@@ -92,10 +91,6 @@ export default function treeify(
 		haloWidth?: number; // padding around the labels
 	}
 ) {
-	const document = new jsdom.JSDOM().window.document;
-	document.body.innerHTML = '';
-	let body = d3.select(document).select('body');
-
 	// If id and parentId options are specified, or the path option, use d3.stratify
 	// to convert tabular data to a hierarchy; otherwise we assume that the data is
 	// specified as an object {children} with nested objects (a.k.a. the “flare.json”
@@ -120,13 +115,10 @@ export default function treeify(
 		.size([2 * Math.PI, radius])
 		.separation(separation)(root);
 
-	// BODY??
-	body.attr('width', width).attr('height', height);
-
 	// SINGLE LINK ALTERNATIVE
 	let totalAnchor = totalLink
-		? body
-				.append('a')
+		? d3
+				.create('a')
 				.attr('rel', 'external')
 				.attr('tabindex', 0)
 				.attr('class', 'total-link')
@@ -137,8 +129,7 @@ export default function treeify(
 		: null;
 
 	// CONTAINER AND TEXT STYLE
-	const svg = (totalAnchor ? totalAnchor : body)
-		.append('svg')
+	const svg = (totalAnchor ? totalAnchor.append('svg') : d3.create('svg'))
 		.attr('viewBox', [-marginLeft - radius, -marginTop - radius, width, height])
 		.attr('width', width)
 		.attr('height', height)
@@ -146,9 +137,6 @@ export default function treeify(
 		.attr('font-family', 'sans-serif')
 		.attr('font-size', 13)
 		.attr('class', 'treeSVG');
-
-	// BACKGROUND
-	// svg.append('circle').attr('fill', 'rgba(197, 239, 247,1)').attr('r', width / Math.PI)
 
 	// LINES
 	svg
@@ -169,15 +157,23 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => colorizer(...familyNames(d)))
-		.attr('class', (d: any, i) => (d.target.height ? 'inner line' : 'outer line')) // class is used for conditionally animating
+		.attr('class', (d: any, i) => (d.target.height ? 'inner line anime' : 'outer line anime')); // class is used for conditionally animating
+
+	// 	Line Animation Setup
+	const selector = 'path';
+	const svgpaths: SVGPathElement[] = (svg.selectAll(selector) as any)._groups[0];
+	let lengths: number[] = [];
+	for (let path of svgpaths) {
+		lengths.push(path.getTotalLength());
+	}
+
+	const datapaths = svg.selectAll(selector);
+	datapaths
 		.attr('stroke-dasharray', (d: any, n) => {
-			return 1000; // necessary filler, real s-do is set onMount
+			const length = lengths[n];
+			return length + ' ' + length;
 		})
-		.attr(
-			'stroke-dashoffset',
-			(d: any, n) => 1000 // necessary filler, real s-do is set onMount
-			// lengths[n]
-		);
+		.attr('stroke-dashoffset', (d: any, n) => lengths[n]);
 
 	// LINKS
 
@@ -218,7 +214,7 @@ export default function treeify(
 		.attr('r', r)
 
 		.attr('class', (d: any) =>
-			d.data.name === 'extinction' ? 'leaf line extinction' : 'leaf line survival'
+			d.data.name === 'extinction' ? 'leaf line extinction anime' : 'leaf line anime survival'
 		); // class is used for css animation
 
 	// TITLE
@@ -241,5 +237,5 @@ export default function treeify(
 			.text((d: any) => titleCase(d.data.name))
 			.attr('class', 'tree-text');
 
-	return (body.node() as HTMLBodyElement).innerHTML;
+	return svg.node();
 }

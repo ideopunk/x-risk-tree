@@ -1,27 +1,52 @@
 <script lang="ts">
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import { onMount } from 'svelte';
+	import { browser } from '$app/env';
+	import treeify from '$lib/funcs/treeify';
+	import toTitleCase from '$lib/funcs/titleCase';
 
-	export let charts: { tree: SVGElement; title: string; notes: string[]; link: string }[];
+	export let data: {
+		title: string;
+		link: string;
+		notes: string[];
+		name: string; // the future
+		children: {
+			name: string;
+			children: {
+				name: string;
+			}[];
+		}[];
+	}[] = [];
+
+	let predictions: { chart: SVGElement; title: string; notes: string[]; link: string }[] = [];
+	if (browser) {
+		for (let entry of data) {
+			console.log(entry);
+			const newTree = treeify(entry, {
+				label: (d) => d.name,
+				title: (d, n) => toTitleCase(d.name),
+				width: 632,
+				height: 632,
+				margin: 50
+			});
+			console.log(newTree);
+			if (newTree) {
+				predictions.push({
+					chart: newTree,
+					title: entry.title,
+					link: entry.link,
+					notes: entry.notes
+				});
+			}
+		}
+	}
 
 	let width: number;
 	onMount(() => {
-		const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
-		paths.forEach((path) => {
-			if (!path.classList.contains('leaf')) {
-				const length = path.getTotalLength();
-				path['stroke-dasharray'] = length;
-				path['stroke-dashoffset'] = length;
-				path.setAttribute('stroke-dasharray', String(length));
-				path.setAttribute('stroke-dashoffset', String(length));
-			}
-
-			path.classList.add('anime');
-		});
-
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 		if (mediaQuery.matches || (width && width < 767)) {
+			const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
 			paths.forEach((p) => {
 				p.classList.add('instant');
 			});
@@ -81,16 +106,16 @@
 		</div>
 	</div>
 	<div class="lg:w-2/3 pb-12 flex flex-col items-center">
-		{#if charts}
-			{#each charts as chart, i}
-				<a href={chart.link} class="block text-black">
+		{#if predictions.length}
+			{#each predictions as prediction, i}
+				<a href={prediction.link} class="block text-black">
 					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : 'mt-16 lg:mt-0'} mb-1`}>
-						{chart.title}
+						{prediction.title}
 					</h3>
-					{#each chart.notes as note}
+					{#each prediction.notes as note}
 						<p class="text-xs text-center">{note}</p>
 					{/each}
-					{@html chart.tree}
+					{@html prediction.chart.outerHTML}
 				</a>
 			{/each}
 		{/if}
