@@ -70,6 +70,7 @@
 
 <svelte:head>
 	<link rel="canonical" href="https://x-risk-tree.com/" />
+	<title>The X-Risk Tree</title>
 </svelte:head>
 
 <article class="w-screen text-center prose">
@@ -83,9 +84,10 @@
 			<Details {vals} {highlight} />
 		</div>
 	</div>
+	<!-- prevent CLS -->
 	{#if chart}
 		{@html chart.outerHTML}
-	{:else}<div class="w-[632px] h-[632px]"/>{/if}
+	{:else}<div class="w-[632px] h-[632px]" />{/if}
 </div>
 
 <article class="w-screen text-center prose">
