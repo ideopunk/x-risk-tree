@@ -102,6 +102,9 @@
 			<div class="text-xl mt-2">
 				<InternalLink href="/faq">FAQ</InternalLink>
 			</div>
+			<div class="text-xl mt-2">
+				<InternalLink href="/self">Create</InternalLink>
+			</div>
 		</div>
 	</div>
 	<div slot="right">
