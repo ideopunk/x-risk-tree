@@ -76,7 +76,7 @@
 	<h1 class="text-center mt-4 mb-1">The X-Risk Tree</h1>
 </article>
 
-<div class={`${highlight} relative `} style="height: 632px; width: 632px;">
+<div class={`${highlight} relative `}>
 	<div class="flex lg:absolute px-6 lg:px-0 justify-between w-full">
 		<Legend on:message={handleMessage} />
 		<div>
@@ -85,7 +85,7 @@
 	</div>
 	{#if chart}
 		{@html chart.outerHTML}
-	{/if}
+	{:else}<div class="w-[632px] h-[632px]"/>{/if}
 </div>
 
 <article class="w-screen text-center prose">
