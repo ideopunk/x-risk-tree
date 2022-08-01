@@ -6,6 +6,8 @@
 	import toTitleCase from '$lib/funcs/titleCase';
 	import Container from '$lib/components/Container.svelte';
 
+	let width: number;
+
 	export let data: {
 		title: string;
 		link: string;
@@ -20,7 +22,10 @@
 	}[] = [];
 
 	let predictions: { chart: SVGElement; title: string; notes: string[]; link: string }[] = [];
-	if (browser) {
+
+	onMount(() => {
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const classes = mediaQuery.matches || (width && width < 767) ? 'instant' : '';
 		for (let entry of data) {
 			console.log(entry);
 			const newTree = treeify(entry, {
@@ -28,7 +33,8 @@
 				title: (d, n) => toTitleCase(d.name),
 				width: 632,
 				height: 632,
-				margin: 50
+				margin: 50,
+				classes
 			});
 			console.log(newTree);
 			if (newTree) {
@@ -38,30 +44,26 @@
 					link: entry.link,
 					notes: entry.notes
 				});
+
+				predictions = predictions
 			}
 		}
-	}
+		// if (mediaQuery.matches || (width && width < 767)) {
+		// 	const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
+		// 	paths.forEach((p) => {
+		// 		p.classList.add('instant');
+		// 	});
 
-	let width: number;
-	onMount(() => {
-		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		// 	const texts = document.querySelectorAll('text');
+		// 	texts.forEach((t) => {
+		// 		t.classList.add('instant');
+		// 	});
 
-		if (mediaQuery.matches || (width && width < 767)) {
-			const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
-			paths.forEach((p) => {
-				p.classList.add('instant');
-			});
-
-			const texts = document.querySelectorAll('text');
-			texts.forEach((t) => {
-				t.classList.add('instant');
-			});
-
-			const svgs = document.querySelectorAll('svg');
-			svgs.forEach((s) => {
-				s.classList.add('instant');
-			});
-		}
+		// 	const svgs = document.querySelectorAll('svg');
+		// 	svgs.forEach((s) => {
+		// 		s.classList.add('instant');
+		// 	});
+		// }
 	});
 </script>
 
@@ -110,7 +112,7 @@
 	<div slot="right">
 		{#if predictions.length}
 			{#each predictions as prediction, i}
-				<a href={prediction.link} class="block text-black">
+				<a href={prediction.link} class="flex flex-col items-center text-black">
 					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : 'mt-16 lg:mt-0'} mb-1`}>
 						{prediction.title}
 					</h3>

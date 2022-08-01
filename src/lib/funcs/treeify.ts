@@ -56,7 +56,8 @@ export default function treeify(
 		strokeLinejoin = 2, // stroke line join for links
 		strokeLinecap = 2, // stroke line cap for links
 		halo = '#fff', // color of label halo
-		haloWidth = 3 // padding around the labels
+		haloWidth = 3, // padding around the labels
+		classes = ''
 	}: {
 		path?: any; // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
 		id?: ((d: any) => any) | null; // if tabular data, given a d in data, returns a unique identifier (string)
@@ -89,6 +90,7 @@ export default function treeify(
 		strokeLinecap?: number; // stroke line cap for links
 		halo?: string; // color of label halo
 		haloWidth?: number; // padding around the labels
+		classes?: string; // used to add classes to all elements
 	}
 ) {
 	// If id and parentId options are specified, or the path option, use d3.stratify
@@ -136,7 +138,8 @@ export default function treeify(
 		.attr('style', 'max-width: 100%; height: auto; height: intrinsic;')
 		.attr('font-family', 'sans-serif')
 		.attr('font-size', 13)
-		.attr('class', 'treeSVG');
+		.classed('treeSVG', true)
+		.classed(classes, true);
 
 	// LINES
 	svg
@@ -157,7 +160,8 @@ export default function treeify(
 				.radius((d: any) => d.y) as any
 		)
 		.attr('stroke', (d: any, i) => colorizer(...familyNames(d)))
-		.attr('class', (d: any, i) => (d.target.height ? 'inner line anime' : 'outer line anime')); // class is used for conditionally animating
+		.attr('class', (d: any, i) => (d.target.height ? 'inner line anime' : 'outer line anime')) // class is used for conditionally animating
+		.classed(classes, true);
 
 	// 	Line Animation Setup
 	const selector = 'path';
@@ -205,9 +209,9 @@ export default function treeify(
 	// LEAVES
 	outerAnchors
 		.append('g')
-		.attr('class', (d: any) =>
-			d.data.name === 'extinction' ? 'leaf-container extinction' : 'leaf-container survival'
-		)
+		// .attr('class', (d: any) =>
+		// 	d.data.name === 'extinction' ? 'leaf-container extinction' : 'leaf-container survival'
+		// )
 		.append('path')
 		.attr('d', curveFunc(leaf as any))
 		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
@@ -215,10 +219,15 @@ export default function treeify(
 
 		.attr('class', (d: any) =>
 			d.data.name === 'extinction' ? 'leaf line extinction anime' : 'leaf line anime survival'
-		); // class is used for css animation
+		) // class is used for css animation
+		.classed(classes, true);
 
 	// TITLE
-	if (title != null) node.append('title').text((d) => title(d.data, d));
+	if (title != null)
+		node
+			.append('title')
+			.text((d) => title(d.data, d))
+			.classed(classes, true);
 
 	// TEXT
 	if (L)
@@ -235,7 +244,8 @@ export default function treeify(
 			.attr('stroke', halo)
 			.attr('stroke-width', haloWidth)
 			.text((d: any) => titleCase(d.data.name))
-			.attr('class', 'tree-text');
+			.classed('tree-text', true)
+			.classed(classes, true);
 
 	return svg.node();
 }

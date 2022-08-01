@@ -36,36 +36,38 @@
 
 	let chart: SVGSVGElement | null = null;
 	if (browser) {
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
 		chart = treeify(input, {
 			label: (d) => d.name,
 			title: (d, n) => toTitleCase(d.name),
 			link: (d, n) => linker(n),
 			width: 632,
 			height: 632,
-			margin: 50
+			margin: 50,
+			classes: mediaQuery.matches ? "instant" : ""
 		});
 	}
 
-	onMount(() => {
-		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	// onMount(() => {
 
-		if (mediaQuery.matches) {
-			const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
-			paths.forEach((p) => {
-				p.classList.add('instant');
-			});
+	// 	if (mediaQuery.matches) {
+	// 		const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
+	// 		paths.forEach((p) => {
+	// 			p.classList.add('instant');
+	// 		});
 
-			const texts = document.querySelectorAll('text');
-			texts.forEach((t) => {
-				t.classList.add('instant');
-			});
+	// 		const texts = document.querySelectorAll('text');
+	// 		texts.forEach((t) => {
+	// 			t.classList.add('instant');
+	// 		});
 
-			const svgs = document.querySelectorAll('svg.treeSVG');
-			svgs.forEach((s) => {
-				s.classList.add('instant');
-			});
-		}
-	});
+	// 		const svgs = document.querySelectorAll('svg.treeSVG');
+	// 		svgs.forEach((s) => {
+	// 			s.classList.add('instant');
+	// 		});
+	// 	}
+	// });
 </script>
 
 <svelte:head>
