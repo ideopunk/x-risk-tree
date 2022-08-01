@@ -12,7 +12,7 @@
 	let title = 'My Existential Risk Predictions';
 	let notes = '';
 	let branches: { name: string; probabilities: { name: string; percentage: number }[] }[] = [
-		{ name: '', probabilities: [{ name: 'extinction', percentage: 0 }] }
+		{ name: '', probabilities: [{ name: 'extinction', percentage: 1 }] }
 	];
 	function handleCreate() {
 		let input = selfDataTransform(branches);
@@ -27,7 +27,7 @@
 	}
 
 	function addBranch() {
-		branches.push({ name: '', probabilities: [{ name: 'extinction', percentage: 0 }] });
+		branches.push({ name: '', probabilities: [{ name: 'extinction', percentage: 1 }] });
 		branches = branches;
 	}
 
@@ -70,22 +70,22 @@
 			<input
 				id="title"
 				bind:value={title}
-				class="block border-b border-dashed border-black mb-4 w-full"
+				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4 w-full"
 			/>
 			<Label htmlFor="notes">Notes</Label>
 			<input
 				id="notes"
 				bind:value={notes}
-				class="block border-b border-dashed border-black mb-4 w-full"
+				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4 w-full"
 			/>
 
 			<fieldset>
 				<div class="flex justify-between items-center">
 					<Label legend>Branches</Label>
 					<div class="flex ml-4">
-						<button on:click={addBranch} class="w-6 h-6"
+						<button on:click={addBranch} class="w-6 h-6 hover:scale-110 transition-transform"
 							><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
-								><title>Add Circle</title><path
+								><title>Add Branch</title><path
 									d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
 									fill="none"
 									stroke="currentColor"
@@ -107,9 +107,12 @@
 					<div class="border-black border-t-2 pt-4 rounded-sm mt-4">
 						<div class="flex justify-between items-center">
 							<Label size="md">Branch Name</Label>
-							<button on:click={() => removeBranch(i)} class="w-6 h-6">
+							<button
+								on:click={() => removeBranch(i)}
+								class="w-6 h-6 hover:scale-110 transition-transform"
+							>
 								<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
-									><title>Remove Circle</title><path
+									><title>Remove Branch</title><path
 										d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
 										fill="none"
 										stroke="currentColor"
@@ -128,15 +131,17 @@
 						</div>
 						<input
 							bind:value={branch.name}
-							class="block border-b border-dashed border-black mb-4"
+							class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4"
 						/>
 
 						<div class="ml-16">
 							<div class="flex justify-between mb-2">
 								<Label size="md">Outcomes</Label>
-								<button on:click={() => addOutcome(i)} class="w-4 h-4 relative -right-6"
+								<button
+									on:click={() => addOutcome(i)}
+									class="w-4 h-4 relative -right-6 hover:scale-110 transition-transform"
 									><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
-										><title>Add Circle</title><path
+										><title>Add Outcome</title><path
 											d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
 											fill="none"
 											stroke="currentColor"
@@ -160,7 +165,7 @@
 
 										<select
 											bind:value={outcome.name}
-											class="bg-white border-b border-dashed border-black"
+											class="bg-white border-white border-dashed border hover:border-black transition-colors border-b-black"
 										>
 											{#each outcomeTypes as outcome}
 												<option value={outcome}>{toTitleCase(outcome)}</option>
@@ -170,16 +175,20 @@
 									<div>
 										<Label size="sm">Percentage</Label>
 										<input
-											class="block w-20 border-b border-dashed border-black"
+											type="number"
+											step="1"
+											min="1"
+											max="100"
+											class="block w-20 border-white border-dashed border hover:border-black transition-colors border-b-black"
 											bind:value={outcome.percentage}
 										/>
 									</div>
 									<button
 										on:click={() => removeOutcome(i, j)}
-										class="absolute -right-6 w-4 h-4 z-10 self-center"
+										class="absolute -right-6 w-4 h-4 z-10 self-center hover:scale-110 transition-transform"
 									>
 										<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
-											><title>Remove Circle</title><path
+											><title>Remove Outcome</title><path
 												d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
 												fill="none"
 												stroke="currentColor"

@@ -1,3 +1,5 @@
+import { children } from 'svelte/internal';
+
 export enum Color {
 	Red = '#E8624A',
 	Green = '#5BC26A',
@@ -23,20 +25,30 @@ export function familyNames(
 		  }
 ): string[] {
 	if ('data' in d) {
-		// root
-		if (!d.parent) return ['the future'];
-
 		let names = [d.data.name];
-		names.push(d.parent.data.name);
+
+		if (d.parent) {
+			names.push(d.parent.data.name);
+		}
 
 		if (d?.parent?.parent) {
 			names.push(d.parent.parent.data.name);
 		}
 
 		if (d.children) {
-			names.push(...d.children.map((c) => c.data.name));
+			names.push(
+				...d.children
+					.map((c) => {
+						if (c.children as any) {
+							return [c.data.name, ...c.children.map((gc) => gc.data.name)];
+						}
+						return c.data.name;
+					})
+					.flat()
+			);
 		}
 
+		console.log({ names });
 		return names;
 	} else {
 		let names = [d.source.data.name, d.target.data.name];
@@ -53,13 +65,12 @@ export function familyNames(
 
 export function colorizer(...names: string[]) {
 	// root
-	if (names.length === 1 && names[0] === 'the future') return Color.Green;
+
+	if (names.some((n: any) => ['survival', 'sustenance'].includes(n))) return Color.Green;
 
 	if (names.includes('extinction')) return Color.Red;
 
 	if (names.includes('flourishing')) return Color.Blue;
-
-	if (names.some((n: any) => goodOutcomes.includes(n))) return Color.Green;
 
 	return Color.Yellow;
 }
