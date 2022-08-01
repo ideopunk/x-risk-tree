@@ -204,7 +204,8 @@ export default function treeify(
 	innerAnchors
 		.append('circle')
 		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
-		.attr('r', r);
+		.attr('r', r)
+		.classed(classes, true);
 
 	// LEAVES
 	outerAnchors

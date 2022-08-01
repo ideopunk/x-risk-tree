@@ -64,7 +64,7 @@
 			</div>
 		</div>
 
-		<div>
+		<div class="pt-4">
 			<Label htmlFor="title">Title</Label>
 
 			<input
@@ -104,9 +104,9 @@
 					</div>
 				</div>
 				{#each branches as branch, i}
-					<div class="border-black border-t-2 pt-4 rounded-sm mt-4">
+					<div class="border-black border-t-2 pt-4 mt-4">
 						<div class="flex justify-between items-center">
-							<Label size="md">Branch Name</Label>
+							<Label htmlFor="branchName" size="md">Branch Name</Label>
 							<button
 								on:click={() => removeBranch(i)}
 								class="w-6 h-6 hover:scale-110 transition-transform"
@@ -130,6 +130,7 @@
 							</button>
 						</div>
 						<input
+							id="branchName"
 							bind:value={branch.name}
 							class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4"
 						/>
@@ -161,9 +162,10 @@
 							{#each branch.probabilities as outcome, j}
 								<div class="flex justify-between mb-3 relative">
 									<div>
-										<Label size="sm">Outcome Type</Label>
+										<Label htmlFor={'type' + i + j} size="sm">Outcome Type</Label>
 
 										<select
+											id={'type' + i + j}
 											bind:value={outcome.name}
 											class="bg-white border-white border-dashed border hover:border-black transition-colors border-b-black"
 										>
@@ -173,8 +175,9 @@
 										</select>
 									</div>
 									<div>
-										<Label size="sm">Percentage</Label>
+										<Label htmlFor={'percentage' + i + j} size="sm">Percentage</Label>
 										<input
+											id={'percentage' + i + j}
 											type="number"
 											step="1"
 											min="1"
@@ -210,12 +213,13 @@
 					</div>
 				{/each}
 			</fieldset>
-
-			<button
-				on:click={handleCreate}
-				class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all rounded-sm cursor-pointer"
-				value="Create">Create</button
-			>
+			<div class="border-black border-t-2 pt-4 mt-4">
+				<button
+					on:click={handleCreate}
+					class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all rounded-sm cursor-pointer w-full"
+					value="Create">Create</button
+				>
+			</div>
 		</div>
 	</div>
 	<div slot="right">
