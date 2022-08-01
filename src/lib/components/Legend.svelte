@@ -16,7 +16,6 @@
 	}
 
 	function onClick(h: Highlight) {
-		console.log('ONCLICK', h);
 		if (clickedHighlight !== h) {
 			clickedHighlight = h;
 		} else {

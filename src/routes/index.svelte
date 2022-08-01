@@ -32,7 +32,6 @@
 	};
 
 	let input = metaculusDataTransform(vals);
-	console.log(input);
 
 	let chart: SVGSVGElement | null = null;
 	if (browser) {
@@ -45,7 +44,7 @@
 			width: 632,
 			height: 632,
 			margin: 50,
-			classes: mediaQuery.matches ? "instant" : ""
+			classes: mediaQuery.matches ? 'instant' : ''
 		});
 	}
 

@@ -27,7 +27,6 @@
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 		const classes = mediaQuery.matches || (width && width < 767) ? 'instant' : '';
 		for (let entry of data) {
-			console.log(entry);
 			const newTree = treeify(entry, {
 				label: (d) => d.name,
 				title: (d, n) => toTitleCase(d.name),
@@ -36,7 +35,6 @@
 				margin: 50,
 				classes
 			});
-			console.log(newTree);
 			if (newTree) {
 				predictions.push({
 					chart: newTree,
@@ -45,25 +43,9 @@
 					notes: entry.notes
 				});
 
-				predictions = predictions
+				predictions = predictions;
 			}
 		}
-		// if (mediaQuery.matches || (width && width < 767)) {
-		// 	const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
-		// 	paths.forEach((p) => {
-		// 		p.classList.add('instant');
-		// 	});
-
-		// 	const texts = document.querySelectorAll('text');
-		// 	texts.forEach((t) => {
-		// 		t.classList.add('instant');
-		// 	});
-
-		// 	const svgs = document.querySelectorAll('svg');
-		// 	svgs.forEach((s) => {
-		// 		s.classList.add('instant');
-		// 	});
-		// }
 	});
 </script>
 

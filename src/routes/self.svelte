@@ -7,33 +7,46 @@
 	import toTitleCase from '$lib/funcs/titleCase';
 	import treeify from '$lib/funcs/treeify';
 
+	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
 	let chart: SVGSVGElement | null = null;
 	let title = 'My Existential Risk Predictions';
 	let notes = '';
-	let outcomes: { name: string; probabilities: { name: string; percentage: number }[] }[] = [
-		{ name: '', probabilities: [{ name: '', percentage: 0 }] }
+	let branches: { name: string; probabilities: { name: string; percentage: number }[] }[] = [
+		{ name: '', probabilities: [{ name: 'extinction', percentage: 0 }] }
 	];
 	function handleCreate() {
-		let input = selfDataTransform(outcomes);
+		let input = selfDataTransform(branches);
 		chart = treeify(input, {
 			label: (d) => d.name,
 			title: (d, n) => toTitleCase(d.name),
 			width: 632,
 			height: 632,
 			margin: 50,
-			classes: "instant"
+			classes: 'instant'
 		});
-
 	}
 
-	function addOutcome() {
-		console.log('add outcome');
-		outcomes.push({ name: '', probabilities: [{ name: '', percentage: 0 }] });
-		outcomes = outcomes;
+	function addBranch() {
+		branches.push({ name: '', probabilities: [{ name: 'extinction', percentage: 0 }] });
+		branches = branches;
 	}
 
-	function removeOutcome(ind: number) {
-		outcomes = [...outcomes.slice(0, ind), ...outcomes.slice(ind, outcomes.length - 1)];
+	function removeBranch(ind: number) {
+		branches = [...branches.slice(0, ind), ...branches.slice(ind + 1, branches.length)];
+	}
+
+	function addOutcome(branchInd: number) {
+		branches[branchInd].probabilities.push({ name: 'catastrophe', percentage: 0 });
+		branches = branches;
+	}
+
+	function removeOutcome(branchInd: number, outcomeInd: number) {
+		const probs = branches[branchInd].probabilities;
+		branches[branchInd].probabilities = [
+			...probs.slice(0, outcomeInd),
+			...probs.slice(outcomeInd + 1, probs.length)
+		];
+		branches = branches;
 	}
 </script>
 
@@ -51,18 +64,26 @@
 			</div>
 		</div>
 
-		<form on:submit|preventDefault={handleCreate}>
+		<div>
 			<Label htmlFor="title">Title</Label>
 
-			<input id="title" bind:value={title} class="block border-b border-dashed border-black mb-4" />
+			<input
+				id="title"
+				bind:value={title}
+				class="block border-b border-dashed border-black mb-4 w-full"
+			/>
 			<Label htmlFor="notes">Notes</Label>
-			<input id="notes" bind:value={notes} class="block border-b border-dashed border-black mb-4" />
+			<input
+				id="notes"
+				bind:value={notes}
+				class="block border-b border-dashed border-black mb-4 w-full"
+			/>
 
 			<fieldset>
 				<div class="flex justify-between items-center">
 					<Label legend>Branches</Label>
 					<div class="flex ml-4">
-						<button on:click={addOutcome} class="w-6 h-6"
+						<button on:click={addBranch} class="w-6 h-6"
 							><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
 								><title>Add Circle</title><path
 									d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
@@ -82,11 +103,11 @@
 						>
 					</div>
 				</div>
-				{#each outcomes as outcome, i}
+				{#each branches as branch, i}
 					<div class="border-black border-t-2 pt-4 rounded-sm mt-4">
 						<div class="flex justify-between items-center">
 							<Label size="md">Branch Name</Label>
-							<button on:click={() => removeOutcome(i)} class="w-6 h-6">
+							<button on:click={() => removeBranch(i)} class="w-6 h-6">
 								<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
 									><title>Remove Circle</title><path
 										d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
@@ -106,36 +127,87 @@
 							</button>
 						</div>
 						<input
-							bind:value={outcomes[i].name}
+							bind:value={branch.name}
 							class="block border-b border-dashed border-black mb-4"
 						/>
-						<div class="flex justify-between">
-							<div class="ml-16">
-								<Label size="sm">Outcome Name</Label>
 
-								<input
-									class="block border-b border-dashed border-black"
-									bind:value={outcomes[i].probabilities[0].name}
-								/>
+						<div class="ml-16">
+							<div class="flex justify-between mb-2">
+								<Label size="md">Outcomes</Label>
+								<button on:click={() => addOutcome(i)} class="w-4 h-4 relative -right-6"
+									><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
+										><title>Add Circle</title><path
+											d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+											fill="none"
+											stroke="currentColor"
+											stroke-miterlimit="10"
+											stroke-width="32"
+										/><path
+											fill="none"
+											stroke="currentColor"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="32"
+											d="M256 176v160M336 256H176"
+										/></svg
+									></button
+								>
 							</div>
-							<div>
-								<Label size="sm">Percentage</Label>
-								<input
-									class="block w-20 border-b border-dashed border-black"
-									bind:value={outcomes[i].probabilities[0].percentage}
-								/>
-							</div>
+							{#each branch.probabilities as outcome, j}
+								<div class="flex justify-between mb-3 relative">
+									<div>
+										<Label size="sm">Outcome Type</Label>
+
+										<select
+											bind:value={outcome.name}
+											class="bg-white border-b border-dashed border-black"
+										>
+											{#each outcomeTypes as outcome}
+												<option value={outcome}>{toTitleCase(outcome)}</option>
+											{/each}
+										</select>
+									</div>
+									<div>
+										<Label size="sm">Percentage</Label>
+										<input
+											class="block w-20 border-b border-dashed border-black"
+											bind:value={outcome.percentage}
+										/>
+									</div>
+									<button
+										on:click={() => removeOutcome(i, j)}
+										class="absolute -right-6 w-4 h-4 z-10 self-center"
+									>
+										<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
+											><title>Remove Circle</title><path
+												d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+												fill="none"
+												stroke="currentColor"
+												stroke-miterlimit="10"
+												stroke-width="32"
+											/><path
+												fill="none"
+												stroke="currentColor"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="32"
+												d="M336 256H176"
+											/></svg
+										>
+									</button>
+								</div>
+							{/each}
 						</div>
 					</div>
 				{/each}
 			</fieldset>
 
-			<input
-				type="submit"
+			<button
+				on:click={handleCreate}
 				class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all rounded-sm cursor-pointer"
-				value="Create"
-			/>
-		</form>
+				value="Create">Create</button
+			>
+		</div>
 	</div>
 	<div slot="right">
 		<h3 class={`text-center self-center text-2xl mt-16 lg:mt-0 mb-1`}>
