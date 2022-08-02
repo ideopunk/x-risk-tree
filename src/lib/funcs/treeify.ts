@@ -132,6 +132,7 @@ export default function treeify(
 
 	// CONTAINER AND TEXT STYLE
 	const svg = (totalAnchor ? totalAnchor.append('svg') : d3.create('svg'))
+		.attr('xmlns', 'http://www.w3.org/2000/svg')
 		.attr('viewBox', [-marginLeft - radius, -marginTop - radius, width, height])
 		.attr('width', width)
 		.attr('height', height)

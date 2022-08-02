@@ -87,7 +87,7 @@
 				<InternalLink href="/faq">FAQ</InternalLink>
 			</div>
 			<div class="text-xl mt-2">
-				<InternalLink href="/self">Create</InternalLink>
+				<InternalLink href="/predict">Predict</InternalLink>
 			</div>
 		</div>
 	</div>

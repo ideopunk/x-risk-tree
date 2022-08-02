@@ -1,12 +1,14 @@
 <script lang="ts">
+	import * as d3 from 'd3';
 	import Container from '$lib/components/Container.svelte';
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import Label from '$lib/components/Label.svelte';
 	import SelfChart from '$lib/components/SelfChart.svelte';
-	import selfDataTransform from '$lib/funcs/selfDataTransform';
+	import selfDataTransform from '$lib/funcs/predictDataTransform';
 	import toTitleCase from '$lib/funcs/titleCase';
 	import treeify from '$lib/funcs/treeify';
-
+	import { svgToImage } from '$lib/funcs/sharingUtilities';
+	import SharableImg from '$lib/components/SharableImg.svelte';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
 	let chart: SVGSVGElement | null = null;
 	let title = 'My Existential Risk Predictions';
@@ -36,7 +38,7 @@
 	}
 
 	function addOutcome(branchInd: number) {
-		branches[branchInd].probabilities.push({ name: 'catastrophe', percentage: 0 });
+		branches[branchInd].probabilities.push({ name: 'catastrophe', percentage: 1 });
 		branches = branches;
 	}
 
@@ -47,6 +49,28 @@
 			...probs.slice(outcomeInd + 1, probs.length)
 		];
 		branches = branches;
+	}
+
+	let url = '';
+	// for some reason this only works when the img is truly rendered to the dom, so logic is split between components ¯\_(ツ)_/¯
+	async function handleShare() {
+		// const copy = JSON.parse(JSON.stringify(chart));
+		// todo make sure this only grabs the copy's paths
+		const paths = document.querySelectorAll('path');
+		paths.forEach((path) => {
+			path.setAttribute('class', '');
+			path.setAttribute('stroke-dasharray', '0');
+			path.setAttribute('stroke-dashoffset', '0');
+			console.log(path);
+		});
+
+		const svg = document.querySelector('svg.treeSVG');
+
+		if (!svg) return null;
+		console.log(svg);
+
+		const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+		url = URL.createObjectURL(blob);
 	}
 </script>
 
@@ -216,8 +240,8 @@
 			<div class="border-black border-t-2 pt-4 mt-4">
 				<button
 					on:click={handleCreate}
-					class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all rounded-sm cursor-pointer w-full"
-					value="Create">Create</button
+					class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all text-2xl rounded-sm cursor-pointer w-full"
+					>Predict</button
 				>
 			</div>
 		</div>
@@ -229,6 +253,16 @@
 		<p class="text-xs text-center">{notes}</p>
 		{#if chart}
 			<SelfChart {chart} />
+
+			<button
+				on:click={handleShare}
+				class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-full"
+				>Share</button
+			>
+
+			{#if url}
+				<SharableImg {url} />
+			{/if}
 		{/if}
 	</div>
 </Container>

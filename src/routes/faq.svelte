@@ -32,6 +32,7 @@
 
 			<li class="text-xl mt-6"><InternalLink href="/">Home</InternalLink></li>
 			<li class="text-xl mt-2"><InternalLink href="collection">Collection</InternalLink></li>
+			<li class="text-xl mt-2"><InternalLink href="predict">Predict</InternalLink></li>
 		</ul>
 	</div>
 	<article class="prose w-full" slot="right">

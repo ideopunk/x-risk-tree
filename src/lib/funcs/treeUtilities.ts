@@ -48,7 +48,6 @@ export function familyNames(
 			);
 		}
 
-		console.log({ names });
 		return names;
 	} else {
 		let names = [d.source.data.name, d.target.data.name];
