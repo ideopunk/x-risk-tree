@@ -72,7 +72,7 @@
 					value={option}
 					class={`${
 						option === 'survival' ? 'accent-green-theme' : 'accent-red-theme'
-					}   relative -top-[1px]`}
+					}   relative -top-[1px] cursor-pointer`}
 				/>
 				<span
 					class={`ml-2 transition-transform ${

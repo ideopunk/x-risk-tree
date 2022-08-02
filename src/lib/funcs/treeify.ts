@@ -211,9 +211,9 @@ export default function treeify(
 	// LEAVES
 	outerAnchors
 		.append('g')
-		// .attr('class', (d: any) =>
-		// 	d.data.name === 'extinction' ? 'leaf-container extinction' : 'leaf-container survival'
-		// )
+		.attr('class', (d: any) =>
+			d.data.name === 'extinction' ? 'leaf-container extinction' : 'leaf-container survival'
+		)
 		.append('path')
 		.attr('d', curveFunc(leaf as any))
 		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))

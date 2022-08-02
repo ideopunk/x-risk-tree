@@ -112,7 +112,7 @@ path.outer.anime {
 }
 
 .leaf-container {
-	transition-property: transform;
+	transition-property: transform, opacity;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: 400ms;
 }
@@ -164,6 +164,7 @@ path.outer.anime {
 
 .extinction .leaf-container.survival {
 	transform: scale(0.9);
+	opacity: 0.7;
 }
 
 .survival .leaf-container.survival {
@@ -172,6 +173,7 @@ path.outer.anime {
 
 .survival .leaf-container.extinction {
 	transform: scale(0.9);
+	opacity: 0.7;
 }
 
 text {
