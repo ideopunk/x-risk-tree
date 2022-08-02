@@ -21,8 +21,8 @@
 		chart = treeify(input, {
 			label: (d) => d.name,
 			title: (d, n) => toTitleCase(d.name),
-			width: 632,
-			height: 632,
+			width: 612,
+			height: 612,
 			margin: 50,
 			classes: 'instant'
 		});
@@ -73,6 +73,11 @@
 		url = URL.createObjectURL(blob);
 	}
 </script>
+
+<svelte:head>
+	<link rel="canonical" href="https://x-risk-tree.com/predict" />
+	<title>The X-Risk Tree / Predict</title>
+</svelte:head>
 
 <Container>
 	<div class="w-[65ch] lg:w-full pl-0 lg:pl-24 pr-8 " slot="left">

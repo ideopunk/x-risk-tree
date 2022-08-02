@@ -7,7 +7,7 @@
 	<meta name="description" content="In how many of our branching paths does humanity survive?" />
 	<meta name="og:title" content="The X-Risk Tree" />
 	<meta name="og:description" content="In how many of our branching paths does humanity survive?" />
-	
+
 	<meta name="og:url" content="https://x-risk-tree.com/" />
 	<meta name="og:type" content="website" />
 

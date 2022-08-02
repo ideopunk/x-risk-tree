@@ -48,5 +48,6 @@
 	on:load={(e) => handleLoad(e)}
 	width={632}
 	height={632}
+	class="hidden"
 	alt="My Existential Risk Predictions"
 />
