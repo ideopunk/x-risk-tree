@@ -9,6 +9,7 @@
 	import treeify from '$lib/funcs/treeify';
 	import SharableImg from '$lib/components/SharableImg.svelte';
 	import svgToURL from '$lib/funcs/svgToURL';
+	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
 	let chart: SVGSVGElement | null = null;
 	let title = 'My Existential Risk Predictions';
@@ -233,6 +234,15 @@
 					>Predict</button
 				>
 			</div>
+
+			<article class="prose mt-4">
+				<p>
+					If you would like to contribute to the Possible Worlds Tree, you can do so by making
+					predictions in <ExternalLink href="https://www.metaculus.com/questions/2568"
+						>Metaculus's Ragnarok Series</ExternalLink
+					>.
+				</p>
+			</article>
 		</div>
 	</div>
 	<div slot="right">
