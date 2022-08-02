@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://x-risk-tree.com/faq" />
+	<link rel="canonical" href="https://possibleworldstree.com/faq" />
 	<title>The X-Risk Tree / FAQ</title>
 </svelte:head>
 

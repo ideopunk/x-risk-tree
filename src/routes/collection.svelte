@@ -61,14 +61,14 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://x-risk-tree.com/collection" />
-	<title>The X-Risk Tree / Collection</title>
+	<link rel="canonical" href="https://possibleworldstree.com/collection" />
+	<title>The Possible Worlds Tree / Collection</title>
 </svelte:head>
 <svelte:window bind:innerWidth={width} />
 
 <Container>
 	<div class="w-[65ch] pl-0 lg:pl-24 pr-8 lg:fixed top-8 left-0 pointer-events-none" slot="left">
-		<h3 class="text-xl mb-4">Alternative X-Risk Estimates</h3>
+		<h3 class="text-xl mb-4">Alternative Existential Risk Estimates</h3>
 
 		<ul class="pointer-events-none">
 			<li class="my-2 text-gray-700">

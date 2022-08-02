@@ -7,7 +7,6 @@
 	import selfDataTransform from '$lib/funcs/predictDataTransform';
 	import toTitleCase from '$lib/funcs/titleCase';
 	import treeify from '$lib/funcs/treeify';
-	import { svgToImage } from '$lib/funcs/sharingUtilities';
 	import SharableImg from '$lib/components/SharableImg.svelte';
 	import svgToURL from '$lib/funcs/svgToURL';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
@@ -60,7 +59,7 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://x-risk-tree.com/predict" />
+	<link rel="canonical" href="https://possibleworldstree.com/predict" />
 	<title>The X-Risk Tree / Predict</title>
 </svelte:head>
 

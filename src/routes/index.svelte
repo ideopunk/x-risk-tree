@@ -58,12 +58,12 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://x-risk-tree.com/" />
-	<title>The X-Risk Tree</title>
+	<link rel="canonical" href="https://possibleworldstree.com/" />
+	<title>The Possible Worlds Tree</title>
 </svelte:head>
 
 <article class="w-screen text-center prose">
-	<h1 class="text-center mt-4 mb-1">The X-Risk Tree</h1>
+	<h1 class="text-center mt-4 mb-1">The Possible Worlds Tree</h1>
 </article>
 
 <div class={`${highlight} relative `}>
@@ -91,7 +91,7 @@
 </div>
 
 <article class="w-screen text-center prose">
-	<h2 class="text-center mt-12 px-14">
+	<h2 class="text-center mt-12 px-8 text-4xl">
 		In how many of our futures does humanity survive this century?
 	</h2>
 </article>
