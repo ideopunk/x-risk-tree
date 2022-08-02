@@ -60,7 +60,7 @@
 
 <svelte:head>
 	<link rel="canonical" href="https://possibleworldstree.com/predict" />
-	<title>The X-Risk Tree / Predict</title>
+	<title>The Possible Worlds Tree / Predict</title>
 </svelte:head>
 
 <Container>

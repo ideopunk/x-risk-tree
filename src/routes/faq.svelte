@@ -9,7 +9,7 @@
 
 <svelte:head>
 	<link rel="canonical" href="https://possibleworldstree.com/faq" />
-	<title>The X-Risk Tree / FAQ</title>
+	<title>The Possible WorldsTree / FAQ</title>
 </svelte:head>
 
 <Container>
