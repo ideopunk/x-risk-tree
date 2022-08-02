@@ -197,7 +197,6 @@
 											min="1"
 											max="100"
 											class="block w-20 border-white border-dashed border hover:border-black transition-colors border-b-black pl-1"
-
 											bind:value={outcome.percentage}
 										/>
 									</div>

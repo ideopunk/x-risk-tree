@@ -91,7 +91,9 @@
 </div>
 
 <article class="w-screen text-center prose">
-	<h2 class="text-center mt-12 px-14">In how many of our futures does humanity survive this century?</h2>
+	<h2 class="text-center mt-12 px-14">
+		In how many of our futures does humanity survive this century?
+	</h2>
 </article>
 
 <article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
@@ -120,5 +122,8 @@
 	<p>
 		Other predictions can be found in our <InternalLink href="/collection">collection</InternalLink
 		>.
+	</p>
+	<p>
+		To make your own prediction, try our <InternalLink href="/predict">Predict</InternalLink> page.
 	</p>
 </article>
