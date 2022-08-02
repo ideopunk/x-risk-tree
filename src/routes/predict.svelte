@@ -84,13 +84,13 @@
 			<input
 				id="title"
 				bind:value={title}
-				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4 w-full"
+				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4 pl-1 w-full"
 			/>
 			<Label htmlFor="notes">Notes</Label>
 			<input
 				id="notes"
 				bind:value={notes}
-				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4 w-full"
+				class="block border-white border-dashed border hover:border-black transition-colors border-b-black pl-1 mb-4 w-full"
 			/>
 
 			<fieldset>
@@ -146,7 +146,7 @@
 						<input
 							id="branchName"
 							bind:value={branch.name}
-							class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4"
+							class="block border-white border-dashed border hover:border-black transition-colors border-b-black pl-1 mb-4"
 						/>
 
 						<div class="ml-16">
@@ -196,7 +196,8 @@
 											step="1"
 											min="1"
 											max="100"
-											class="block w-20 border-white border-dashed border hover:border-black transition-colors border-b-black"
+											class="block w-20 border-white border-dashed border hover:border-black transition-colors border-b-black pl-1"
+
 											bind:value={outcome.percentage}
 										/>
 									</div>
@@ -244,12 +245,13 @@
 		{#if chart}
 			<SelfChart {chart} />
 
-			<button
-				on:click={handleShare}
-				class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-full"
-				>Share</button
-			>
-
+			<div class="flex justify-center">
+				<button
+					on:click={handleShare}
+					class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
+					>Share</button
+				>
+			</div>
 			{#if url}
 				<SharableImg {url} />
 			{/if}

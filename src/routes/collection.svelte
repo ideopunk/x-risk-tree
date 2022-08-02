@@ -5,7 +5,7 @@
 	import toTitleCase from '$lib/funcs/titleCase';
 	import Container from '$lib/components/Container.svelte';
 	import svgToURL from '$lib/funcs/svgToURL';
-import SharableImg from '$lib/components/SharableImg.svelte';
+	import SharableImg from '$lib/components/SharableImg.svelte';
 
 	let width: number;
 
@@ -31,13 +31,14 @@ import SharableImg from '$lib/components/SharableImg.svelte';
 		let classes = mediaQuery.matches || (width && width < 767) ? 'instant' : '';
 
 		for (const [ind, entry] of Object.entries(data)) {
+			// use this later for sharing
 			const newTree = treeify(entry, {
 				label: (d) => d.name,
 				title: (d, n) => toTitleCase(d.name),
-				width: 632,
-				height: 632,
+				width: 612,
+				height: 612,
 				margin: 50,
-				classes: classes + ' ' + ind + ind
+				classes: classes + ' id' + ind
 			});
 			if (newTree) {
 				predictions.push({
@@ -113,11 +114,13 @@ import SharableImg from '$lib/components/SharableImg.svelte';
 					{/each}
 					{@html prediction.chart.outerHTML}
 				</a>
-				<button
-					on:click={() => handleShare('svg.treeSVG.' + String(i) + String(i))}
-					class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
-					>Share</button
-				>
+				<div class="flex justify-center">
+					<button
+						on:click={() => handleShare('svg.treeSVG.id' + i)}
+						class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
+						>Share</button
+					>
+				</div>
 			{/each}
 		{/if}
 	</div>
