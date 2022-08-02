@@ -1,10 +1,11 @@
 <script lang="ts">
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import { onMount } from 'svelte';
-	import { browser } from '$app/env';
 	import treeify from '$lib/funcs/treeify';
 	import toTitleCase from '$lib/funcs/titleCase';
 	import Container from '$lib/components/Container.svelte';
+	import svgToURL from '$lib/funcs/svgToURL';
+import SharableImg from '$lib/components/SharableImg.svelte';
 
 	let width: number;
 
@@ -25,15 +26,18 @@
 
 	onMount(() => {
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-		const classes = mediaQuery.matches || (width && width < 767) ? 'instant' : '';
-		for (let entry of data) {
+
+		// do we want animations?
+		let classes = mediaQuery.matches || (width && width < 767) ? 'instant' : '';
+
+		for (const [ind, entry] of Object.entries(data)) {
 			const newTree = treeify(entry, {
 				label: (d) => d.name,
 				title: (d, n) => toTitleCase(d.name),
 				width: 632,
 				height: 632,
 				margin: 50,
-				classes
+				classes: classes + ' ' + ind + ind
 			});
 			if (newTree) {
 				predictions.push({
@@ -47,6 +51,12 @@
 			}
 		}
 	});
+
+	let url = '';
+	// for some reason this only works when the img is truly rendered to the dom, so logic is split between components ¯\_(ツ)_/¯
+	async function handleShare(selector: string) {
+		url = svgToURL(selector);
+	}
 </script>
 
 <svelte:head>
@@ -94,7 +104,7 @@
 	<div slot="right">
 		{#if predictions.length}
 			{#each predictions as prediction, i}
-				<a href={prediction.link} class="flex flex-col items-center text-black">
+				<a href={prediction.link} class={`flex flex-col items-center text-black ${i + '-' + i}`}>
 					<h3 class={`text-center self-center text-2xl ${i ? 'mt-16' : 'mt-16 lg:mt-0'} mb-1`}>
 						{prediction.title}
 					</h3>
@@ -103,7 +113,16 @@
 					{/each}
 					{@html prediction.chart.outerHTML}
 				</a>
+				<button
+					on:click={() => handleShare('svg.treeSVG.' + String(i) + String(i))}
+					class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
+					>Share</button
+				>
 			{/each}
 		{/if}
 	</div>
 </Container>
+
+{#if url}
+	<SharableImg {url} />
+{/if}

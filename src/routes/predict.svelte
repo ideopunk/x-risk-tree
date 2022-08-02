@@ -9,6 +9,7 @@
 	import treeify from '$lib/funcs/treeify';
 	import { svgToImage } from '$lib/funcs/sharingUtilities';
 	import SharableImg from '$lib/components/SharableImg.svelte';
+	import svgToURL from '$lib/funcs/svgToURL';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
 	let chart: SVGSVGElement | null = null;
 	let title = 'My Existential Risk Predictions';
@@ -54,23 +55,7 @@
 	let url = '';
 	// for some reason this only works when the img is truly rendered to the dom, so logic is split between components ¯\_(ツ)_/¯
 	async function handleShare() {
-		// const copy = JSON.parse(JSON.stringify(chart));
-		// todo make sure this only grabs the copy's paths
-		const paths = document.querySelectorAll('path');
-		paths.forEach((path) => {
-			path.setAttribute('class', '');
-			path.setAttribute('stroke-dasharray', '0');
-			path.setAttribute('stroke-dashoffset', '0');
-			console.log(path);
-		});
-
-		const svg = document.querySelector('svg.treeSVG');
-
-		if (!svg) return null;
-		console.log(svg);
-
-		const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
-		url = URL.createObjectURL(blob);
+		url = svgToURL('svg.treeSVG');
 	}
 </script>
 

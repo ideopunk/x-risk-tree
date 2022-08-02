@@ -10,6 +10,8 @@
 	import metaculusDataTransform from '$lib/funcs/metaculusDataTransform';
 	import linker from '$lib/funcs/metaculusLinker';
 	import toTitleCase from '$lib/funcs/titleCase';
+	import svgToURL from '$lib/funcs/svgToURL';
+	import SharableImg from '$lib/components/SharableImg.svelte';
 
 	let highlight: Highlight = '';
 	function handleMessage(e: CustomEvent) {
@@ -48,25 +50,11 @@
 		});
 	}
 
-	// onMount(() => {
-
-	// 	if (mediaQuery.matches) {
-	// 		const paths: NodeListOf<SVGPathElement> = document.querySelectorAll('path.line'); // using the classname confuses typescript
-	// 		paths.forEach((p) => {
-	// 			p.classList.add('instant');
-	// 		});
-
-	// 		const texts = document.querySelectorAll('text');
-	// 		texts.forEach((t) => {
-	// 			t.classList.add('instant');
-	// 		});
-
-	// 		const svgs = document.querySelectorAll('svg.treeSVG');
-	// 		svgs.forEach((s) => {
-	// 			s.classList.add('instant');
-	// 		});
-	// 	}
-	// });
+	let url = '';
+	// for some reason this only works when the img is truly rendered to the dom, so logic is split between components ¯\_(ツ)_/¯
+	async function handleShare() {
+		url = svgToURL('svg.treeSVG');
+	}
 </script>
 
 <svelte:head>
@@ -89,10 +77,21 @@
 	{#if chart}
 		{@html chart.outerHTML}
 	{:else}<div class="w-[632px] h-[632px]" />{/if}
+
+	<div class="w-full flex justify-center ">
+		<button
+			on:click={handleShare}
+			class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
+			>Share</button
+		>
+	</div>
+	{#if url}
+		<SharableImg {url} />
+	{/if}
 </div>
 
 <article class="w-screen text-center prose">
-	<h2 class="text-center mt-1">In how many of our futures does humanity survive this century?</h2>
+	<h2 class="text-center mt-12 px-14">In how many of our futures does humanity survive this century?</h2>
 </article>
 
 <article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
