@@ -103,9 +103,13 @@
 
 		<Question id="numbers">Are the numbers you use real?</Question>
 		<Answer
-			>Yes and no. They are averages of predictions from the forecasting site Metaculus. Popular
-			predictions in the media are often unquantified. The Metaculus numbers are 'best guesses' from
-			forecasters and are a step up over simultaneously certain and unspecified predictions.
+			>Yes and no. They are averages of predictions from <XLink
+				href="https://www.metaculus.com/questions/2568/ragnar%25C3%25B6k-seriesresults-so-far/"
+				>the Ragnarok Question Series</XLink
+			> (developed by <XLink href="https://www.tamaybesiroglu.com/">Tamay Besiroglu</XLink>) on the
+			forecasting site Metaculus. Popular predictions in the media are often unquantified. The
+			Metaculus numbers are 'best guesses' from forecasters and are a step up over simultaneously
+			certain and unspecified predictions.
 		</Answer>
 		<Answer>
 			However, the Metaculus predictions are probably biased to be optimistic, because forecasters
