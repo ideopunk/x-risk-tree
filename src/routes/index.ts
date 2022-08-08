@@ -5,7 +5,8 @@ async function metaculusFetch(question: number): Promise<number> {
 		const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`);
 
 		const bod = await res.json();
-		const avg = bod.prediction_timeseries[bod.prediction_timeseries.length - 1].distribution.avg;
+		const avg =
+			bod.prediction_timeseries[bod.prediction_timeseries.length - 1].community_prediction;
 		return avg;
 	} else {
 		return 0.3;

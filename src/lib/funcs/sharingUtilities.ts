@@ -4,10 +4,7 @@ export function svgToImage(svg: string) {
 	{
 		const blob = new Blob([svg], { type: 'image/svg+xml' });
 		const url = URL.createObjectURL(blob);
-		console.log(url);
 		const image = document.createElement('img');
-		// image.addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
-		console.log(image);
 		image.src = url;
 	}
 }
