@@ -1,20 +1,8 @@
 import * as d3 from 'd3';
+import { curveStep } from 'd3';
+import { catastropheLeaf, extinctionLeaf, goodLeaf } from './leaf';
 import titleCase from './titleCase';
 import { colorizer, familyNames } from './treeUtilities';
-
-const leaf = [
-	{ x: -2, y: 0 },
-	{ x: 15, y: -10 },
-	{ x: 30, y: 0 },
-	{ x: 15, y: 10 },
-	{ x: -2, y: 0 }
-];
-
-const curveFunc = d3
-	.line()
-	.curve(d3.curveBasis) // This is where you define the type of curve. Try curveStep for instance.
-	.x((d: any) => d.x)
-	.y((d: any) => d.y);
 
 // Adapted from Mike Bostock's Radial Tidy Tree layout
 // Copyright 2022 Observable, Inc.
@@ -215,7 +203,18 @@ export default function treeify(
 			d.data.name === 'extinction' ? 'leaf-container extinction' : 'leaf-container survival'
 		)
 		.append('path')
-		.attr('d', curveFunc(leaf as any))
+		.attr('d', (d: any) => {
+			console.log(d);
+			switch (d.data.name) {
+				case 'catastrophe':
+					return catastropheLeaf;
+				case 'extinction':
+					return extinctionLeaf;
+				case 'survival':
+				default:
+					return goodLeaf;
+			}
+		})
 		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r)
 
