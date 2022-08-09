@@ -39,7 +39,7 @@
 </script>
 
 <button
-	class={`absolute -left-10 lg:left-4 text-xl top-0 lg:top-6 w-8 text-black transition-transform hover:-rotate-90 ${
+	class={`absolute -left-0 lg:left-4 text-xl top-1 hidden sm:block lg:top-6 w-8 z-10 text-black transition-transform hover:-rotate-90 ${
 		!showLegend && '-rotate-180 '
 	} duration-500`}
 	on:click={toggle}
@@ -57,11 +57,11 @@
 {#if showLegend}
 	<form
 		transition:slide|local
-		class={`border-black border-2 lg:border-0 lg:absolute top-4 left-16  p-3 pr-4 block z-20 text-sm`}
+		class={`border-black  lg:absolute top-4 left-16  p-3 pr-4 block z-20 text-sm`}
 	>
 		{#each options as option, i}
 			<label
-				class={`flex group items-center lg:pb-4 cursor-pointer`}
+				class={`flex group items-center ${i ? 'pb-0' : 'pb-4'} cursor-pointer`}
 				on:mouseover={() => onHoverBegin(option)}
 				on:focus={() => onHoverBegin(option)}
 				on:mouseout={onHoverEnd}
