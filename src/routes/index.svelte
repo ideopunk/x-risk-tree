@@ -66,8 +66,8 @@
 	<h1 class="text-center mt-4 mb-1">The Possible Worlds Tree</h1>
 </article>
 
-<div class={`${highlight} relative `}>
-	<div class="flex lg:absolute px-6 lg:px-0 justify-between w-full">
+<div class={`${highlight} relative lg:static `}>
+	<div class="flex  px-6 lg:px-0 justify-between w-full">
 		<Legend on:message={handleMessage} />
 		<div>
 			<Details {vals} {highlight} />

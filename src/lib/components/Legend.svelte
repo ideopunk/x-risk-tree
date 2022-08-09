@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goodLeaf, legendCatLeaf, legendExtinctionLeaf, legendGoodLeaf } from '$lib/funcs/leaf';
 	import toTitleCase from '$lib/funcs/titleCase';
 
 	import type { Highlight } from '$lib/types';
@@ -38,7 +39,7 @@
 </script>
 
 <button
-	class={`absolute -left-10 text-xl top-0 w-8 text-black transition-transform hover:-rotate-90 ${
+	class={`absolute -left-10 lg:left-4 text-xl top-0 lg:top-6 w-8 text-black transition-transform hover:-rotate-90 ${
 		!showLegend && '-rotate-180 '
 	} duration-500`}
 	on:click={toggle}
@@ -54,10 +55,13 @@
 	></button
 >
 {#if showLegend}
-	<form transition:slide|local class={`border-black border-2  p-3 pr-4 block z-20 text-sm`}>
-		{#each options as option}
+	<form
+		transition:slide|local
+		class={`border-black border-2 lg:border-0 lg:absolute top-4 left-16  p-3 pr-4 block z-20 text-sm`}
+	>
+		{#each options as option, i}
 			<label
-				class={`flex group items-center cursor-pointer`}
+				class={`flex group items-center lg:pb-4 cursor-pointer`}
 				on:mouseover={() => onHoverBegin(option)}
 				on:focus={() => onHoverBegin(option)}
 				on:mouseout={onHoverEnd}
@@ -75,7 +79,7 @@
 					}   relative -top-[1px] cursor-pointer`}
 				/>
 				<span
-					class={`ml-2 transition-transform ${
+					class={`ml-2 w-20 transition-transform ${
 						clickedHighlight === option
 							? 'scale-110'
 							: hoverHighlight === option
@@ -83,6 +87,28 @@
 							: 'scale-100'
 					}`}>{toTitleCase(option)}</span
 				>
+				<div
+					class={`w-10 h-4 relative flex  -top-3 transition-transform ${
+						clickedHighlight === option
+							? 'scale-110'
+							: hoverHighlight === option
+							? 'scale-105'
+							: 'scale-100'
+					}`}
+				>
+					{#if i}
+						<svg class="w-4 h-8 rotate-180 scale-90 fill-red-theme"
+							><path d={legendExtinctionLeaf} /></svg
+						>
+					{:else}
+						<svg class="w-5 h-8 -rotate-180 scale-90 fill-green-theme"
+							><path d={legendGoodLeaf} /></svg
+						>
+						<svg class="w-5 h-8 relative top-[1px] rotate-180 scale-90 fill-yellow-theme"
+							><path d={legendCatLeaf} /></svg
+						>
+					{/if}
+				</div>
 			</label>
 		{/each}
 	</form>

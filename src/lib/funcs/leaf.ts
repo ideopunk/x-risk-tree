@@ -11,6 +11,8 @@ const roundLeaf = [
 	{ x: -2, y: 0 }
 ];
 
+const preLegendGoodLeaf = roundLeaf.map(({ x, y }) => ({ y: x + 2, x: y + 10 }));
+
 const diamondLeaf = [
 	{ x: -2, y: 0 },
 	{ x: 15, y: -7 },
@@ -19,6 +21,8 @@ const diamondLeaf = [
 	{ x: -2, y: 0 }
 ];
 
+const preLegendCatLeaf = diamondLeaf.map(({ x, y }) => ({ y: x + 2, x: y + 7 }));
+
 const arrowLeaf = [
 	{ x: 0, y: 0 },
 	{ x: -4, y: -6 },
@@ -26,6 +30,8 @@ const arrowLeaf = [
 	{ x: -4, y: 6 },
 	{ x: 0, y: 0 }
 ];
+
+const preLegendArrowLeaf = arrowLeaf.map(({ x, y }) => ({ y: x + 4, x: y + 6 }));
 
 const curveFunc = d3
 	.line()
@@ -46,5 +52,10 @@ const linearFunc = d3
 	.y((d: any) => d.y);
 
 export const goodLeaf = curveFunc(roundLeaf as any);
+export const legendGoodLeaf = curveFunc(preLegendGoodLeaf as any);
+
 export const catastropheLeaf = linearFunc(diamondLeaf as any);
+export const legendCatLeaf = linearFunc(preLegendCatLeaf as any);
+
 export const extinctionLeaf = linearFunc(arrowLeaf as any);
+export const legendExtinctionLeaf = linearFunc(preLegendArrowLeaf as any);
