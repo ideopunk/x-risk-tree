@@ -6,6 +6,7 @@
 	import Container from '$lib/components/Container.svelte';
 	import svgToURL from '$lib/funcs/svgToURL';
 	import SharableImg from '$lib/components/SharableImg.svelte';
+	import { legendCatLeaf, legendExtinctionLeaf, legendGoodLeaf } from '$lib/funcs/leaf';
 
 	let width: number;
 
@@ -71,16 +72,37 @@
 		<h3 class="text-xl mb-4">Alternative Existential Risk Estimates</h3>
 
 		<ul class="pointer-events-none">
-			<li class="my-2 text-gray-700">
+			<li class="mb-5 text-gray-700 relative">
+				<span class="absolute -left-8 -top-2">
+					<svg class="w-5 h-8 -rotate-180 scale-90 fill-blue-theme"><path d={legendGoodLeaf} /></svg
+					>
+				</span>
+
 				<span class="text-blue-theme">Blue</span> branches indicate flourishing
 			</li>
-			<li class="my-2 text-gray-700">
+			<li class="mb-5 text-gray-700 relative">
+				<span class="absolute -left-8 -top-2">
+					<svg class="w-5 h-8 -rotate-180 scale-90 fill-green-theme"
+						><path d={legendGoodLeaf} /></svg
+					>
+				</span>
 				<span class="text-green-theme">Green</span> branches indicate either survival or sustenance
 			</li>
-			<li class="my-2 text-gray-700">
+			<li class="mb-5 text-gray-700 relative">
+				<span class="absolute -left-8 -top-2">
+					<svg class="w-4 left-[1px] h-8 relative  rotate-180 scale-90 fill-yellow-theme"
+						><path d={legendCatLeaf} /></svg
+					>
+				</span>
+
 				<span class="text-yellow-theme">Yellow</span> branches indicate catastrophe
 			</li>
-			<li class="my-2 text-gray-700">
+			<li class="mb-2 text-gray-700 relative">
+				<span class="absolute -left-8 -top-2">
+					<svg class="w-4 h-8 rotate-180 scale-90 fill-red-theme"
+						><path d={legendExtinctionLeaf} /></svg
+					></span
+				>
 				<span class="text-red-theme">Red</span> branches indicate extinction. While red branches in the
 				Metaculus tree track near-extinction, in the collection they indicate total human extinction
 				unless otherwise noted.
