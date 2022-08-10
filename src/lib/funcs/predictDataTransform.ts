@@ -21,5 +21,5 @@ export default function selfDataTransform(
 				.flat()
 		};
 	});
-	return { name: 'The Future', children: ch };
+	return { name: '2022', children: ch };
 }
