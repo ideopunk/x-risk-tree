@@ -236,12 +236,13 @@
 			</div>
 
 			<article class="prose mt-4">
-				<p>
+				<p class="mb-12">
 					If you would like to contribute to the Possible Worlds Tree, you can do so by making
 					predictions in <ExternalLink href="https://www.metaculus.com/questions/2568"
 						>Metaculus's Ragnarok Series</ExternalLink
 					>.
 				</p>
+
 			</article>
 		</div>
 	</div>
