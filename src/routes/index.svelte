@@ -91,12 +91,12 @@
 </div>
 
 <article class="w-screen text-center prose">
-	<h2 class="text-center mt-12 px-8 text-4xl">
+	<h2 class="text-center mt-12 px-4 text-4xl">
 		In how many of our futures does humanity survive this century?
 	</h2>
 </article>
 
-<article class="self-align text-justify prose py-12 mx-4 prose-p:text-xl">
+<article class="self-align prose max-w-[60ch] py-12 mx-4 prose-p:text-xl">
 	<p>
 		Over the next century, humanity could flourish or it could experience a global catatastrophe. It
 		could even go extinct.

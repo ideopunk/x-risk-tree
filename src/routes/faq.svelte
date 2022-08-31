@@ -35,7 +35,7 @@
 			<li class="text-xl mt-2"><InternalLink href="predict">Predict</InternalLink></li>
 		</ul>
 	</div>
-	<article class="prose w-full" slot="right">
+	<article class="prose max-w-[60ch] w-full" slot="right">
 		<Question id="what-is-x-risk" top>What is existential risk?</Question>
 		<Answer
 			>Existential risk is the possibility of humanity's long-term potential being destroyed. This
