@@ -34,7 +34,7 @@
 	};
 
 	let input = metaculusDataTransform(vals);
-
+	
 	let chart: SVGSVGElement | null = null;
 	if (browser) {
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');

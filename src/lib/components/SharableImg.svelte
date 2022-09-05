@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { notifications } from '$lib/funcs/notification';
+
 	export let url = '';
 
 	let img: HTMLImageElement;
@@ -35,9 +37,10 @@
 
 				await navigator.clipboard.write([clipboardItem]);
 			}
-			alert('Copied');
+			// alert('Copied');
+			notifications.send('Copied');
 		} else {
-			alert('Cannot copy, requires secure context');
+			notifications.send('Cannot copy, requires secure context');
 		}
 	}
 </script>

@@ -11,12 +11,33 @@
 	import svgToURL from '$lib/funcs/svgToURL';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
-	let chart: SVGSVGElement | null = null;
 	let title = 'My Existential Risk Predictions';
 	let notes = '';
 	let branches: { name: string; probabilities: { name: string; percentage: number }[] }[] = [
-		{ name: '', probabilities: [{ name: 'extinction', percentage: 1 }] }
+		{ name: 'Survival', probabilities: [{ name: 'survival', percentage: 90 }] },
+		{ name: 'Climate', probabilities: [{ name: 'catastrophe', percentage: 2 }] },
+		{
+			name: 'Nuclear War',
+			probabilities: [
+				{ name: 'extinction', percentage: 1 },
+				{ name: 'catastrophe', percentage: 1 }
+			]
+		},
+		{ name: 'Bioengineering', probabilities: [{ name: 'extinction', percentage: 2 }] },
+		{ name: 'Nanotechnology', probabilities: [{ name: 'extinction', percentage: 2 }] },
+		{ name: 'Artificial Intelligence', probabilities: [{ name: 'extinction', percentage: 2 }] }
 	];
+
+	let input = selfDataTransform(branches);
+	let chart: SVGSVGElement | null = treeify(input, {
+		label: (d) => d.name,
+		title: (d, n) => toTitleCase(d.name),
+		width: 612,
+		height: 612,
+		margin: 50,
+		classes: 'instant'
+	});
+
 	function handleCreate() {
 		let input = selfDataTransform(branches);
 		chart = treeify(input, {
@@ -79,18 +100,37 @@
 		</div>
 
 		<div class="pt-4">
+			<article class="prose">
+				<p>Create your own prediction tree.</p>
+			</article>
+			<div class="pb-4 mb-4">
+				<button
+					on:click={handleCreate}
+					class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all text-2xl rounded-sm cursor-pointer w-full"
+					>Predict</button
+				>
+			</div>
+
+			<!-- <article class="prose mt-4">
+				<p class="mb-12">
+					If you would like to contribute to the Possible Worlds Tree, you can do so by making
+					predictions in <ExternalLink href="https://www.metaculus.com/questions/2568"
+						>Metaculus's Ragnarok Series</ExternalLink
+					>.
+				</p>
+			</article> -->
 			<Label htmlFor="title">Title</Label>
 
 			<input
 				id="title"
 				bind:value={title}
-				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4 pl-1 w-full"
+				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4  w-full"
 			/>
 			<Label htmlFor="notes">Notes</Label>
 			<input
 				id="notes"
 				bind:value={notes}
-				class="block border-white border-dashed border hover:border-black transition-colors border-b-black pl-1 mb-4 w-full"
+				class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-12 w-full"
 			/>
 
 			<fieldset>
@@ -118,9 +158,15 @@
 					</div>
 				</div>
 				{#each branches as branch, i}
-					<div class="border-black border-t-2 pt-4 mt-4">
+					<div class="border-neutral-400 border-t-2 pt-6 mt-4">
 						<div class="flex justify-between items-center">
-							<Label htmlFor="branchName" size="md">Branch Name</Label>
+							<!-- <Label htmlFor="branchName" size="md">Branch Name</Label> -->
+							<input
+								id="branchName"
+								bind:value={branch.name}
+								class="block border-white border-dashed border hover:border-black transition-colors border-b-black mb-4"
+							/>
+
 							<button
 								on:click={() => removeBranch(i)}
 								class="w-6 h-6 hover:scale-110 transition-transform"
@@ -143,15 +189,10 @@
 								>
 							</button>
 						</div>
-						<input
-							id="branchName"
-							bind:value={branch.name}
-							class="block border-white border-dashed border hover:border-black transition-colors border-b-black pl-1 mb-4"
-						/>
 
 						<div class="ml-16">
 							<div class="flex justify-between mb-2">
-								<Label size="md">Outcomes</Label>
+								<Label size="sm">Outcomes</Label>
 								<button
 									on:click={() => addOutcome(i)}
 									class="w-4 h-4 relative -right-6 hover:scale-110 transition-transform"
@@ -176,7 +217,7 @@
 							{#each branch.probabilities as outcome, j}
 								<div class="flex justify-between mb-3 relative">
 									<div>
-										<Label htmlFor={'type' + i + j} size="sm">Outcome Type</Label>
+										<!-- <Label htmlFor={'type' + i + j} size="sm">Outcome Type</Label> -->
 
 										<select
 											id={'type' + i + j}
@@ -188,17 +229,18 @@
 											{/each}
 										</select>
 									</div>
-									<div>
-										<Label htmlFor={'percentage' + i + j} size="sm">Percentage</Label>
+									<div class="flex">
+										<!-- <Label htmlFor={'percentage' + i + j} size="sm">Percentage</Label> -->
 										<input
 											id={'percentage' + i + j}
 											type="number"
 											step="1"
 											min="1"
 											max="100"
-											class="block w-20 border-white border-dashed border hover:border-black transition-colors border-b-black pl-1"
+											class="block w-16 border-white border-dashed border hover:border-black transition-colors border-b-black"
 											bind:value={outcome.percentage}
 										/>
+										<span>%</span>
 									</div>
 									<button
 										on:click={() => removeOutcome(i, j)}
@@ -227,26 +269,9 @@
 					</div>
 				{/each}
 			</fieldset>
-			<div class="border-black border-t-2 pt-4 mt-4">
-				<button
-					on:click={handleCreate}
-					class="bg-green-theme mt-4 px-4 py-2 hover:bg-green-700 transition-all text-2xl rounded-sm cursor-pointer w-full"
-					>Predict</button
-				>
-			</div>
-
-			<article class="prose mt-4">
-				<p class="mb-12">
-					If you would like to contribute to the Possible Worlds Tree, you can do so by making
-					predictions in <ExternalLink href="https://www.metaculus.com/questions/2568"
-						>Metaculus's Ragnarok Series</ExternalLink
-					>.
-				</p>
-
-			</article>
 		</div>
 	</div>
-	<div slot="right">
+	<div slot="right" class="fixed">
 		<h3 class={`text-center self-center text-2xl mt-16 lg:mt-0 mb-1`}>
 			{title}
 		</h3>

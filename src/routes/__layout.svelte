@@ -1,4 +1,6 @@
 <script>
+import Toast from '$lib/components/Toast.svelte';
+
 	import '../app.css';
 </script>
 
@@ -23,3 +25,6 @@
 <div class="flex flex-col w-full items-center overflow-x-hidden">
 	<slot />
 </div>
+
+<Toast />
+

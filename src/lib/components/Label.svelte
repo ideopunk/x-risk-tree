@@ -6,7 +6,7 @@
 </script>
 
 {#if legend}
-	<legend for={htmlFor} class={htmlClass}><slot /></legend>
+	<legend for={htmlFor} class={htmlClass + " font-bold"}><slot /></legend>
 {:else}
-	<label for={htmlFor} class={htmlClass}><slot /></label>
+	<label for={htmlFor} class={htmlClass + " font-bold"}><slot /></label>
 {/if}
