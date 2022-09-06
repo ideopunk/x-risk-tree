@@ -10,6 +10,7 @@
 	import SharableImg from '$lib/components/SharableImg.svelte';
 	import svgToURL from '$lib/funcs/svgToURL';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import { onMount } from 'svelte';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
 	let title = 'My Existential Risk Predictions';
 	let notes = '';
@@ -29,13 +30,17 @@
 	];
 
 	let input = selfDataTransform(branches);
-	let chart: SVGSVGElement | null = treeify(input, {
-		label: (d) => d.name,
-		title: (d, n) => toTitleCase(d.name),
-		width: 612,
-		height: 612,
-		margin: 50,
-		classes: 'instant'
+	let chart: SVGSVGElement | null = null;
+
+	onMount(() => {
+		chart = treeify(input, {
+			label: (d) => d.name,
+			title: (d, n) => toTitleCase(d.name),
+			width: 612,
+			height: 612,
+			margin: 50,
+			classes: 'instant'
+		});
 	});
 
 	function handleCreate() {
