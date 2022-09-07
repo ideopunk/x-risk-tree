@@ -204,7 +204,6 @@ export default function treeify(
 		)
 		.append('path')
 		.attr('d', (d: any) => {
-			console.log(d);
 			switch (d.data.name) {
 				case 'catastrophe':
 					return catastropheLeaf;

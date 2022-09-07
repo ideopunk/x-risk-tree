@@ -26,7 +26,7 @@
 		if (window.isSecureContext) {
 			// on windows there's a share menu popup we don't want, we want the simple clipboard copy. 
 			// debatable whether we want share menu on mobile, but I think that behavior is more expected there.
-			if (!!navigator.share && !navigator.platform.includes("win")) {
+			if (!!navigator.share && !navigator.platform.toLowerCase().includes("win")) {
 				const filesArray = [
 					new File([blob], 'possibleworlds.png', {
 						type: 'image/png',
