@@ -1,3 +1,4 @@
+<!-- this is a crazy work around for something -->
 <script lang="ts">
 	import { notifications } from '$lib/funcs/notification';
 
@@ -23,15 +24,17 @@
 		const blob = await res.blob();
 
 		if (window.isSecureContext) {
-			if (!!navigator.share) {
+			// on windows there's a share menu popup we don't want, we want the simple clipboard copy. 
+			// debatable whether we want share menu on mobile, but I think that behavior is more expected there.
+			if (!!navigator.share && !navigator.platform.includes("win")) {
 				const filesArray = [
-					new File([blob], 'xrisk.png', {
+					new File([blob], 'possibleworlds.png', {
 						type: 'image/png',
 						lastModified: new Date().getTime()
 					})
 				];
 
-				await navigator.share({ files: filesArray, title: 'test!' });
+				await navigator.share({ files: filesArray, title: 'Possible Futures' });
 			} else {
 				const clipboardItem = new ClipboardItem({ [blob.type]: blob });
 
