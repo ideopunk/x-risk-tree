@@ -9,6 +9,7 @@
 	import { legendCatLeaf, legendExtinctionLeaf, legendGoodLeaf } from '$lib/funcs/leaf';
 
 	let width: number;
+	const noCopy = typeof ClipboardItem !== 'function';
 
 	export let data: {
 		title: string;
@@ -136,17 +137,18 @@
 					{/each}
 					{@html prediction.chart.outerHTML}
 				</a>
-				<div class="flex justify-center">
-					<button
-						on:click={() => handleShare('svg.treeSVG.id' + i)}
-						class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
-						>Share</button
-					>
-				</div>
+				{#if !noCopy}
+					<div class="flex justify-center">
+						<button
+							on:click={() => handleShare('svg.treeSVG.id' + i)}
+							class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
+							>Share</button
+						>
+					</div>
+				{/if}
 			{/each}
 		{/if}
 		<div class="h-12" id="hack" />
-		
 	</div>
 </Container>
 
