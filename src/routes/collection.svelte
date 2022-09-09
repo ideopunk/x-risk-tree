@@ -7,6 +7,7 @@
 	import svgToURL from '$lib/funcs/svgToURL';
 	import SharableImg from '$lib/components/SharableImg.svelte';
 	import { legendCatLeaf, legendExtinctionLeaf, legendGoodLeaf } from '$lib/funcs/leaf';
+	import ShareButton from '$lib/components/ShareButton.svelte';
 
 	let width: number;
 
@@ -136,17 +137,10 @@
 					{/each}
 					{@html prediction.chart.outerHTML}
 				</a>
-				<div class="flex justify-center">
-					<button
-						on:click={() => handleShare('svg.treeSVG.id' + i)}
-						class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
-						>Share</button
-					>
-				</div>
+				<ShareButton handleShare={() => handleShare('svg.treeSVG.id' + i)} />
 			{/each}
 		{/if}
 		<div class="h-12" id="hack" />
-		
 	</div>
 </Container>
 

@@ -11,6 +11,7 @@
 	import svgToURL from '$lib/funcs/svgToURL';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import { onMount } from 'svelte';
+	import ShareButton from '$lib/components/ShareButton.svelte';
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
 	let title = 'My Existential Risk Predictions';
 	let notes = '';
@@ -284,13 +285,7 @@
 		{#if chart}
 			<SelfChart {chart} />
 
-			<div class="flex justify-center">
-				<button
-					on:click={handleShare}
-					class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
-					>Share</button
-				>
-			</div>
+			<ShareButton {handleShare} />
 			{#if url}
 				<SharableImg {url} />
 			{/if}
