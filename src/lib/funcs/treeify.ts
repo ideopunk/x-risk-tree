@@ -237,7 +237,7 @@ export default function treeify(
 
 			.append('text')
 			.attr('dy', '0.32em')
-			.attr('dx', (d: any) => (!d.depth || d.x < Math.PI ? '0rem' : '-5rem')) // on the left hand side, for non-root nodes, push them a little to the edge. this is because of the long names in Toby Ord's predictions.
+			.attr('dx', (d: any) => (!d.depth || d.x < Math.PI ? '0px' : '-80px')) // on the left hand side, for non-root nodes, push them a little to the edge. this is because of the long names in Toby Ord's predictions.
 			.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
 			.attr('paint-order', 'stroke')
 			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))
