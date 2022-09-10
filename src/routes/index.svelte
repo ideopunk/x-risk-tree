@@ -11,7 +11,6 @@
 	import linker from '$lib/funcs/metaculusLinker';
 	import toTitleCase from '$lib/funcs/titleCase';
 	import svgToURL from '$lib/funcs/svgToURL';
-	import { notifications } from '$lib/funcs/notification';
 	import SharableImg from '$lib/components/SharableImg.svelte';
 	import ShareButton from '$lib/components/ShareButton.svelte';
 
@@ -38,10 +37,6 @@
 	let input = metaculusDataTransform(vals);
 
 	let chart: SVGSVGElement | null = null;
-	let url = '';
-	let canvasURL = '';
-
-	const noCopy = typeof ClipboardItem !== 'function';
 	if (browser) {
 		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -56,72 +51,10 @@
 		});
 	}
 
-	onMount(() => {
-		url = svgToURL('svg.treeSVG');
-	});
-
-	function setCanvasURL(s: string) {
-		canvasURL = s;
-	}
+	let url = '';
 	// for some reason this only works when the img is truly rendered to the dom, so logic is split between components ¯\_(ツ)_/¯
 	async function handleShare() {
-		const res = await fetch(canvasURL);
-
-		const blob = await res.blob();
-
-		if (window.isSecureContext) {
-			// on windows there's a share menu popup we don't want, we want the simple clipboard copy.
-			// debatable whether we want share menu on mobile, but I think that behavior is more expected there.
-			if (!!navigator.share && !navigator.platform.toLowerCase().includes('win')) {
-				const filesArray = [
-					new File([blob], 'possibleworlds.png', {
-						type: 'image/png',
-						lastModified: new Date().getTime()
-					})
-				];
-
-				await navigator.share({ files: filesArray, title: 'Possible Futures' });
-			} else if (typeof ClipboardItem === 'function') {
-				const clipboardItem = new ClipboardItem({ [blob.type]: blob });
-
-				await navigator.clipboard.write([clipboardItem]);
-				notifications.send('Copied');
-			} else {
-				// console.log('firefox!');
-				// let img = document.querySelector('#sharable');
-				// if (!img) {
-				// 	console.log('no img found');
-				// 	return;
-				// }
-				// let fake = document.querySelector('#fake');
-				// if (!fake) {
-				// 	console.log('no container found');
-				// 	return;
-				// }
-				// let r = document.createRange();
-				// r.setStartBefore(img);
-				// r.setEndAfter(img);
-				// r.selectNode(img);
-				// let sel = window.getSelection();
-				// if (!sel) {
-				// 	console.log('no selection');
-				// 	return;
-				// }
-				// sel.addRange(r);
-				// CONTAINER ATTEMPT
-				// fake.contentEditable = 'true';
-				// fake.focus();
-				// window.getSelection().selectAllChildren(fake);
-				// const success = document.execCommand('Copy'); // technically deprecated
-				// if (success) {
-				// 	notifications.send('Copied');
-				// } else {
-				// 	notifications.send('Not copied');
-				// }
-			}
-		} else {
-			notifications.send('Cannot copy, requires secure context');
-		}
+		url = svgToURL('svg.treeSVG');
 	}
 </script>
 
@@ -143,21 +76,17 @@
 	</div>
 	<!-- prevent CLS -->
 	{#if chart}
-		<div
-			on:contextmenu={(e) => {
-				e.preventDefault();
-				console.log('context menu');
-			}}
-		>
-			{@html chart.outerHTML}
-		</div>
-		<!-- {#if url}
-			<SharableImg {url} {setCanvasURL} />
-		{/if} -->
+		{@html chart.outerHTML}
 	{:else}<div class="w-[632px] h-[632px]" />{/if}
 
 	<ShareButton {handleShare} />
-
+	<!-- <div class="w-full flex justify-center ">
+		<button
+			on:click={handleShare}
+			class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
+			>Share</button
+		>
+	</div> -->
 	{#if url}
 		<SharableImg {url} />
 	{/if}

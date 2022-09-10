@@ -10,7 +10,6 @@
 	import ShareButton from '$lib/components/ShareButton.svelte';
 
 	let width: number;
-	const noCopy = typeof ClipboardItem !== 'function';
 
 	export let data: {
 		title: string;

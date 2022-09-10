@@ -124,7 +124,7 @@ export default function treeify(
 		.attr('viewBox', [-marginLeft - radius, -marginTop - radius, width, height])
 		.attr('width', width)
 		.attr('height', height)
-		.attr('style', 'max-width: 100%; height: auto; height: intrinsic; z-index: 10; position: relative;')
+		.attr('style', 'max-width: 100%; height: auto; height: intrinsic;')
 		.attr('font-family', 'sans-serif')
 		.attr('font-size', 13)
 		.classed('treeSVG', true)

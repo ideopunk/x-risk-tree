@@ -12,12 +12,10 @@
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import { onMount } from 'svelte';
 	import ShareButton from '$lib/components/ShareButton.svelte';
+	
 	const outcomeTypes = ['extinction', 'catastrophe', 'survival', 'sustenance', 'flourishing'];
-	const noCopy = typeof ClipboardItem !== 'function';
-
 	let title = 'My Existential Risk Predictions';
 	let notes = '';
-
 	let branches: { name: string; probabilities: { name: string; percentage: number }[] }[] = [
 		{ name: 'Survival', probabilities: [{ name: 'survival', percentage: 90 }] },
 		{ name: 'Climate', probabilities: [{ name: 'catastrophe', percentage: 2 }] },
