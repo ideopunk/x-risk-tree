@@ -155,18 +155,30 @@ export default function treeify(
 	// 	Line Animation Setup
 	const selector = 'path';
 	const svgpaths: SVGPathElement[] = (svg.selectAll(selector) as any)._groups[0];
+
 	let lengths: number[] = [];
 	for (let path of svgpaths) {
 		lengths.push(path.getTotalLength());
 	}
-
 	const datapaths = svg.selectAll(selector);
 	datapaths
 		.attr('stroke-dasharray', (d: any, n) => {
-			const length = lengths[n];
+			let length = lengths[n];
+
+			// absolutely insane hack for the sake of firefox
+			if (!length) {
+				if (n > 0) {
+					length = lengths[n - 1];
+				} else {
+					length = lengths[n + 1];
+				}
+			}
 			return length + ' ' + length;
 		})
-		.attr('stroke-dashoffset', (d: any, n) => lengths[n]);
+		.attr('stroke-dashoffset', (d: any, n) =>
+			// absolutely insane hack for the sake of firefox
+			lengths[n] ? lengths[n] : n > 0 ? lengths[n - 1] : lengths[n + 1]
+		);
 
 	// LINKS
 
@@ -189,14 +201,14 @@ export default function treeify(
 	const outerAnchors = svg.selectAll('a.outer');
 	const innerAnchors = svg.selectAll('a.inner');
 
-	// DOTS
+	// // DOTS
 	innerAnchors
 		.append('circle')
 		.attr('fill', (d: any, i) => colorizer(...familyNames(d)))
 		.attr('r', r)
 		.classed(classes, true);
 
-	// LEAVES
+	// // LEAVES
 	outerAnchors
 		.append('g')
 		.attr('class', (d: any) =>
@@ -237,7 +249,7 @@ export default function treeify(
 
 			.append('text')
 			.attr('dy', '0.32em')
-			.attr('dx', (d: any) => (!d.depth || d.x < Math.PI ? '0rem' : '-5rem')) // on the left hand side, for non-root nodes, push them a little to the edge. this is because of the long names in Toby Ord's predictions.
+			.attr('dx', (d: any) => (!d.depth || d.x < Math.PI ? '0px' : '-80px')) // on the left hand side, for non-root nodes, push them a little to the edge. this is because of the long names in Toby Ord's predictions.
 			.attr('x', (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
 			.attr('paint-order', 'stroke')
 			.attr('text-anchor', (d: any) => (d.x < Math.PI === !d.children ? 'start' : 'end'))

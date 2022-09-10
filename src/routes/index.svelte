@@ -11,8 +11,9 @@
 	import linker from '$lib/funcs/metaculusLinker';
 	import toTitleCase from '$lib/funcs/titleCase';
 	import svgToURL from '$lib/funcs/svgToURL';
-	import SharableImg from '$lib/components/SharableImg.svelte';
 	import { notifications } from '$lib/funcs/notification';
+	import SharableImg from '$lib/components/SharableImg.svelte';
+	import ShareButton from '$lib/components/ShareButton.svelte';
 
 	let highlight: Highlight = '';
 	function handleMessage(e: CustomEvent) {
@@ -150,19 +151,15 @@
 		>
 			{@html chart.outerHTML}
 		</div>
-		{#if url}
+		<!-- {#if url}
 			<SharableImg {url} {setCanvasURL} />
-		{/if}
+		{/if} -->
 	{:else}<div class="w-[632px] h-[632px]" />{/if}
 
-	{#if !noCopy}
-		<div class="w-full flex justify-center ">
-			<button
-				on:click={handleShare}
-				class="bg-green-theme mt-4 px-4 py-2 text-2xl hover:bg-green-700 transition-all rounded-sm cursor-pointer w-1/2"
-				>Share</button
-			>
-		</div>
+	<ShareButton {handleShare} />
+
+	{#if url}
+		<SharableImg {url} />
 	{/if}
 </div>
 
