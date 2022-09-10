@@ -1,5 +1,5 @@
 <div class="flex flex-col lg:flex-row px-8 lg:px-0  w-screen  justify-between pt-8 relative">
-	<div class="flex justify-center lg:w-1/3 ">
+	<div class="flex justify-center   lg:w-1/3 ">
 		<slot name="left" />
 	</div>
 

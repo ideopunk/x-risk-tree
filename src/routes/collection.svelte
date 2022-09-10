@@ -69,7 +69,10 @@
 <svelte:window bind:innerWidth={width} />
 
 <Container>
-	<div class="w-[65ch] pl-0 lg:pl-24 pr-8 lg:fixed top-8 left-0 pointer-events-none" slot="left">
+	<div
+		class="w-[65ch] lg:max-w-[33vw]  pl-0 lg:pl-24 pr-8 lg:fixed top-8 left-0 pointer-events-none"
+		slot="left"
+	>
 		<h3 class="text-xl mb-4">Alternative Existential Risk Estimates</h3>
 
 		<ul class="pointer-events-none">

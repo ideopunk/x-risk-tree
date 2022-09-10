@@ -63,7 +63,7 @@
 	<title>The Possible Worlds Tree</title>
 </svelte:head>
 
-<article class="w-screen text-center prose">
+<article class="w-screen text-center prose prose-sm lg:prose-base">
 	<h1 class="text-center mt-4 mb-1">The Possible Worlds Tree</h1>
 </article>
 
@@ -93,7 +93,7 @@
 </div>
 
 <article class="w-screen text-center prose">
-	<h2 class="text-center mt-12 px-4 text-4xl">
+	<h2 class="text-center mt-12 px-4 lg:text-4xl">
 		In how many of our futures does humanity survive this century?
 	</h2>
 </article>
