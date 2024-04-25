@@ -13,17 +13,17 @@
 	let width: number;
 
 	export let data: {
-		title: string;
-		link: string;
-		notes: string[];
-		name: string; // the future
-		children: {
-			name: string;
-			children: {
-				name: string;
-			}[];
-		}[];
-	}[] = [];
+			info: 
+				{
+					title: string; 
+					link: string; 
+					notes: string[]; 
+					name: string; 
+					children: {
+						name: string; children: {name: string}[]
+					}[]
+			}[]
+	};
 
 	let predictions: { chart: SVGElement; title: string; notes: string[]; link: string }[] = [];
 
@@ -33,7 +33,7 @@
 		// do we want animations?
 		let classes = mediaQuery.matches || (width && width < 767) ? 'instant' : '';
 
-		for (const [ind, entry] of Object.entries(data)) {
+		for (const [ind, entry] of Object.entries(data.info)) {
 			// use this later for sharing
 			const newTree = treeify(entry, {
 				label: (d) => d.name,

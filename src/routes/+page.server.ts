@@ -1,5 +1,3 @@
-import type { RequestHandlerOutput } from '@sveltejs/kit';
-
 async function metaculusFetch(question: number): Promise<number> {
 	if (process.env.NODE_ENV === 'production') {
 		const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`);
@@ -22,7 +20,8 @@ function makeRelative(total: number, particular: number, xRisk: number) {
 	return [roundedParticular, roundedXRisk];
 }
 
-export async function load(): Promise<RequestHandlerOutput> {
+/** @type {import('./$types').PageServerLoad} */
+export async function load(): Promise<any> {
 	// GET THE DATA
 	// By 2100 will the human population decrease by at least 10% during any period of 5 years?
 	const totalQuestion = metaculusFetch(1493);
@@ -95,7 +94,10 @@ export async function load(): Promise<RequestHandlerOutput> {
 
 	console.log('BUILD COMPLETE'); // make sure this only logs during build, not runtime.
 	return {
-		vals,
-		time: new Date().toString()
+		props: {
+			vals,
+			time: new Date().toString(),
+			test: 'fake'
+		}
 	};
 }

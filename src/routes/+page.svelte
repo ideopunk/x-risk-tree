@@ -1,5 +1,4 @@
 <script lang="ts">
-	// throw new Error("@migration task: Add data prop (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3292707)");
 
 	import Details from '$lib/components/details.svelte';
 	import { browser } from '$app/environment';
@@ -21,22 +20,26 @@
 		highlight = e.detail.highlight;
 	}
 
-	export let time: string;
-	export let vals: {
-		total: number;
-		climate: number;
-		climateX: number;
-		nano: number;
-		nanoX: number;
-		nuke: number;
-		nukeX: number;
-		ai: number;
-		aiX: number;
-		bio: number;
-		bioX: number;
+	export let data: {
+		props: {
+			time: string;
+			vals: {
+				total: number;
+				climate: number;
+				climateX: number;
+				nano: number;
+				nanoX: number;
+				nuke: number;
+				nukeX: number;
+				ai: number;
+				aiX: number;
+				bio: number;
+				bioX: number;
+			}
+		}
 	};
 
-	let input = metaculusDataTransform(vals);
+	let input = metaculusDataTransform(data.props.vals);
 
 	let chart: SVGSVGElement | null = null;
 	if (browser) {
@@ -75,7 +78,7 @@
 	<div class="flex  px-6 lg:px-0 justify-between w-full">
 		<Legend on:message={handleMessage} />
 		<div>
-			<Details {vals} {highlight} />
+			<Details vals={data.props.vals} {highlight} />
 		</div>
 	</div>
 	<!-- prevent CLS -->
@@ -114,7 +117,7 @@
 	<p>
 		This tree is built from the prediction platform Metaculus's <ExternalLink
 			href="https://www.metaculus.com/questions/2568">Ragnarok series</ExternalLink
-		>. It is updated every night (last: {new Date(time).toDateString()}). It tracks predictions
+		>. It is updated every night (last: {new Date(data.props.time).toDateString()}). It tracks predictions
 		concerning
 		<span class="text-yellow-theme font-bold">global catastrophes</span>
 		and

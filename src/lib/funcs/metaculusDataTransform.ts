@@ -14,7 +14,7 @@ export default function metaculusDataTransform(vals: {
 	bioX: number;
 }): TreeData {
 	const transformed = {
-		name: '2022',
+		name: '2024',
 		children: [
 			{
 				name: 'climate',

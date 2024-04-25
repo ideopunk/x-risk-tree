@@ -41,5 +41,5 @@ function outcomeTransform(outcome: { name: string; probabilities: GoodOutcome | 
 }
 
 export default function entryTransform(outcomes: Outcomes): TreeData {
-	return { name: '2022', children: outcomes.map((o) => outcomeTransform(o)) };
+	return { name: '2024', children: outcomes.map((o) => outcomeTransform(o)) };
 }

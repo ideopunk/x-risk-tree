@@ -1,9 +1,8 @@
-import type { RequestHandlerOutput } from '@sveltejs/kit';
 import estimates from '$lib/data/estimates.json';
 import collectionsDataTransform from '$lib/funcs/collectionsDataTransform';
 
-export async function load(): Promise<RequestHandlerOutput> {
-	let data: {
+export async function load(): Promise<any> {
+	let info: {
 		title: string;
 		link: string;
 		notes: string[];
@@ -17,7 +16,7 @@ export async function load(): Promise<RequestHandlerOutput> {
 	}[] = [];
 
 	for (const entry of estimates) {
-		data.push({
+		info.push({
 			...collectionsDataTransform(entry.outcomes),
 			title: entry.title,
 			notes: entry.notes,
@@ -25,5 +24,5 @@ export async function load(): Promise<RequestHandlerOutput> {
 		});
 	}
 
-	return { data, time: new Date().toString() };
+	return { info, time: new Date().toString() };
 }
