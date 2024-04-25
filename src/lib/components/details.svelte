@@ -23,5 +23,5 @@
 </script>
 
 {#if num}
-	<div class="lg:absolute top-8 right-8" transition:fade>{num} out of 100 Futures</div>
+	<div class="lg:absolute top-8 right-8" transition:fade|global>{num} out of 100 Futures</div>
 {/if}

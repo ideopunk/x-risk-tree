@@ -1,6 +1,8 @@
 <script lang="ts">
+	// throw new Error("@migration task: Add data prop (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3292707)");
+
 	import Details from '$lib/components/details.svelte';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import Legend from '$lib/components/Legend.svelte';
@@ -56,6 +58,8 @@
 	async function handleShare() {
 		url = svgToURL('svg.treeSVG');
 	}
+
+
 </script>
 
 <svelte:head>

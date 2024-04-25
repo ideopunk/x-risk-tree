@@ -56,7 +56,7 @@
 >
 {#if showLegend}
 	<form
-		transition:slide|local
+		transition:slide
 		class={`border-black  lg:absolute top-4 left-16  p-3 pr-4 block z-20 text-sm`}
 	>
 		{#each options as option, i}

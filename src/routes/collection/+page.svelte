@@ -1,4 +1,5 @@
 <script lang="ts">
+
 	import InternalLink from '$lib/components/InternalLink.svelte';
 	import { onMount } from 'svelte';
 	import treeify from '$lib/funcs/treeify';

@@ -12,7 +12,7 @@
 		<div
 			animate:flip
 			class={`flex-auto w-40 text-center mb-2 ${notification.type === "default" ? "shadow-teal-800 shadow-md bg-green-theme" : "bg-red-500"}`}
-			transition:fly={{ y: 40 }}
+			transition:fly|global={{ y: 40 }}
 		>
 			<div class="p-4 block text-lg text-black">{notification.message}</div>
 		</div>

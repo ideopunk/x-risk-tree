@@ -2,7 +2,7 @@ import type { RequestHandlerOutput } from '@sveltejs/kit';
 import estimates from '$lib/data/estimates.json';
 import collectionsDataTransform from '$lib/funcs/collectionsDataTransform';
 
-export async function GET(): Promise<RequestHandlerOutput> {
+export async function load(): Promise<RequestHandlerOutput> {
 	let data: {
 		title: string;
 		link: string;
@@ -25,8 +25,5 @@ export async function GET(): Promise<RequestHandlerOutput> {
 		});
 	}
 
-	return {
-		status: 200,
-		body: { data, time: new Date().toString() }
-	};
+	return { data, time: new Date().toString() };
 }

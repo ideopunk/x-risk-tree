@@ -22,7 +22,7 @@ function makeRelative(total: number, particular: number, xRisk: number) {
 	return [roundedParticular, roundedXRisk];
 }
 
-export async function GET(): Promise<RequestHandlerOutput> {
+export async function load(): Promise<RequestHandlerOutput> {
 	// GET THE DATA
 	// By 2100 will the human population decrease by at least 10% during any period of 5 years?
 	const totalQuestion = metaculusFetch(1493);
@@ -95,10 +95,7 @@ export async function GET(): Promise<RequestHandlerOutput> {
 
 	console.log('BUILD COMPLETE'); // make sure this only logs during build, not runtime.
 	return {
-		status: 200,
-		body: {
-			vals,
-			time: new Date().toString()
-		}
+		vals,
+		time: new Date().toString()
 	};
 }
