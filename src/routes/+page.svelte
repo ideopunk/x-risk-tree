@@ -112,7 +112,7 @@
 	</p>
 	<p>
 		But we are not doomed. Like gardeners, we can prune the branches of our future. We can reduce
-		our existential risks until every path leads to survival or even flourishing.
+		our existential risks until every path leads to survival or flourishing.
 	</p>
 	<p>
 		This tree is built from the prediction platform Metaculus's <ExternalLink

@@ -1,11 +1,16 @@
+import { METACULUS_KEY } from '$env/static/private';
+
 async function metaculusFetch(question: number): Promise<number> {
 	if (process.env.NODE_ENV === 'production') {
-		const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`);
+		console.log('fetching metaculus');
 
+		const res = await fetch(`https://www.metaculus.com/api2/questions/${question}`, {
+			headers: { Authorization: `Token ${METACULUS_KEY}` }
+		});
 		const bod = await res.json();
-		const avg =
-			bod.prediction_timeseries[bod.prediction_timeseries.length - 1].community_prediction;
-		return avg;
+
+		const latestAVG = bod.simplified_history.community_prediction.at(-1).raw;
+		return latestAVG;
 	} else {
 		return 0.3;
 	}

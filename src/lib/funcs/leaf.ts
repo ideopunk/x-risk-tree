@@ -1,7 +1,4 @@
 import * as d3 from 'd3';
-import { curveStep } from 'd3';
-import titleCase from './titleCase';
-import { colorizer, familyNames } from './treeUtilities';
 
 const roundLeaf = [
 	{ x: -2, y: 0 },

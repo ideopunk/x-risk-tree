@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import { curveStep } from 'd3';
 import { catastropheLeaf, extinctionLeaf, goodLeaf } from './leaf';
 import titleCase from './titleCase';
 import { colorizer, familyNames } from './treeUtilities';
