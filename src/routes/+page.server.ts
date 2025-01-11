@@ -9,7 +9,9 @@ async function metaculusFetch(question: number): Promise<number> {
 		});
 		const bod = await res.json();
 
-		const latestAVG = bod.simplified_history.community_prediction.at(-1).raw;
+		// const latestAVG = bod.simplified_history.community_prediction.at(-1).raw;
+		const latestAVG = bod.question.aggregations.recency_weighted.latest.centers[0];
+
 		return latestAVG;
 	} else {
 		return 0.3;
