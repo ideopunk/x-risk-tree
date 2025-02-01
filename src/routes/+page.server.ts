@@ -9,7 +9,6 @@ async function metaculusFetch(question: number): Promise<number> {
 		});
 		const bod = await res.json();
 
-		// const latestAVG = bod.simplified_history.community_prediction.at(-1).raw;
 		const latestAVG = bod.question.aggregations.recency_weighted.latest.centers[0];
 
 		return latestAVG;
@@ -18,8 +17,8 @@ async function metaculusFetch(question: number): Promise<number> {
 	}
 }
 
-function makeRelative(total: number, particular: number, xRisk: number) {
-	const realParticular = total * particular;
+function normalise(sum: number, total: number, particular: number, xRisk: number) {
+	const realParticular = (particular * total) / sum;
 	const realXRisk = realParticular * xRisk;
 
 	const roundedParticular = Math.round(realParticular * 100);
@@ -89,17 +88,18 @@ export async function load(): Promise<any> {
 		bioXQuestion
 	]);
 
+	const sum = climateAvg + nanoAvg + nukeAvg + aiAvg + bioAvg;
+
 	// CALCULATE THE PORTIONS
-	const [climate, climateX] = makeRelative(totalAvg, climateAvg, climateXAvg);
-	const [nano, nanoX] = makeRelative(totalAvg, nanoAvg, nanoXAvg);
-	const [nuke, nukeX] = makeRelative(totalAvg, nukeAvg, nukeXAvg);
-	const [ai, aiX] = makeRelative(totalAvg, aiAvg, aiXAvg);
-	const [bio, bioX] = makeRelative(totalAvg, bioAvg, bioXAvg);
+	const [climate, climateX] = normalise(sum, totalAvg, climateAvg, climateXAvg);
+	const [nano, nanoX] = normalise(sum, totalAvg, nanoAvg, nanoXAvg);
+	const [nuke, nukeX] = normalise(sum, totalAvg, nukeAvg, nukeXAvg);
+	const [ai, aiX] = normalise(sum, totalAvg, aiAvg, aiXAvg);
+	const [bio, bioX] = normalise(sum, totalAvg, bioAvg, bioXAvg);
 	const total = Math.round(totalAvg * 100);
 
 	let vals = { total, climate, climateX, nano, nanoX, nuke, nukeX, ai, aiX, bio, bioX };
 
-	console.log('BUILD COMPLETE'); // make sure this only logs during build, not runtime.
 	return {
 		props: {
 			vals,
